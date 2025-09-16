@@ -1156,6 +1156,27 @@ admin/
   - Cải thiện error handling và response format
 - ✅ **Kết quả**: Chức năng "Kiểm tra tất cả" hoạt động bình thường, hiển thị trạng thái website trong phần "Website Status"
 
+#### **57. Cải thiện chức năng "Kiểm tra tất cả" để phát hiện sản phẩm mới (Cập nhật mới nhất):**
+- ✅ **Yêu cầu**: Cải thiện phần "Kiểm tra tất cả" để crawl thử vài sản phẩm và so sánh với bookmark, hiển thị trạng thái có sản phẩm mới hay không
+- ✅ **Giải pháp**:
+  - **Cải thiện API `/api/check-all-sites`**: Thay vì chỉ kiểm tra kết nối, giờ sẽ crawl thử 1 trang với 5 sản phẩm để so sánh với bookmark
+  - **Logic so sánh thông minh**: So sánh permalink của sản phẩm mới với bookmark hiện có để phát hiện sản phẩm mới
+  - **Tối ưu hiệu suất**: Thêm timeout 15 giây và giới hạn 5 sản phẩm thử nghiệm để tránh chậm
+  - **UI cải thiện**: Hiển thị trạng thái rõ ràng với icon và màu sắc:
+    - ✅ **Có sản phẩm mới**: Icon bx-plus-circle, màu xanh, badge "MỚI"
+    - ⚠️ **Không có sản phẩm mới**: Icon bx-check-circle, màu vàng, badge "CŨ"  
+    - ❌ **Lỗi kết nối**: Icon bx-x-circle, màu đỏ, badge "LỖI"
+- ✅ **Thay đổi trong server.js**:
+  - Thêm logic crawl thử sản phẩm với `crawler.crawlProducts(1, 5, 'date', 'desc', true)`
+  - So sánh permalink với `existingPermalinks.has(product.permalink)`
+  - Thêm timeout 15 giây với `Promise.race([crawlPromise, timeoutPromise])`
+  - Cải thiện thông báo chi tiết về số sản phẩm mới
+- ✅ **Thay đổi trong crawler-dashboard.html**:
+  - Cập nhật UI hiển thị trạng thái với border, padding và badge rõ ràng
+  - Thay đổi text button từ "Kiểm tra tất cả" thành "Kiểm tra sản phẩm mới"
+  - Cải thiện loading message để rõ ràng hơn về mục đích
+- ✅ **Kết quả**: Chức năng "Kiểm tra tất cả" giờ đây thực sự kiểm tra sản phẩm mới, hiển thị trạng thái chính xác cho từng website
+
 ## Kết luận
 
 Đã thành công chuyển đổi tool crawler từ giao diện console sang giao diện web hiện đại, giữ nguyên tất cả chức năng cũ nhưng cải thiện đáng kể trải nghiệm người dùng. Tool giờ đây có thể được sử dụng qua trình duyệt web với giao diện đẹp mắt và dễ sử dụng. Thư mục admin đã được dọn dẹp, chỉ giữ lại những file cần thiết cho dự án. boyisvan

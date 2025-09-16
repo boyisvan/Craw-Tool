@@ -109,7 +109,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                       <h5 class="card-title mb-0">Chọn Website</h5>
                       <button class="btn btn-outline-primary btn-sm" onclick="checkAllSites()">
-                        <i class="bx bx-refresh me-1"></i>Kiểm tra tất cả
+                        <i class="bx bx-refresh me-1"></i>Kiểm tra sản phẩm mới
                       </button>
                     </div>
                     <div class="card-body">
@@ -306,9 +306,9 @@
                       <div id="siteStatusList">
                         <div class="text-center py-4">
                           <button class="btn btn-primary btn-lg pulse-animation" onclick="checkAllSites()">
-                            <i class="bx bx-refresh me-2"></i>Kiểm tra tất cả
+                            <i class="bx bx-refresh me-2"></i>Kiểm tra sản phẩm mới
                           </button>
-                          <p class="mt-3 text-muted">Nhấp để kiểm tra trạng thái website</p>
+                          <p class="mt-3 text-muted">Nhấp để kiểm tra sản phẩm mới trên tất cả website</p>
                         </div>
                       </div>
                     </div>
@@ -833,7 +833,8 @@
             <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden">Đang kiểm tra...</span>
             </div>
-            <p class="mt-2 text-muted">Đang kiểm tra tất cả website...</p>
+            <p class="mt-2 text-muted">Đang kiểm tra sản phẩm mới trên tất cả website...</p>
+            <small class="text-muted">Crawl thử vài sản phẩm để so sánh với bookmark</small>
           </div>
         `;
         
@@ -887,13 +888,27 @@
         }
 
         const html = siteStatuses.map(status => {
-          const statusClass = status.status === 'new' ? 'success' : 
-                            status.status === 'no_new' ? 'warning' : 'danger';
-          const statusIcon = status.status === 'new' ? 'bx-check-circle' : 
-                           status.status === 'no_new' ? 'bx-time' : 'bx-x-circle';
+          let statusClass, statusIcon, statusText, statusColor;
+          
+          if (status.status === 'new') {
+            statusClass = 'success';
+            statusIcon = 'bx-plus-circle';
+            statusText = 'Có sản phẩm mới';
+            statusColor = 'text-success';
+          } else if (status.status === 'no_new') {
+            statusClass = 'warning';
+            statusIcon = 'bx-check-circle';
+            statusText = 'Không có sản phẩm mới';
+            statusColor = 'text-warning';
+          } else {
+            statusClass = 'danger';
+            statusIcon = 'bx-x-circle';
+            statusText = 'Lỗi kết nối';
+            statusColor = 'text-danger';
+          }
           
           return `
-            <div class="d-flex align-items-center mb-3">
+            <div class="d-flex align-items-center mb-3 p-3 border rounded">
               <div class="avatar flex-shrink-0 me-3">
                 <span class="avatar-initial rounded bg-label-${statusClass}">
                   <i class="bx ${statusIcon}"></i>
@@ -901,8 +916,15 @@
               </div>
               <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                 <div class="me-2">
-                  <h6 class="mb-0">${status.site}</h6>
+                  <h6 class="mb-1">${status.site}</h6>
+                  <small class="${statusColor} fw-medium">${statusText}</small>
+                  <br>
                   <small class="text-muted">${status.message}</small>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-${statusClass === 'success' ? 'success' : statusClass === 'warning' ? 'warning' : 'danger'}">
+                    ${status.status === 'new' ? 'MỚI' : status.status === 'no_new' ? 'CŨ' : 'LỖI'}
+                  </span>
                 </div>
               </div>
             </div>
