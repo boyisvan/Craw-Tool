@@ -1,6 +1,6 @@
 # Crawler Tool - Hệ thống thu thập dữ liệu sản phẩm tự động
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/boyisvan/crawler-tool)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/boyisvan/Crawler-Tool)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node.js-16+-green.svg)](https://nodejs.org/)
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://python.org/)
@@ -89,8 +89,8 @@ Crawler Tool được phát triển với mục tiêu cung cấp giải pháp th
 
 ```bash
 # Clone repository
-git clone https://github.com/boyisvan/crawler-tool.git
-cd crawler-tool
+git clone https://github.com/boyisvan/Craw-Tool.git
+cd Crawler-Tool
 
 # Cài đặt Node.js dependencies
 npm install
@@ -237,6 +237,45 @@ admin/
 
 Hệ thống cung cấp trang tài liệu hướng dẫn chi tiết tại `/html/documentation.html` bao gồm:
 
+
+## Demo sản phẩm
+1. **Trang tổng quan**
+
+<img width="1915" height="926" alt="image" src="https://github.com/user-attachments/assets/b6f502eb-b859-40ec-9a58-a49277edef3b" />
+
+2. **Thu thập dữ liệu**
+   
+<img width="1902" height="930" alt="image" src="https://github.com/user-attachments/assets/bec9e580-f102-4233-b4ae-0aba1b2d3f22" />
+
+3. **Thu thập dữ liệu theo từ khóa( key trend)**
+
+<img width="1912" height="700" alt="image" src="https://github.com/user-attachments/assets/f4e4a2d5-cafc-4b71-b464-5250b1883cf0" />
+
+4. **Kiểm tra trạng thái website**
+
+<img width="1891" height="929" alt="image" src="https://github.com/user-attachments/assets/247a084e-dd70-4781-ac6d-ca69be1d4f7a" />
+
+5. **Quản lý các file dữ liệu đã xuất**
+
+<img width="1915" height="922" alt="image" src="https://github.com/user-attachments/assets/f7b4b313-088b-4b44-993a-a339afc0729a" />
+
+6. **Lịch sủ từ khóa**
+   
+<img width="1904" height="923" alt="image" src="https://github.com/user-attachments/assets/0520be33-9eba-4708-84fe-536a55b6355b" />
+
+6. **Quản lý thông tin website**
+   
+<img width="1898" height="920" alt="image" src="https://github.com/user-attachments/assets/e22d4935-7bb5-4be6-a6b0-41ba2993ffc5" />
+
+6. **Cài đặt hệ thống**
+   
+<img width="1912" height="832" alt="image" src="https://github.com/user-attachments/assets/5b62604d-b9df-454f-92b8-7cfd976d87b2" />
+
+7. **Tài liệu và hướng dẫn**
+   
+<img width="1875" height="911" alt="image" src="https://github.com/user-attachments/assets/a76496c3-fa04-4c71-bb2c-311a9eb98e68" />
+
+
 ### Nội dung tài liệu
 
 1. **Tổng quan hệ thống**
@@ -356,7 +395,7 @@ Nếu bạn gặp bất kỳ vấn đề nào hoặc có câu hỏi về dự á
 
 - **Email**: ducvan05102002@gmail.com
 - **Zalo/Telegram**: 0587282880
-- **GitHub Issues**: [Tạo issue mới](https://github.com/boyisvan/crawler-tool/issues)
+- **GitHub Issues**: [Tạo issue mới](https://github.com/boyisvan/Crawler-Tool/issues)
 
 ---
 
@@ -376,8 +415,8 @@ Dự án này được phân phối dưới giấy phép MIT. Xem file `LICENSE`
 
 **Made with ❤️ by [boyisvan](https://github.com/boyisvan)**
 
-[![GitHub stars](https://img.shields.io/github/stars/boyisvan/crawler-tool?style=social)](https://github.com/boyisvan/crawler-tool/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/boyisvan/crawler-tool?style=social)](https://github.com/boyisvan/crawler-tool/network)
-[![GitHub watchers](https://img.shields.io/github/watchers/boyisvan/crawler-tool?style=social)](https://github.com/boyisvan/crawler-tool/watchers)
+[![GitHub stars](https://img.shields.io/github/stars/boyisvan/Crawler-Tool?style=social)](https://github.com/boyisvan/Crawler-Tool/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/boyisvan/Crawler-Tool?style=social)](https://github.com/boyisvan/Crawler-Tool/network)
+[![GitHub watchers](https://img.shields.io/github/watchers/boyisvan/Crawler-Tool?style=social)](https://github.com/boyisvan/crawler-tool/watchers)
 
 </div>

@@ -821,13 +821,26 @@
         }
       }
 
-      // Check all sites
+      // Check all sites status
       async function checkAllSites() {
+        const container = document.getElementById('siteStatusList');
         const button = event.target;
         const originalText = button.innerHTML;
+        
+        // Show loading state
+        container.innerHTML = `
+          <div class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Đang kiểm tra...</span>
+            </div>
+            <p class="mt-2 text-muted">Đang kiểm tra tất cả website...</p>
+          </div>
+        `;
+        
+        // Update button state
         button.innerHTML = '<i class="bx bx-loader-alt bx-spin me-1"></i>Đang kiểm tra...';
         button.disabled = true;
-
+        
         try {
           const response = await fetch('/api/check-all-sites');
           const data = await response.json();
@@ -835,11 +848,30 @@
           if (data.success) {
             updateSiteStatusList(data.data);
             updateActiveSitesCount(data.data);
+          } else {
+            container.innerHTML = `
+              <div class="text-center py-4">
+                <i class="bx bx-error-circle text-danger" style="font-size: 2rem;"></i>
+                <p class="mt-2 text-danger">Lỗi khi kiểm tra website: ${data.message || 'Không xác định'}</p>
+                <button class="btn btn-outline-primary btn-sm" onclick="checkAllSites()">
+                  <i class="bx bx-refresh me-1"></i>Thử lại
+                </button>
+              </div>
+            `;
           }
         } catch (error) {
-          console.error('Error checking sites:', error);
-          showToast('Lỗi khi kiểm tra website', 'error');
+          console.error('Error checking all sites:', error);
+          container.innerHTML = `
+            <div class="text-center py-4">
+              <i class="bx bx-error-circle text-danger" style="font-size: 2rem;"></i>
+              <p class="mt-2 text-danger">Lỗi kết nối: ${error.message}</p>
+              <button class="btn btn-outline-primary btn-sm" onclick="checkAllSites()">
+                <i class="bx bx-refresh me-1"></i>Thử lại
+              </button>
+            </div>
+          `;
         } finally {
+          // Restore button state
           button.innerHTML = originalText;
           button.disabled = false;
         }
@@ -886,52 +918,6 @@
         document.getElementById('activeSites').textContent = activeCount;
         document.getElementById('activeStatus').innerHTML = 
           `<i class="icon-base bx bx-check-circle"></i> ${activeCount}/${siteStatuses.length} hoạt động`;
-      }
-
-      // Check all sites status
-      async function checkAllSites() {
-        const container = document.getElementById('siteStatusList');
-        
-        // Show loading state
-        container.innerHTML = `
-          <div class="text-center py-4">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Đang kiểm tra...</span>
-            </div>
-            <p class="mt-2 text-muted">Đang kiểm tra tất cả website...</p>
-          </div>
-        `;
-        
-        try {
-          const response = await fetch('/api/check-all-sites');
-          const data = await response.json();
-          
-          if (data.success) {
-            updateSiteStatusList(data.data);
-            updateActiveStatus(data.data);
-          } else {
-            container.innerHTML = `
-              <div class="text-center py-4">
-                <i class="bx bx-error-circle text-danger" style="font-size: 2rem;"></i>
-                <p class="mt-2 text-danger">Lỗi khi kiểm tra website</p>
-                <button class="btn btn-outline-primary btn-sm" onclick="checkAllSites()">
-                  <i class="bx bx-refresh me-1"></i>Thử lại
-                </button>
-              </div>
-            `;
-          }
-        } catch (error) {
-          console.error('Error checking all sites:', error);
-          container.innerHTML = `
-            <div class="text-center py-4">
-              <i class="bx bx-error-circle text-danger" style="font-size: 2rem;"></i>
-              <p class="mt-2 text-danger">Lỗi kết nối</p>
-              <button class="btn btn-outline-primary btn-sm" onclick="checkAllSites()">
-                <i class="bx bx-refresh me-1"></i>Thử lại
-              </button>
-            </div>
-          `;
-        }
       }
 
       // Load dashboard data

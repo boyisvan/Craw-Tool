@@ -401,7 +401,7 @@
             updateExportStatistics(data.data);
           }
         } catch (error) {
-          console.error('Error loading site data:', error);
+          // console.error('Error loading site data:', error);
         }
       }
 
@@ -415,7 +415,7 @@
             updateExportStatistics(data.data);
           }
         } catch (error) {
-          console.error('Error loading export statistics:', error);
+          // console.error('Error loading export statistics:', error);
         }
       }
 
@@ -440,7 +440,7 @@
             CommonUtils.showEmptyState('exportHistory', 'bx-download', 'Chưa có lịch sử', 'Chưa có lịch sử xuất dữ liệu nào');
           }
         } catch (error) {
-          console.error('Error loading export history:', error);
+          // console.error('Error loading export history:', error);
           CommonUtils.showEmptyState('exportHistory', 'bx-error', 'Lỗi tải dữ liệu', 'Không thể tải lịch sử xuất');
         }
       }
@@ -593,7 +593,7 @@
             CommonUtils.showAlert('Lỗi khi xuất dữ liệu: ' + data.message, 'error');
           }
         } catch (error) {
-          console.error('Error exporting data:', error);
+          // console.error('Error exporting data:', error);
           CommonUtils.showAlert('Lỗi khi xuất dữ liệu!', 'error');
         } finally {
           // Reset button
@@ -712,7 +712,7 @@
               });
             }
           } catch (error) {
-            console.error('Error deleting file:', error);
+            // console.error('Error deleting file:', error);
             Swal.fire({
               title: 'Lỗi!',
               text: 'Lỗi khi xóa file!',
@@ -776,7 +776,7 @@
               });
             }
           } catch (error) {
-            console.error('Error clearing bookmarks:', error);
+            // console.error('Error clearing bookmarks:', error);
             Swal.fire({
               title: 'Lỗi!',
               text: 'Lỗi khi xóa dữ liệu!',
@@ -920,7 +920,7 @@
             // Reload history
             loadExportHistory();
           } catch (error) {
-            console.error('Error deleting files:', error);
+            // console.error('Error deleting files:', error);
             Swal.fire({
               title: 'Lỗi!',
               text: 'Có lỗi xảy ra khi xóa file!',

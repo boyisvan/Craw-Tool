@@ -146,10 +146,10 @@ class CsvExporter {
 
       const writer = this.createWriter(outputFilePath);
       await writer.writeRecords(csvData);
-      console.log(`Da xuat ${csvData.length} san pham ra file CSV: ${outputFilePath || config.csvOutputFile}`);
+      // console.log(`Da xuat ${csvData.length} san pham ra file CSV: ${outputFilePath || config.csvOutputFile}`);
       return true;
     } catch (error) {
-      console.error('Lỗi khi xuat CSV:', error.message);
+      // console.error('Lỗi khi xuat CSV:', error.message);
       return false;
     }
   }
@@ -169,10 +169,10 @@ class CsvExporter {
 
       const writer = this.createWriter(outputFilePath);
       await writer.writeRecords(csvData);
-      console.log(`Da xuat ${csvData.length} san pham ra file CSV với highlight: ${outputFilePath || config.csvOutputFile}`);
+      // console.log(`Da xuat ${csvData.length} san pham ra file CSV với highlight: ${outputFilePath || config.csvOutputFile}`);
       return true;
     } catch (error) {
-      console.error('❌ Lỗi khi xuat CSV với highlight:', error.message);
+      // console.error('❌ Lỗi khi xuat CSV với highlight:', error.message);
       return false;
     }
   }
@@ -215,10 +215,10 @@ class CsvExporter {
       const writer = createCsvWriter({ path: finalPath, header: keywordHeader });
       
       await writer.writeRecords(csvData);
-      console.log(`Da xuat ${csvData.length} san pham ra file CSV voi tu khoa "${keyword}": ${finalPath}`);
+      // console.log(`Da xuat ${csvData.length} san pham ra file CSV voi tu khoa "${keyword}": ${finalPath}`);
       return true;
     } catch (error) {
-      console.error('❌ Lỗi khi xuat CSV voi tu khoa:', error.message);
+      // console.error('❌ Lỗi khi xuat CSV voi tu khoa:', error.message);
       return false;
     }
   }

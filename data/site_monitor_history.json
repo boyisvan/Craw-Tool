@@ -1,5 +1,85 @@
 [
   {
+    "siteKey": "fashionssport",
+    "status": "active",
+    "responseTime": 1390,
+    "checkTime": "15:06:03 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:06:03.530Z"
+  },
+  {
+    "siteKey": "brutifulstore",
+    "status": "active",
+    "responseTime": 2719,
+    "checkTime": "15:06:00 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:06:00.865Z"
+  },
+  {
+    "siteKey": "fanaticity",
+    "status": "active",
+    "responseTime": 3528,
+    "checkTime": "15:05:56 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:05:56.666Z"
+  },
+  {
+    "siteKey": "inspirdg",
+    "status": "active",
+    "responseTime": 2903,
+    "checkTime": "15:05:52 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:05:52.055Z"
+  },
+  {
+    "siteKey": "creativteeshop",
+    "status": "active",
+    "responseTime": 5157,
+    "checkTime": "15:05:47 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:05:47.515Z"
+  },
+  {
+    "siteKey": "growkoc",
+    "status": "active",
+    "responseTime": 1570,
+    "checkTime": "15:05:41 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:05:41.345Z"
+  },
+  {
+    "siteKey": "midtintee",
+    "status": "active",
+    "responseTime": 3002,
+    "checkTime": "15:05:38 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:05:38.760Z"
+  },
+  {
+    "siteKey": "gotyourstyle",
+    "status": "active",
+    "responseTime": 2834,
+    "checkTime": "15:05:34 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:05:34.734Z"
+  },
+  {
+    "siteKey": "torunstyle",
+    "status": "active",
+    "responseTime": 1737,
+    "checkTime": "15:05:30 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:05:30.876Z"
+  },
+  {
+    "siteKey": "keeptee",
+    "status": "active",
+    "responseTime": 3585,
+    "checkTime": "15:05:28 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T08:05:28.106Z"
+  },
+  {
     "siteKey": "merchsport",
     "status": "active",
     "responseTime": 1884,

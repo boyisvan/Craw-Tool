@@ -1133,6 +1133,29 @@ admin/
   - Bookmark request được gửi và nhận phản hồi đúng cách
   - Hệ thống hoạt động hoàn hảo với giao diện web
 
+#### **56. Sửa lỗi "Kiểm tra tất cả" trên trang chủ crawler-dashboard.html (Cập nhật mới nhất):**
+- ✅ **Vấn đề**: Khi ấn "Kiểm tra tất cả" trên trang chủ, hệ thống báo lỗi và không kiểm tra được các website
+- ✅ **Nguyên nhân**: 
+  - Có 2 hàm `checkAllSites()` trùng tên gây xung đột
+  - API endpoint `/api/check-all-sites` cố gắng thu thập sản phẩm thay vì chỉ kiểm tra kết nối
+  - Thiếu xử lý lỗi chi tiết và debug log
+- ✅ **Giải pháp**:
+  - **Sửa lỗi trùng tên hàm**: Gộp 2 hàm `checkAllSites()` thành 1 hàm duy nhất
+  - **Đơn giản hóa API**: Chỉ kiểm tra kết nối API thay vì thu thập sản phẩm
+  - **Thêm debug log**: Log chi tiết quá trình kiểm tra từng website
+  - **Cải thiện xử lý lỗi**: Hiển thị thông báo lỗi chi tiết cho người dùng
+  - **Thêm API test đơn giản**: `/api/test-connection/:siteKey` để test kết nối từng website
+- ✅ **Thay đổi trong crawler-dashboard.html**:
+  - Gộp 2 hàm `checkAllSites()` thành 1 hàm duy nhất
+  - Cải thiện UI loading state và error handling
+  - Thêm thông báo lỗi chi tiết
+- ✅ **Thay đổi trong server.js**:
+  - Thêm API endpoint `/api/test-connection/:siteKey` để test kết nối đơn giản
+  - Đơn giản hóa `/api/check-all-sites` - chỉ kiểm tra kết nối và bookmark
+  - Thêm debug log chi tiết cho từng bước kiểm tra
+  - Cải thiện error handling và response format
+- ✅ **Kết quả**: Chức năng "Kiểm tra tất cả" hoạt động bình thường, hiển thị trạng thái website trong phần "Website Status"
+
 ## Kết luận
 
 Đã thành công chuyển đổi tool crawler từ giao diện console sang giao diện web hiện đại, giữ nguyên tất cả chức năng cũ nhưng cải thiện đáng kể trải nghiệm người dùng. Tool giờ đây có thể được sử dụng qua trình duyệt web với giao diện đẹp mắt và dễ sử dụng. Thư mục admin đã được dọn dẹp, chỉ giữ lại những file cần thiết cho dự án. boyisvan

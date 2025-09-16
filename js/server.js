@@ -389,6 +389,39 @@ app.post('/api/websites/:key/test', async (req, res) => {
   }
 });
 
+// Test kết nối đơn giản
+app.get('/api/test-connection/:siteKey', async (req, res) => {
+  try {
+    const { siteKey } = req.params;
+    const websites = getWebsites();
+    const site = websites.find(s => s.key === siteKey);
+    
+    if (!site) {
+      return res.status(404).json({
+        success: false,
+        message: 'Website không tồn tại'
+      });
+    }
+    
+    crawler.setBaseUrl(site.baseUrl);
+    const isConnected = await crawler.testConnection(true);
+    
+    res.json({
+      success: true,
+      data: {
+        site: site.name,
+        baseUrl: site.baseUrl,
+        connected: isConnected
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
 // Kiểm tra tất cả website
 app.get('/api/check-all-sites', async (req, res) => {
   try {
@@ -397,12 +430,20 @@ app.get('/api/check-all-sites', async (req, res) => {
     // Lấy danh sách website từ file hoặc config
     const websites = getWebsites();
     
+    console.log(`[API] Bắt đầu kiểm tra ${websites.length} website...`);
+    
     for (const site of websites) {
       try {
+        console.log(`[API] Đang kiểm tra website: ${site.name} (${site.key})`);
+        
+        // Kiểm tra kết nối API
         crawler.setBaseUrl(site.baseUrl);
+        console.log(`[API] Website ${site.name}: Đang test kết nối đến ${site.baseUrl}`);
+        
         const isConnected = await crawler.testConnection(true);
         
         if (!isConnected) {
+          console.log(`[API] Website ${site.name}: Không thể kết nối API`);
           results.push({
             site: site.name,
             status: 'error',
@@ -410,40 +451,32 @@ app.get('/api/check-all-sites', async (req, res) => {
           });
           continue;
         }
-
-        const products = await crawler.crawlProductsWithRetry(1, 5, 'date', 'desc', 3, true);
         
-        if (products.length === 0) {
-          results.push({
-            site: site.name,
-            status: 'error',
-            message: 'Không có sản phẩm'
-          });
-          continue;
-        }
+        console.log(`[API] Website ${site.name}: Kết nối API thành công`);
 
+        // Kiểm tra bookmark để xem có dữ liệu không
         const originalSiteKey = bookmarkManager.siteKey;
         bookmarkManager.setSite(site.key, true);
         const bookmarks = bookmarkManager.getBookmarks();
         bookmarkManager.setSite(originalSiteKey);
 
         if (bookmarks.length === 0) {
+          console.log(`[API] Website ${site.name}: Chưa có bookmark`);
           results.push({
             site: site.name,
             status: 'new',
-            message: 'Chưa có bookmark - có thể có sản phẩm mới'
+            message: 'Website hoạt động - chưa có bookmark'
           });
         } else {
-          const firstProduct = products[0];
-          const isDuplicate = bookmarkManager.isDuplicate(firstProduct);
-          
+          console.log(`[API] Website ${site.name}: Có ${bookmarks.length} bookmark`);
           results.push({
             site: site.name,
-            status: isDuplicate ? 'no_new' : 'new',
-            message: isDuplicate ? 'Chưa có sản phẩm mới' : 'Có sản phẩm mới!'
+            status: 'no_new',
+            message: `Website hoạt động - có ${bookmarks.length} bookmark`
           });
         }
       } catch (error) {
+        console.error(`[API] Lỗi khi kiểm tra website ${site.name}:`, error.message);
         results.push({
           site: site.name,
           status: 'error',
@@ -452,11 +485,13 @@ app.get('/api/check-all-sites', async (req, res) => {
       }
     }
 
+    console.log(`[API] Hoàn thành kiểm tra ${results.length} website`);
     res.json({
       success: true,
       data: results
     });
   } catch (error) {
+    console.error('[API] Lỗi trong check-all-sites:', error);
     res.status(500).json({
       success: false,
       message: error.message
