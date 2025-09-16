@@ -1,0 +1,635 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Lịch sử từ khóa - Tool Craw Data Đa Luồng</title>
+
+    <meta name="description" content="Quản lý lịch sử tìm kiếm từ khóa" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  
+    <!-- Menu Toggle CSS -->
+    <style>
+      .menu-sub {
+        display: none;
+      }
+      .menu-item.open .menu-sub {
+        display: block;
+      }
+      .menu-toggle {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <div id="sidebar-container"></div>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <div id="navbar-container"></div>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <!-- Header -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="d-flex align-items-start row">
+                      <div class="col-sm-7">
+                        <div class="card-body">
+                          <h5 class="card-title text-primary mb-3">🔍 Lịch sử từ khóa</h5>
+                          <p class="mb-6">
+                            Xem và quản lý lịch sử các từ khóa đã tìm kiếm.<br />
+                            Theo dõi hiệu quả tìm kiếm và từ khóa phổ biến.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-5 text-center text-sm-left">
+                        <div class="card-body pb-0 px-0 px-md-6">
+                          <img
+                            src="../assets/img/illustrations/man-with-laptop.png"
+                            height="175"
+                            alt="Keyword History" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+              <!-- Statistics -->
+              <div class="row mb-4">
+                <div class="col-lg-3 col-md-6 col-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                        <div class="avatar flex-shrink-0">
+                          <img
+                            src="../assets/img/icons/unicons/chart-success.png"
+                            alt="chart success"
+                            class="rounded" />
+                        </div>
+                      </div>
+                      <p class="mb-1">Tổng từ khóa</p>
+                      <h4 class="card-title mb-3" id="totalKeywords">0</h4>
+                      <small class="text-success fw-medium">
+                        <i class="icon-base bx bx-search"></i> Đã sử dụng
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                        <div class="avatar flex-shrink-0">
+                          <img
+                            src="../assets/img/icons/unicons/wallet-info.png"
+                            alt="wallet info"
+                            class="rounded" />
+                        </div>
+                      </div>
+                      <p class="mb-1">Từ khóa phổ biến</p>
+                      <h4 class="card-title mb-3" id="popularKeyword">--</h4>
+                      <small class="text-info fw-medium">
+                        <i class="icon-base bx bx-trending-up"></i> Nhiều nhất
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                        <div class="avatar flex-shrink-0">
+                          <img
+                            src="../assets/img/icons/unicons/paypal.png"
+                            alt="paypal"
+                            class="rounded" />
+                        </div>
+                      </div>
+                      <p class="mb-1">Website đã dùng</p>
+                      <h4 class="card-title mb-3" id="totalSites">0</h4>
+                      <small class="text-warning fw-medium">
+                        <i class="icon-base bx bx-globe"></i> Đa website
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                        <div class="avatar flex-shrink-0">
+                          <img
+                            src="../assets/img/icons/unicons/cc-primary.png"
+                            alt="Credit Card"
+                            class="rounded" />
+                        </div>
+                      </div>
+                      <p class="mb-1">Tìm kiếm hôm nay</p>
+                      <h4 class="card-title mb-3" id="todaySearches">0</h4>
+                      <small class="text-success fw-medium">
+                        <i class="icon-base bx bx-calendar"></i> Hôm nay
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Keyword History Table -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Lịch sử từ khóa</h5>
+                      <button class="btn btn-outline-danger btn-sm" onclick="clearHistory()">
+                        <i class="bx bx-trash me-1"></i>Xóa lịch sử
+                      </button>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>Từ khóa</th>
+                              <th>Website</th>
+                              <th>Số sản phẩm</th>
+                              <th>Thời gian</th>
+                              <th>Hành động</th>
+                            </tr>
+                          </thead>
+                          <tbody id="keywordHistoryTable">
+                            <tr>
+                              <td colspan="5" class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                  <span class="visually-hidden">Đang tải...</span>
+                                </div>
+                                <p class="mt-2 text-muted">Đang tải lịch sử từ khóa...</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+              <!-- Popular Keywords -->
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0">Từ khóa phổ biến</h5>
+                    </div>
+                    <div class="card-body">
+                      <div id="popularKeywordsList">
+                        <div class="text-center py-4">
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Đang tải...</span>
+                          </div>
+                          <p class="mt-2 text-muted">Đang tải từ khóa phổ biến...</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0">Từ khóa gần đây</h5>
+                    </div>
+                    <div class="card-body">
+                      <div id="recentKeywordsList">
+                        <div class="text-center py-4">
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Đang tải...</span>
+                          </div>
+                          <p class="mt-2 text-muted">Đang tải từ khóa gần đây...</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <div id="footer-container"></div>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+
+    <!-- Page JS -->
+    <script>
+      let sites = [];
+      let keywordHistory = [];
+
+      // Load data on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        
+        // Check login status
+        CommonUtils.checkLoginStatus();
+        
+        // Initialize sidebar
+        if (typeof SidebarManager !== 'undefined') {
+          const sidebarManager = new SidebarManager();
+          document.getElementById('sidebar-container').innerHTML = sidebarManager.generateSidebarHTML();
+          document.getElementById('navbar-container').innerHTML = sidebarManager.generateNavbarHTML();
+          document.getElementById('footer-container').innerHTML = sidebarManager.generateFooterHTML();
+        }
+        
+        loadSites();
+        loadKeywordHistory();
+      });
+      
+      // Refresh data when page becomes visible (user navigates back to this page)
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          loadSites();
+        }
+      });
+
+      // Also refresh when window gains focus
+      window.addEventListener('focus', function() {
+        loadSites();
+      });
+
+      // Load sites from API
+      async function loadSites() {
+        try {
+          const response = await fetch('/api/sites');
+          const data = await response.json();
+          
+          if (data.success) {
+            sites = data.data;
+          }
+        } catch (error) {
+          // console.error('Error loading sites:', error);
+        }
+      }
+
+      // Load keyword history
+      async function loadKeywordHistory() {
+        try {
+          // console.log('🔄 Đang tải lịch sử từ khóa...');
+          const response = await fetch('/api/keyword-history');
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          
+          const data = await response.json();
+          // console.log('📊 Dữ liệu nhận được:', data);
+          
+          if (data.success) {
+            keywordHistory = data.data.allHistory || [];
+            // console.log(`📝 Tổng số từ khóa: ${keywordHistory.length}`);
+            
+            try {
+              updateStatistics(data.data);
+              updateKeywordTable(data.data.allHistory);
+              updatePopularKeywords(data.data.popularKeywords);
+              updateRecentKeywords(data.data.allHistory);
+            } catch (updateError) {
+              // console.error('❌ Lỗi khi cập nhật giao diện:', updateError);
+              showAlert('Lỗi khi cập nhật giao diện: ' + updateError.message, 'error');
+            }
+            
+            // Ẩn loading spinner
+            const loadingSpinners = document.querySelectorAll('.spinner-border');
+            loadingSpinners.forEach(spinner => {
+              spinner.style.display = 'none';
+            });
+          } else {
+            // console.error('❌ API trả về lỗi:', data.message);
+            showAlert('Lỗi từ server: ' + data.message, 'error');
+          }
+        } catch (error) {
+          // console.error('❌ Lỗi khi tải lịch sử từ khóa:', error);
+          showAlert('Lỗi khi tải lịch sử từ khóa: ' + error.message, 'error');
+          
+          // Ẩn loading spinner
+          const loadingSpinners = document.querySelectorAll('.spinner-border');
+          loadingSpinners.forEach(spinner => {
+            spinner.style.display = 'none';
+          });
+        }
+      }
+
+      // Update statistics
+      function updateStatistics(data) {
+        document.getElementById('totalKeywords').textContent = data.allHistory.length;
+        
+        if (data.popularKeywords.length > 0) {
+          document.getElementById('popularKeyword').textContent = data.popularKeywords[0].keyword;
+        }
+        
+        // Count unique sites
+        const uniqueSites = new Set(data.allHistory.map(item => item.siteKey));
+        document.getElementById('totalSites').textContent = uniqueSites.size;
+        
+        // Count today's searches
+        const today = new Date().toDateString();
+        const todaySearches = data.allHistory.filter(item => 
+          new Date(item.timestamp).toDateString() === today
+        ).length;
+        document.getElementById('todaySearches').textContent = todaySearches;
+      }
+
+      // Update keyword table
+      function updateKeywordTable(history) {
+        const tbody = document.getElementById('keywordHistoryTable');
+        
+        if (history.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="5" class="text-center py-4">
+                <i class="bx bx-search text-muted" style="font-size: 3rem;"></i>
+                <p class="mt-2 text-muted">Chưa có lịch sử từ khóa</p>
+                <small class="text-muted">Bắt đầu tìm kiếm để xem lịch sử</small>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        const html = history.slice(0, 20).map(item => {
+          const site = sites.find(s => s.key === item.siteKey);
+          const siteName = site ? site.name : item.siteKey;
+          const timestamp = new Date(item.timestamp).toLocaleString('vi-VN');
+          
+          return `
+            <tr>
+              <td>
+                <span class="badge bg-primary">${item.keyword}</span>
+              </td>
+              <td>${siteName}</td>
+              <td>
+                <span class="badge bg-success">${item.productCount}</span>
+              </td>
+              <td>
+                <small class="text-muted">${timestamp}</small>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary" onclick="searchKeyword('${item.keyword}', '${item.siteKey}')">
+                  <i class="bx bx-search me-1"></i>Tìm lại
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        tbody.innerHTML = html;
+      }
+
+      // Update popular keywords
+      function updatePopularKeywords(popularKeywords) {
+        const container = document.getElementById('popularKeywordsList');
+        
+        if (popularKeywords.length === 0) {
+          container.innerHTML = '<p class="text-muted">Chưa có từ khóa phổ biến</p>';
+          return;
+        }
+
+        const html = popularKeywords.slice(0, 10).map((keyword, index) => `
+          <div class="d-flex align-items-center mb-3">
+            <div class="avatar flex-shrink-0 me-3">
+              <span class="avatar-initial rounded bg-label-primary">
+                ${index + 1}
+              </span>
+            </div>
+            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+              <div class="me-2">
+                <h6 class="mb-0">${keyword.keyword}</h6>
+                <small class="text-muted">${keyword.count} lần sử dụng</small>
+              </div>
+              <button class="btn btn-sm btn-outline-primary" onclick="searchKeyword('${keyword.keyword}')">
+                <i class="bx bx-search"></i>
+              </button>
+            </div>
+          </div>
+        `).join('');
+
+        container.innerHTML = html;
+      }
+
+      // Update recent keywords
+      function updateRecentKeywords(history) {
+        const container = document.getElementById('recentKeywordsList');
+        
+        if (history.length === 0) {
+          container.innerHTML = '<p class="text-muted">Chưa có từ khóa gần đây</p>';
+          return;
+        }
+
+        const recentKeywords = history.slice(0, 10);
+        const html = recentKeywords.map(item => {
+          const site = sites.find(s => s.key === item.siteKey);
+          const siteName = site ? site.name : item.siteKey;
+          const timeAgo = getTimeAgo(new Date(item.timestamp));
+          
+          return `
+            <div class="d-flex align-items-center mb-3">
+              <div class="avatar flex-shrink-0 me-3">
+                <span class="avatar-initial rounded bg-label-info">
+                  <i class="bx bx-search"></i>
+                </span>
+              </div>
+              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                <div class="me-2">
+                  <h6 class="mb-0">${item.keyword}</h6>
+                  <small class="text-muted">${siteName} • ${timeAgo}</small>
+                </div>
+                <button class="btn btn-sm btn-outline-primary" onclick="searchKeyword('${item.keyword}', '${item.siteKey}')">
+                  <i class="bx bx-search"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        container.innerHTML = html;
+      }
+
+      // Get time ago string
+      function getTimeAgo(date) {
+        const now = new Date();
+        const diffInSeconds = Math.floor((now - date) / 1000);
+        
+        if (diffInSeconds < 60) return 'Vừa xong';
+        if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} phút trước`;
+        if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} giờ trước`;
+        return `${Math.floor(diffInSeconds / 86400)} ngày trước`;
+      }
+
+      // Search keyword
+      function searchKeyword(keyword, siteKey = null) {
+        if (siteKey) {
+          window.location.href = `/html/keyword-search.html?keyword=${encodeURIComponent(keyword)}&site=${siteKey}`;
+        } else {
+          window.location.href = `/html/keyword-search.html?keyword=${encodeURIComponent(keyword)}`;
+        }
+      }
+
+      // Clear history
+      async function clearHistory() {
+        if (!confirm('Bạn có chắc chắn muốn xóa tất cả lịch sử từ khóa?')) {
+          return;
+        }
+
+        try {
+          const response = await fetch('/api/keyword-history', {
+            method: 'DELETE'
+          });
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            showAlert('Đã xóa lịch sử từ khóa thành công!', 'success');
+            loadKeywordHistory();
+          } else {
+            showAlert('Lỗi khi xóa lịch sử: ' + data.message, 'error');
+          }
+        } catch (error) {
+          // console.error('Error clearing history:', error);
+          showAlert('Lỗi khi xóa lịch sử từ khóa', 'error');
+        }
+      }
+
+      // Show alert message
+      function showAlert(message, type = 'info') {
+        const alertContainer = document.createElement('div');
+        alertContainer.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        alertContainer.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+        alertContainer.innerHTML = `
+          <i class="bx bx-${type === 'success' ? 'check-circle' : type === 'error' ? 'error-circle' : type === 'warning' ? 'error' : 'info-circle'} me-2"></i>
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        document.body.appendChild(alertContainer);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+          if (alertContainer.parentNode) {
+            alertContainer.parentNode.removeChild(alertContainer);
+          }
+        }, 5000);
+      }
+
+      // Logout function
+      function logout() {
+        if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('username');
+          window.location.href = '/';
+        }
+      }
+
+      // Check login status on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn !== 'true') {
+          window.location.href = '/';
+        }
+      });
+    </script>
+  
+    <!-- Menu Toggle Script -->
+    <script>
+      // Initialize menu toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle menu toggle clicks
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.menu-toggle')) {
+            e.preventDefault();
+            const menuItem = e.target.closest('.menu-item');
+            const menuSub = menuItem.querySelector('.menu-sub');
+            
+            if (menuSub) {
+              // Toggle active class
+              menuItem.classList.toggle('open');
+              
+              // Close other open menus
+              const allMenuItems = document.querySelectorAll('.menu-item');
+              allMenuItems.forEach(item => {
+                if (item !== menuItem && item.classList.contains('open')) {
+                  item.classList.remove('open');
+                }
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

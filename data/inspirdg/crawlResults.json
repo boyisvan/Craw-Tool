@@ -1,0 +1,536 @@
+{
+  "siteKey": "inspirdg",
+  "crawlDate": "2025-09-15T14:20:51.076Z",
+  "totalProducts": 5,
+  "newBookmarkCount": 5,
+  "duplicateCount": 0,
+  "products": [
+    {
+      "id": 77514,
+      "name": "UTSA Roadrunners football 2025 Collection Hoodie",
+      "slug": "utsa-roadrunners-football-2025-collection-hoodie",
+      "parent": 0,
+      "type": "simple",
+      "variation": "",
+      "permalink": "https://inspirdg.com/product/utsa-roadrunners-football-2025-collection-hoodie/",
+      "sku": "7AMTSH82",
+      "short_description": "",
+      "description": "<h2><strong>Product Information:</strong></h2>\n<ul>\n<li>Material: 50% Polyester, 50% Cotton</li>\n<li>Slim fit wear, soft, comfortable, and breathable.</li>\n<li>Fashion and stylish: Rib collar, cuff, and hem, zipper closure, long sleeves.</li>\n<li>Suitable for: Casual, outdoor, daily, school, working, camping, sports, athletics, and so on.</li>\n<li>Machine washing is available.</li>\n</ul>\n<h2><strong>Note:</strong></h2>\n<ul>\n<li>Size Variation: Allow a 1 &#8211; 3cm dimensional difference due to manual measurement.</li>\n<li>Color Variation: The actual color may slightly differ from visual pictures due to monitor and light effects.</li>\n</ul>\n<h2><strong>Production Time:</strong></h2>\n<ul>\n<li>5 &#8211; 7 business days.</li>\n</ul>\n<h3 style=\"text-align: center\"><strong>Form: </strong><a href=\"/\"><strong>InspirDG.com</strong></a></h3>\n<h3 style=\"text-align: center\"><strong>Follow us for more: </strong><a href=\"https://www.facebook.com/profile.php?id=61556699405409\"><strong>Facebook</strong></a><strong>,</strong><a href=\"https://twitter.com/InspirD50637\"><strong>Twitter</strong></a><strong>, </strong><a href=\"https://www.pinterest.com/InspirDG/\"><strong>Pinterest</strong></a><strong>, </strong><a href=\"https://medium.com/@inspirdg.boutique\"><strong>Medium</strong></a></h3>",
+      "on_sale": true,
+      "prices": {
+        "price": "4095",
+        "regular_price": "4995",
+        "sale_price": "4095",
+        "price_range": null,
+        "currency_code": "USD",
+        "currency_symbol": "$",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": ",",
+        "currency_prefix": "$",
+        "currency_suffix": ""
+      },
+      "price_html": "<del aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>49.95</span></del> <span class=\"screen-reader-text\">Original price was: &#036;49.95.</span><ins aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>40.95</span></ins><span class=\"screen-reader-text\">Current price is: &#036;40.95.</span>",
+      "average_rating": "0",
+      "review_count": 0,
+      "images": [
+        {
+          "id": 77515,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-1.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/W0N5JO6G-UTSA-Roadrunners-football-2025-Collection-Hoodie-1-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/W0N5JO6G-UTSA-Roadrunners-football-2025-Collection-Hoodie-1-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-1-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-1-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-1-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-1-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-1-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-1.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "UTSA Roadrunners football 2025 Collection Hoodie 1",
+          "alt": "UTSA Roadrunners football 2025 Collection Hoodie 1"
+        },
+        {
+          "id": 77521,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-2.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/MGCcOiIr-UTSA-Roadrunners-football-2025-Collection-Hoodie-2-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/MGCcOiIr-UTSA-Roadrunners-football-2025-Collection-Hoodie-2-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-2-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-2-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-2-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-2-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-2-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-2.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "UTSA Roadrunners football 2025 Collection Hoodie 2",
+          "alt": "UTSA Roadrunners football 2025 Collection Hoodie 2"
+        },
+        {
+          "id": 77525,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-3.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/XI0IMiHh-UTSA-Roadrunners-football-2025-Collection-Hoodie-3-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/XI0IMiHh-UTSA-Roadrunners-football-2025-Collection-Hoodie-3-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-3-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-3-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-3-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-3-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-3-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UTSA-Roadrunners-football-2025-Collection-Hoodie-3.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "UTSA Roadrunners football 2025 Collection Hoodie 3",
+          "alt": "UTSA Roadrunners football 2025 Collection Hoodie 3"
+        }
+      ],
+      "categories": [
+        {
+          "id": 17,
+          "name": "Hoodie",
+          "slug": "hoodie",
+          "link": "https://inspirdg.com/product-category/hoodie/"
+        }
+      ],
+      "tags": [],
+      "brands": [],
+      "attributes": [],
+      "variations": [],
+      "grouped_products": [],
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "low_stock_remaining": null,
+      "stock_availability": {
+        "text": "",
+        "class": "in-stock"
+      },
+      "sold_individually": false,
+      "add_to_cart": {
+        "text": "Add to cart",
+        "description": "Add to cart: &ldquo;UTSA Roadrunners football 2025 Collection Hoodie&rdquo;",
+        "url": "https://inspirdg.com/product/utsa-roadrunners-football-2025-collection-hoodie/",
+        "single_text": "Add to cart",
+        "minimum": 1,
+        "maximum": 9999,
+        "multiple_of": 1
+      },
+      "extensions": {}
+    },
+    {
+      "id": 77512,
+      "name": "Tennessee Football x Peanuts Night 2025 Special Hoodie",
+      "slug": "tennessee-football-x-peanuts-night-2025-special-hoodie",
+      "parent": 0,
+      "type": "simple",
+      "variation": "",
+      "permalink": "https://inspirdg.com/product/tennessee-football-x-peanuts-night-2025-special-hoodie/",
+      "sku": "KM4AVRGT",
+      "short_description": "",
+      "description": "<h2><strong>Product Information:</strong></h2>\n<ul>\n<li>Material: 50% Polyester, 50% Cotton</li>\n<li>Slim fit wear, soft, comfortable, and breathable.</li>\n<li>Fashion and stylish: Rib collar, cuff, and hem, zipper closure, long sleeves.</li>\n<li>Suitable for: Casual, outdoor, daily, school, working, camping, sports, athletics, and so on.</li>\n<li>Machine washing is available.</li>\n</ul>\n<h2><strong>Note:</strong></h2>\n<ul>\n<li>Size Variation: Allow a 1 &#8211; 3cm dimensional difference due to manual measurement.</li>\n<li>Color Variation: The actual color may slightly differ from visual pictures due to monitor and light effects.</li>\n</ul>\n<h2><strong>Production Time:</strong></h2>\n<ul>\n<li>5 &#8211; 7 business days.</li>\n</ul>\n<h3 style=\"text-align: center\"><strong>Form: </strong><a href=\"/\"><strong>InspirDG.com</strong></a></h3>\n<h3 style=\"text-align: center\"><strong>Follow us for more: </strong><a href=\"https://www.facebook.com/profile.php?id=61556699405409\"><strong>Facebook</strong></a><strong>,</strong><a href=\"https://twitter.com/InspirD50637\"><strong>Twitter</strong></a><strong>, </strong><a href=\"https://www.pinterest.com/InspirDG/\"><strong>Pinterest</strong></a><strong>, </strong><a href=\"https://medium.com/@inspirdg.boutique\"><strong>Medium</strong></a></h3>",
+      "on_sale": true,
+      "prices": {
+        "price": "4095",
+        "regular_price": "4995",
+        "sale_price": "4095",
+        "price_range": null,
+        "currency_code": "USD",
+        "currency_symbol": "$",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": ",",
+        "currency_prefix": "$",
+        "currency_suffix": ""
+      },
+      "price_html": "<del aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>49.95</span></del> <span class=\"screen-reader-text\">Original price was: &#036;49.95.</span><ins aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>40.95</span></ins><span class=\"screen-reader-text\">Current price is: &#036;40.95.</span>",
+      "average_rating": "0",
+      "review_count": 0,
+      "images": [
+        {
+          "id": 77513,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-1.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/HtAaV5lN-Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-1-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/HtAaV5lN-Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-1-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-1-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-1-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-1-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-1-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-1-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-1.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Tennessee Football x Peanuts Night 2025 Special Hoodie 1",
+          "alt": "Tennessee Football x Peanuts Night 2025 Special Hoodie 1"
+        },
+        {
+          "id": 77519,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-2.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/KMkQIrhg-Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-2-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/KMkQIrhg-Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-2-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-2-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-2-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-2-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-2-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-2-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-2.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Tennessee Football x Peanuts Night 2025 Special Hoodie 2",
+          "alt": "Tennessee Football x Peanuts Night 2025 Special Hoodie 2"
+        },
+        {
+          "id": 77523,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-3.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/bSUwEztD-Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-3-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/bSUwEztD-Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-3-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-3-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-3-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-3-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-3-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-3-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Tennessee-Football-x-Peanuts-Night-2025-Special-Hoodie-3.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Tennessee Football x Peanuts Night 2025 Special Hoodie 3",
+          "alt": "Tennessee Football x Peanuts Night 2025 Special Hoodie 3"
+        }
+      ],
+      "categories": [
+        {
+          "id": 17,
+          "name": "Hoodie",
+          "slug": "hoodie",
+          "link": "https://inspirdg.com/product-category/hoodie/"
+        }
+      ],
+      "tags": [],
+      "brands": [],
+      "attributes": [],
+      "variations": [],
+      "grouped_products": [],
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "low_stock_remaining": null,
+      "stock_availability": {
+        "text": "",
+        "class": "in-stock"
+      },
+      "sold_individually": false,
+      "add_to_cart": {
+        "text": "Add to cart",
+        "description": "Add to cart: &ldquo;Tennessee Football x Peanuts Night 2025 Special Hoodie&rdquo;",
+        "url": "https://inspirdg.com/product/tennessee-football-x-peanuts-night-2025-special-hoodie/",
+        "single_text": "Add to cart",
+        "minimum": 1,
+        "maximum": 9999,
+        "multiple_of": 1
+      },
+      "extensions": {}
+    },
+    {
+      "id": 77510,
+      "name": "Texas A&amp;M Aggies x Peanuts Night 2025 Hoodie",
+      "slug": "texas-am-aggies-x-peanuts-night-2025-hoodie",
+      "parent": 0,
+      "type": "simple",
+      "variation": "",
+      "permalink": "https://inspirdg.com/product/texas-am-aggies-x-peanuts-night-2025-hoodie/",
+      "sku": "77E9JPZ6",
+      "short_description": "",
+      "description": "<h2><strong>Product Information:</strong></h2>\n<ul>\n<li>Material: 50% Polyester, 50% Cotton</li>\n<li>Slim fit wear, soft, comfortable, and breathable.</li>\n<li>Fashion and stylish: Rib collar, cuff, and hem, zipper closure, long sleeves.</li>\n<li>Suitable for: Casual, outdoor, daily, school, working, camping, sports, athletics, and so on.</li>\n<li>Machine washing is available.</li>\n</ul>\n<h2><strong>Note:</strong></h2>\n<ul>\n<li>Size Variation: Allow a 1 &#8211; 3cm dimensional difference due to manual measurement.</li>\n<li>Color Variation: The actual color may slightly differ from visual pictures due to monitor and light effects.</li>\n</ul>\n<h2><strong>Production Time:</strong></h2>\n<ul>\n<li>5 &#8211; 7 business days.</li>\n</ul>\n<h3 style=\"text-align: center\"><strong>Form: </strong><a href=\"/\"><strong>InspirDG.com</strong></a></h3>\n<h3 style=\"text-align: center\"><strong>Follow us for more: </strong><a href=\"https://www.facebook.com/profile.php?id=61556699405409\"><strong>Facebook</strong></a><strong>,</strong><a href=\"https://twitter.com/InspirD50637\"><strong>Twitter</strong></a><strong>, </strong><a href=\"https://www.pinterest.com/InspirDG/\"><strong>Pinterest</strong></a><strong>, </strong><a href=\"https://medium.com/@inspirdg.boutique\"><strong>Medium</strong></a></h3>",
+      "on_sale": true,
+      "prices": {
+        "price": "4095",
+        "regular_price": "4995",
+        "sale_price": "4095",
+        "price_range": null,
+        "currency_code": "USD",
+        "currency_symbol": "$",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": ",",
+        "currency_prefix": "$",
+        "currency_suffix": ""
+      },
+      "price_html": "<del aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>49.95</span></del> <span class=\"screen-reader-text\">Original price was: &#036;49.95.</span><ins aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>40.95</span></ins><span class=\"screen-reader-text\">Current price is: &#036;40.95.</span>",
+      "average_rating": "0",
+      "review_count": 0,
+      "images": [
+        {
+          "id": 77511,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-1.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/kHFBuWj0-Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-1-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/kHFBuWj0-Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-1-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-1-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-1-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-1-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-1-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-1-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-1.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Texas AM Aggies x Peanuts Night 2025 Hoodie 1",
+          "alt": "Texas AM Aggies x Peanuts Night 2025 Hoodie 1"
+        },
+        {
+          "id": 77518,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-2.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/LSoCMmmE-Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-2-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/LSoCMmmE-Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-2-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-2-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-2-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-2-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-2-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-2-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-2.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Texas AM Aggies x Peanuts Night 2025 Hoodie 2",
+          "alt": "Texas AM Aggies x Peanuts Night 2025 Hoodie 2"
+        },
+        {
+          "id": 77522,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-3.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/OnGNZHAw-Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-3-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/OnGNZHAw-Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-3-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-3-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-3-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-3-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-3-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-3-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Texas-AM-Aggies-x-Peanuts-Night-2025-Hoodie-3.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Texas AM Aggies x Peanuts Night 2025 Hoodie 3",
+          "alt": "Texas AM Aggies x Peanuts Night 2025 Hoodie 3"
+        }
+      ],
+      "categories": [
+        {
+          "id": 17,
+          "name": "Hoodie",
+          "slug": "hoodie",
+          "link": "https://inspirdg.com/product-category/hoodie/"
+        }
+      ],
+      "tags": [],
+      "brands": [],
+      "attributes": [],
+      "variations": [],
+      "grouped_products": [],
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "low_stock_remaining": null,
+      "stock_availability": {
+        "text": "",
+        "class": "in-stock"
+      },
+      "sold_individually": false,
+      "add_to_cart": {
+        "text": "Add to cart",
+        "description": "Add to cart: &ldquo;Texas A&amp;M Aggies x Peanuts Night 2025 Hoodie&rdquo;",
+        "url": "https://inspirdg.com/product/texas-am-aggies-x-peanuts-night-2025-hoodie/",
+        "single_text": "Add to cart",
+        "minimum": 1,
+        "maximum": 9999,
+        "multiple_of": 1
+      },
+      "extensions": {}
+    },
+    {
+      "id": 77506,
+      "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie",
+      "slug": "sporting-leprechaun-tech-stretch-special-edition-hoodie",
+      "parent": 0,
+      "type": "simple",
+      "variation": "",
+      "permalink": "https://inspirdg.com/product/sporting-leprechaun-tech-stretch-special-edition-hoodie/",
+      "sku": "EXCFI3PG",
+      "short_description": "",
+      "description": "<h2><strong>Product Information:</strong></h2>\n<ul>\n<li>Material: 50% Polyester, 50% Cotton</li>\n<li>Slim fit wear, soft, comfortable, and breathable.</li>\n<li>Fashion and stylish: Rib collar, cuff, and hem, zipper closure, long sleeves.</li>\n<li>Suitable for: Casual, outdoor, daily, school, working, camping, sports, athletics, and so on.</li>\n<li>Machine washing is available.</li>\n</ul>\n<h2><strong>Note:</strong></h2>\n<ul>\n<li>Size Variation: Allow a 1 &#8211; 3cm dimensional difference due to manual measurement.</li>\n<li>Color Variation: The actual color may slightly differ from visual pictures due to monitor and light effects.</li>\n</ul>\n<h2><strong>Production Time:</strong></h2>\n<ul>\n<li>5 &#8211; 7 business days.</li>\n</ul>\n<h3 style=\"text-align: center\"><strong>Form: </strong><a href=\"/\"><strong>InspirDG.com</strong></a></h3>\n<h3 style=\"text-align: center\"><strong>Follow us for more: </strong><a href=\"https://www.facebook.com/profile.php?id=61556699405409\"><strong>Facebook</strong></a><strong>,</strong><a href=\"https://twitter.com/InspirD50637\"><strong>Twitter</strong></a><strong>, </strong><a href=\"https://www.pinterest.com/InspirDG/\"><strong>Pinterest</strong></a><strong>, </strong><a href=\"https://medium.com/@inspirdg.boutique\"><strong>Medium</strong></a></h3>",
+      "on_sale": true,
+      "prices": {
+        "price": "4095",
+        "regular_price": "4995",
+        "sale_price": "4095",
+        "price_range": null,
+        "currency_code": "USD",
+        "currency_symbol": "$",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": ",",
+        "currency_prefix": "$",
+        "currency_suffix": ""
+      },
+      "price_html": "<del aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>49.95</span></del> <span class=\"screen-reader-text\">Original price was: &#036;49.95.</span><ins aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>40.95</span></ins><span class=\"screen-reader-text\">Current price is: &#036;40.95.</span>",
+      "average_rating": "0",
+      "review_count": 0,
+      "images": [
+        {
+          "id": 77509,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-1.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/M8A8vsZm-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-1-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/M8A8vsZm-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-1-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-1-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-1-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-1-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-1-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-1-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-1.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 1",
+          "alt": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 1"
+        },
+        {
+          "id": 77517,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-2.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UnRkcvCx-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-2-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/UnRkcvCx-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-2-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-2-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-2-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-2-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-2-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-2-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-2.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 2",
+          "alt": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 2"
+        },
+        {
+          "id": 77520,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-3.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/9Ix2VwWm-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-3-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/9Ix2VwWm-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-3-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-3-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-3-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-3-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-3-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-3-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-3.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 3",
+          "alt": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 3"
+        },
+        {
+          "id": 77524,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-4.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/RurwbQUZ-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-4-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/RurwbQUZ-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-4-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-4-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-4-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-4-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-4-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-4-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-4.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 4",
+          "alt": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 4"
+        },
+        {
+          "id": 77526,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-5.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/sB7uXjsW-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-5-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/sB7uXjsW-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-5-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-5-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-5-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-5-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-5-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-5-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-5.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 5",
+          "alt": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 5"
+        },
+        {
+          "id": 77527,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-6.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/eoiXNnpR-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-6-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/eoiXNnpR-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-6-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-6-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-6-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-6-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-6-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-6-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-6.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 6",
+          "alt": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 6"
+        },
+        {
+          "id": 77528,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-7.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/QwEVnTB5-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-7-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/QwEVnTB5-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-7-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-7-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-7-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-7-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-7-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-7-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-7.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 7",
+          "alt": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 7"
+        },
+        {
+          "id": 77529,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-8.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/xUOJuOP8-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-8-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/xUOJuOP8-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-8-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-8-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-8-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-8-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-8-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-8-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-8.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 8",
+          "alt": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 8"
+        },
+        {
+          "id": 77530,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-9.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/kzh2cYvV-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-9-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/kzh2cYvV-Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-9-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-9-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-9-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-9-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-9-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-9-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Sporting-Leprechaun-Tech-Stretch-Special-Edition-Hoodie-9.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 9",
+          "alt": "Sporting Leprechaun Tech Stretch Special Edition Hoodie 9"
+        }
+      ],
+      "categories": [
+        {
+          "id": 17,
+          "name": "Hoodie",
+          "slug": "hoodie",
+          "link": "https://inspirdg.com/product-category/hoodie/"
+        }
+      ],
+      "tags": [],
+      "brands": [],
+      "attributes": [],
+      "variations": [],
+      "grouped_products": [],
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "low_stock_remaining": null,
+      "stock_availability": {
+        "text": "",
+        "class": "in-stock"
+      },
+      "sold_individually": false,
+      "add_to_cart": {
+        "text": "Add to cart",
+        "description": "Add to cart: &ldquo;Sporting Leprechaun Tech Stretch Special Edition Hoodie&rdquo;",
+        "url": "https://inspirdg.com/product/sporting-leprechaun-tech-stretch-special-edition-hoodie/",
+        "single_text": "Add to cart",
+        "minimum": 1,
+        "maximum": 9999,
+        "multiple_of": 1
+      },
+      "extensions": {}
+    },
+    {
+      "id": 77494,
+      "name": "Special New The Turquoise Uniform 2025 Hoodie",
+      "slug": "special-new-the-turquoise-uniform-2025-hoodie",
+      "parent": 0,
+      "type": "simple",
+      "variation": "",
+      "permalink": "https://inspirdg.com/product/special-new-the-turquoise-uniform-2025-hoodie/",
+      "sku": "5P8RIFBN",
+      "short_description": "",
+      "description": "<h2><strong>Product Information:</strong></h2>\n<ul>\n<li>Material: 50% Polyester, 50% Cotton</li>\n<li>Slim fit wear, soft, comfortable, and breathable.</li>\n<li>Fashion and stylish: Rib collar, cuff, and hem, zipper closure, long sleeves.</li>\n<li>Suitable for: Casual, outdoor, daily, school, working, camping, sports, athletics, and so on.</li>\n<li>Machine washing is available.</li>\n</ul>\n<h2><strong>Note:</strong></h2>\n<ul>\n<li>Size Variation: Allow a 1 &#8211; 3cm dimensional difference due to manual measurement.</li>\n<li>Color Variation: The actual color may slightly differ from visual pictures due to monitor and light effects.</li>\n</ul>\n<h2><strong>Production Time:</strong></h2>\n<ul>\n<li>5 &#8211; 7 business days.</li>\n</ul>\n<h3 style=\"text-align: center\"><strong>Form: </strong><a href=\"/\"><strong>InspirDG.com</strong></a></h3>\n<h3 style=\"text-align: center\"><strong>Follow us for more: </strong><a href=\"https://www.facebook.com/profile.php?id=61556699405409\"><strong>Facebook</strong></a><strong>,</strong><a href=\"https://twitter.com/InspirD50637\"><strong>Twitter</strong></a><strong>, </strong><a href=\"https://www.pinterest.com/InspirDG/\"><strong>Pinterest</strong></a><strong>, </strong><a href=\"https://medium.com/@inspirdg.boutique\"><strong>Medium</strong></a></h3>",
+      "on_sale": true,
+      "prices": {
+        "price": "4095",
+        "regular_price": "4995",
+        "sale_price": "4095",
+        "price_range": null,
+        "currency_code": "USD",
+        "currency_symbol": "$",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": ",",
+        "currency_prefix": "$",
+        "currency_suffix": ""
+      },
+      "price_html": "<del aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>49.95</span></del> <span class=\"screen-reader-text\">Original price was: &#036;49.95.</span><ins aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#036;</span>40.95</span></ins><span class=\"screen-reader-text\">Current price is: &#036;40.95.</span>",
+      "average_rating": "0",
+      "review_count": 0,
+      "images": [
+        {
+          "id": 77495,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-1.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/eFyQiRtR-Special-New-The-Turquoise-Uniform-2025-Hoodie-1-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/eFyQiRtR-Special-New-The-Turquoise-Uniform-2025-Hoodie-1-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-1-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-1-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-1-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-1-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-1-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-1.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Special New The Turquoise Uniform 2025 Hoodie 1",
+          "alt": "Special New The Turquoise Uniform 2025 Hoodie 1"
+        },
+        {
+          "id": 77501,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-2.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/vDR0D4cl-Special-New-The-Turquoise-Uniform-2025-Hoodie-2-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/vDR0D4cl-Special-New-The-Turquoise-Uniform-2025-Hoodie-2-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-2-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-2-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-2-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-2-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-2-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-2.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Special New The Turquoise Uniform 2025 Hoodie 2",
+          "alt": "Special New The Turquoise Uniform 2025 Hoodie 2"
+        },
+        {
+          "id": 77505,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-3.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/p3kPfuXy-Special-New-The-Turquoise-Uniform-2025-Hoodie-3-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/p3kPfuXy-Special-New-The-Turquoise-Uniform-2025-Hoodie-3-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-3-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-3-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-3-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-3-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-3-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-3.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Special New The Turquoise Uniform 2025 Hoodie 3",
+          "alt": "Special New The Turquoise Uniform 2025 Hoodie 3"
+        },
+        {
+          "id": 77507,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-4.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/N0vHEuqt-Special-New-The-Turquoise-Uniform-2025-Hoodie-4-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/N0vHEuqt-Special-New-The-Turquoise-Uniform-2025-Hoodie-4-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-4-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-4-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-4-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-4-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-4-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-4.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Special New The Turquoise Uniform 2025 Hoodie 4",
+          "alt": "Special New The Turquoise Uniform 2025 Hoodie 4"
+        },
+        {
+          "id": 77516,
+          "src": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-5.jpg",
+          "thumbnail": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/E6l67lJF-Special-New-The-Turquoise-Uniform-2025-Hoodie-5-300x300.jpg",
+          "srcset": "https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/E6l67lJF-Special-New-The-Turquoise-Uniform-2025-Hoodie-5-300x300.jpg 300w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-5-150x150.jpg 150w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-5-768x768.jpg 768w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-5-600x600.jpg 600w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-5-100x100.jpg 100w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-5-64x64.jpg 64w, https://s3-hcm-r1.s3cloud.vn/images.inspirdg.com/wp-content/uploads/2025/09/Special-New-The-Turquoise-Uniform-2025-Hoodie-5.jpg 1000w",
+          "sizes": "(max-width: 1000px) 100vw, 1000px",
+          "name": "Special New The Turquoise Uniform 2025 Hoodie 5",
+          "alt": "Special New The Turquoise Uniform 2025 Hoodie 5"
+        }
+      ],
+      "categories": [
+        {
+          "id": 17,
+          "name": "Hoodie",
+          "slug": "hoodie",
+          "link": "https://inspirdg.com/product-category/hoodie/"
+        }
+      ],
+      "tags": [],
+      "brands": [],
+      "attributes": [],
+      "variations": [],
+      "grouped_products": [],
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "low_stock_remaining": null,
+      "stock_availability": {
+        "text": "",
+        "class": "in-stock"
+      },
+      "sold_individually": false,
+      "add_to_cart": {
+        "text": "Add to cart",
+        "description": "Add to cart: &ldquo;Special New The Turquoise Uniform 2025 Hoodie&rdquo;",
+        "url": "https://inspirdg.com/product/special-new-the-turquoise-uniform-2025-hoodie/",
+        "single_text": "Add to cart",
+        "minimum": 1,
+        "maximum": 9999,
+        "multiple_of": 1
+      },
+      "extensions": {}
+    }
+  ]
+}

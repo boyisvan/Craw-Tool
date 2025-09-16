@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Monitor - Kiểm tra Website</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="../assets/vendor/css/core.css" rel="stylesheet">
+    <link href="../assets/vendor/css/theme-default.css" rel="stylesheet">
+    <link href="../assets/css/demo.css" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="../assets/vendor/fonts/boxicons.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Menu Toggle CSS -->
+    <style>
+      .menu-sub {
+        display: none;
+      }
+      .menu-item.open .menu-sub {
+        display: block;
+      }
+      .menu-toggle {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+<body>
+    <!-- Layout -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <!-- Menu -->
+            <div id="sidebar-container"></div>
+            <!-- / Menu -->
+
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- Navbar -->
+                <div id="navbar-container"></div>
+                <!-- / Navbar -->
+
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+                    <!-- Content -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4">
+                            <span class="text-muted fw-light">Quản lý /</span> Site Monitor
+                        </h4>
+
+                        <!-- Site Monitor Card -->
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Kiểm tra trạng thái Website</h5>
+                                <div class="d-flex gap-2">
+                                    <a href="website-management.html" class="btn btn-success">
+                                        <i class="bx bx-plus me-1"></i>Thêm Website
+                                    </a>
+                                    <button class="btn btn-primary" onclick="startMonitoring()" id="startBtn">
+                                        <i class="bx bx-play me-1"></i>Bắt đầu kiểm tra
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="stopMonitoring()" id="stopBtn" disabled>
+                                        <i class="bx bx-stop me-1"></i>Dừng kiểm tra
+                                    </button>
+                                    <button class="btn btn-outline-primary" onclick="refreshResults()">
+                                        <i class="bx bx-refresh me-1"></i>Tải lại
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <!-- Progress Bar -->
+                                <div class="mb-4" id="progressContainer" style="display: none;">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-muted">Tiến trình kiểm tra</span>
+                                        <span class="text-muted" id="progressText">0/0</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                             role="progressbar" style="width: 0%" id="progressBar"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Results Table -->
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Website</th>
+                                                <th>URL</th>
+                                                <th>Trạng thái</th>
+                                                <th>Thời gian phản hồi</th>
+                                                <th>Thời gian kiểm tra</th>
+                                                <th>Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="monitorResults">
+                                            <tr>
+                                                <td colspan="6" class="text-center py-4">
+                                                    <div class="text-muted">
+                                                        <i class="bx bx-network-chart fs-1 mb-3"></i>
+                                                        <p>Chưa có dữ liệu kiểm tra. Nhấn "Bắt đầu kiểm tra" để bắt đầu.</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistics Cards -->
+                        <div class="row mt-4">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar flex-shrink-0 me-3">
+                                                <span class="avatar-initial rounded bg-label-success">
+                                                    <i class="bx bx-check-circle"></i>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span class="fw-semibold d-block mb-1">Hoạt động</span>
+                                                <h3 class="card-title mb-0" id="activeCount">0</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar flex-shrink-0 me-3">
+                                                <span class="avatar-initial rounded bg-label-danger">
+                                                    <i class="bx bx-x-circle"></i>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span class="fw-semibold d-block mb-1">Lỗi</span>
+                                                <h3 class="card-title mb-0" id="errorCount">0</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar flex-shrink-0 me-3">
+                                                <span class="avatar-initial rounded bg-label-warning">
+                                                    <i class="bx bx-time"></i>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span class="fw-semibold d-block mb-1">Đang kiểm tra</span>
+                                                <h3 class="card-title mb-0" id="checkingCount">0</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar flex-shrink-0 me-3">
+                                                <span class="avatar-initial rounded bg-label-info">
+                                                    <i class="bx bx-time-five"></i>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span class="fw-semibold d-block mb-1">Thời gian TB</span>
+                                                <h3 class="card-title mb-0" id="avgResponseTime">0ms</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / Content -->
+
+                    <!-- Footer -->
+                    <div id="footer-container"></div>
+                    <!-- / Footer -->
+
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+        </div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+
+    <script>
+        let monitoringInterval = null;
+        let isMonitoring = false;
+        let currentResults = [];
+
+        // Khởi tạo trang
+        document.addEventListener('DOMContentLoaded', function() {
+        // Check login status
+        CommonUtils.checkLoginStatus();
+        
+        // Initialize sidebar
+        const sidebarManager = new SidebarManager();
+        document.getElementById('sidebar-container').innerHTML = sidebarManager.generateSidebarHTML();
+        document.getElementById('navbar-container').innerHTML = sidebarManager.generateNavbarHTML();
+        document.getElementById('footer-container').innerHTML = sidebarManager.generateFooterHTML();
+        
+            loadInitialData();
+        });
+      
+      // Refresh data when page becomes visible (user navigates back to this page)
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          loadSites();
+        }
+      });
+
+      // Also refresh when window gains focus
+      window.addEventListener('focus', function() {
+        loadSites();
+      });
+
+        // Load dữ liệu ban đầu
+        async function loadInitialData() {
+            try {
+                const response = await fetch('/api/sites');
+                const data = await response.json();
+                
+                if (data.success) {
+                    initializeResults(data.data);
+                }
+            } catch (error) {
+                console.error('Error loading initial data:', error);
+            }
+        }
+
+        // Khởi tạo kết quả
+        function initializeResults(sites) {
+            currentResults = sites.map(site => ({
+                ...site,
+                status: 'pending',
+                responseTime: 0,
+                checkTime: null,
+                error: null
+            }));
+            updateResultsTable();
+            updateStatistics();
+        }
+
+        // Bắt đầu kiểm tra
+        async function startMonitoring() {
+            if (isMonitoring) return;
+            
+            isMonitoring = true;
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = false;
+            document.getElementById('progressContainer').style.display = 'block';
+            
+            // Reset tất cả về trạng thái pending
+            currentResults.forEach(result => {
+                result.status = 'pending';
+                result.responseTime = 0;
+                result.checkTime = null;
+                result.error = null;
+            });
+            
+            updateResultsTable();
+            updateStatistics();
+            
+            // Bắt đầu kiểm tra từng site
+            for (let i = 0; i < currentResults.length; i++) {
+                if (!isMonitoring) break;
+                
+                const result = currentResults[i];
+                result.status = 'checking';
+                updateResultsTable();
+                updateStatistics();
+                updateProgress(i, currentResults.length);
+                
+                try {
+                    // Đo thời gian bắt đầu
+                    const startTime = Date.now();
+                    
+                    // Kiểm tra kết nối
+                    const response = await fetch('/api/test-connection', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ siteKey: result.key })
+                    });
+                    
+                    // Đo thời gian kết thúc
+                    const endTime = Date.now();
+                    const responseTime = endTime - startTime;
+                    
+                    const data = await response.json();
+                    
+                    if (data.success && data.data.isConnected) {
+                        result.status = 'active';
+                        result.responseTime = responseTime;
+                        result.checkTime = new Date().toLocaleString('vi-VN');
+                        result.error = null;
+                    } else {
+                        result.status = 'error';
+                        result.responseTime = responseTime;
+                        result.error = data.message || 'Không thể kết nối';
+                        result.checkTime = new Date().toLocaleString('vi-VN');
+                    }
+                } catch (error) {
+                    result.status = 'error';
+                    result.responseTime = 0;
+                    result.error = error.message;
+                    result.checkTime = new Date().toLocaleString('vi-VN');
+                }
+                
+                // Lưu lịch sử kiểm tra
+                await saveMonitorHistory(result);
+                
+                updateResultsTable();
+                updateStatistics();
+                updateProgress(i + 1, currentResults.length);
+                
+                // Delay giữa các request
+                if (i < currentResults.length - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            }
+            
+            // Hoàn thành
+            isMonitoring = false;
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            
+            Swal.fire({
+                title: 'Hoàn thành!',
+                text: 'Đã kiểm tra xong tất cả website',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+
+        // Dừng kiểm tra
+        function stopMonitoring() {
+            isMonitoring = false;
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            
+            // Đặt tất cả đang kiểm tra về pending
+            currentResults.forEach(result => {
+                if (result.status === 'checking') {
+                    result.status = 'pending';
+                }
+            });
+            
+            updateResultsTable();
+            updateStatistics();
+            
+            Swal.fire({
+                title: 'Đã dừng!',
+                text: 'Quá trình kiểm tra đã được dừng',
+                icon: 'info',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+
+        // Cập nhật bảng kết quả
+        function updateResultsTable() {
+            const tbody = document.getElementById('monitorResults');
+            
+            if (currentResults.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-4">
+                            <div class="text-muted">
+                                <i class="bx bx-network-chart fs-1 mb-3"></i>
+                                <p>Chưa có dữ liệu kiểm tra. Nhấn "Bắt đầu kiểm tra" để bắt đầu.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            const html = currentResults.map(result => {
+                let statusBadge = '';
+                let statusIcon = '';
+                
+                switch (result.status) {
+                    case 'active':
+                        statusBadge = '<span class="badge bg-success">Hoạt động</span>';
+                        statusIcon = '<i class="bx bx-check-circle text-success"></i>';
+                        break;
+                    case 'error':
+                        statusBadge = '<span class="badge bg-danger">Lỗi</span>';
+                        statusIcon = '<i class="bx bx-x-circle text-danger"></i>';
+                        break;
+                    case 'checking':
+                        statusBadge = '<span class="badge bg-warning">Đang kiểm tra...</span>';
+                        statusIcon = '<i class="bx bx-loader-alt text-warning bx-spin"></i>';
+                        break;
+                    default:
+                        statusBadge = '<span class="badge bg-secondary">Chờ kiểm tra</span>';
+                        statusIcon = '<i class="bx bx-time text-secondary"></i>';
+                }
+                
+                return `
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                ${statusIcon}
+                                <div class="ms-2">
+                                    <h6 class="mb-0">${result.name}</h6>
+                                    <small class="text-muted">${result.banner}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="${result.baseUrl}" target="_blank" class="text-primary">
+                                ${result.baseUrl}
+                            </a>
+                        </td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            <span class="fw-semibold">${result.responseTime}ms</span>
+                            ${result.responseTime > 0 ? '<small class="text-muted">phản hồi</small>' : ''}
+                        </td>
+                        <td>
+                            ${result.checkTime || '-'}
+                            ${result.error ? `<br><small class="text-danger">${result.error}</small>` : ''}
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="testSingleSite('${result.key}')">
+                                        <i class="bx bx-refresh me-2"></i>Kiểm tra lại
+                                    </a></li>
+                                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="viewSiteDetails('${result.key}')">
+                                        <i class="bx bx-info-circle me-2"></i>Chi tiết
+                                    </a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            tbody.innerHTML = html;
+        }
+
+        // Cập nhật thống kê
+        function updateStatistics() {
+            const activeCount = currentResults.filter(r => r.status === 'active').length;
+            const errorCount = currentResults.filter(r => r.status === 'error').length;
+            const checkingCount = currentResults.filter(r => r.status === 'checking').length;
+            
+            // Tính thời gian phản hồi trung bình
+            const responseTimes = currentResults
+                .filter(r => r.responseTime > 0)
+                .map(r => r.responseTime);
+            const avgResponseTime = responseTimes.length > 0 
+                ? Math.round(responseTimes.reduce((sum, time) => sum + time, 0) / responseTimes.length)
+                : 0;
+            
+            document.getElementById('activeCount').textContent = activeCount;
+            document.getElementById('errorCount').textContent = errorCount;
+            document.getElementById('checkingCount').textContent = checkingCount;
+            document.getElementById('avgResponseTime').textContent = avgResponseTime + 'ms';
+        }
+
+        // Cập nhật thanh tiến trình
+        function updateProgress(current, total) {
+            const percentage = (current / total) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${current}/${total}`;
+        }
+
+        // Kiểm tra một site riêng lẻ
+        async function testSingleSite(siteKey) {
+            const result = currentResults.find(r => r.key === siteKey);
+            if (!result) return;
+            
+            result.status = 'checking';
+            updateResultsTable();
+            updateStatistics();
+            
+            try {
+                // Đo thời gian bắt đầu
+                const startTime = Date.now();
+                
+                const response = await fetch('/api/test-connection', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ siteKey })
+                });
+                
+                // Đo thời gian kết thúc
+                const endTime = Date.now();
+                const responseTime = endTime - startTime;
+                
+                const data = await response.json();
+                
+                if (data.success && data.data.isConnected) {
+                    result.status = 'active';
+                    result.responseTime = responseTime;
+                    result.checkTime = new Date().toLocaleString('vi-VN');
+                    result.error = null;
+                } else {
+                    result.status = 'error';
+                    result.responseTime = responseTime;
+                    result.error = data.message || 'Không thể kết nối';
+                    result.checkTime = new Date().toLocaleString('vi-VN');
+                }
+            } catch (error) {
+                result.status = 'error';
+                result.responseTime = 0;
+                result.error = error.message;
+                result.checkTime = new Date().toLocaleString('vi-VN');
+            }
+            
+            // Lưu lịch sử kiểm tra
+            await saveMonitorHistory(result);
+            
+            updateResultsTable();
+            updateStatistics();
+        }
+
+        // Xem chi tiết site
+        function viewSiteDetails(siteKey) {
+            const result = currentResults.find(r => r.key === siteKey);
+            if (!result) return;
+            
+            Swal.fire({
+                title: result.name,
+                html: `
+                    <div class="text-start">
+                        <p><strong>URL:</strong> ${result.baseUrl}</p>
+                        <p><strong>Trạng thái:</strong> ${result.status}</p>
+                        <p><strong>Thời gian phản hồi:</strong> ${result.responseTime}ms</p>
+                        <p><strong>Thời gian kiểm tra:</strong> ${result.checkTime || 'Chưa kiểm tra'}</p>
+                        ${result.error ? `<p><strong>Lỗi:</strong> <span class="text-danger">${result.error}</span></p>` : ''}
+                    </div>
+                `,
+                icon: result.status === 'active' ? 'success' : result.status === 'error' ? 'error' : 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Kiểm tra lại',
+                cancelButtonText: 'Đóng'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    testSingleSite(siteKey);
+                }
+            });
+        }
+
+        // Tải lại kết quả
+        function refreshResults() {
+            loadInitialData();
+        }
+
+        // Lưu lịch sử kiểm tra
+        async function saveMonitorHistory(result) {
+            try {
+                await fetch('/api/site-monitor-history', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        siteKey: result.key,
+                        status: result.status,
+                        responseTime: result.responseTime,
+                        checkTime: result.checkTime,
+                        error: result.error
+                    })
+                });
+            } catch (error) {
+                console.error('Lỗi khi lưu lịch sử kiểm tra:', error);
+            }
+        }
+
+        // Đăng xuất
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = '/';
+        }
+    </script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+      // Initialize menu toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle menu toggle clicks
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.menu-toggle')) {
+            e.preventDefault();
+            const menuItem = e.target.closest('.menu-item');
+            const menuSub = menuItem.querySelector('.menu-sub');
+            
+            if (menuSub) {
+              // Toggle active class
+              menuItem.classList.toggle('open');
+              
+              // Close other open menus
+              const allMenuItems = document.querySelectorAll('.menu-item');
+              allMenuItems.forEach(item => {
+                if (item !== menuItem && item.classList.contains('open')) {
+                  item.classList.remove('open');
+                }
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

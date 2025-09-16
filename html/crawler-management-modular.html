@@ -1,0 +1,596 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Quản lý Crawler - Tool Craw Data Đa Luồng</title>
+
+    <meta name="description" content="Quản lý thu thập dữ liệu sản phẩm" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout sẽ được render vào đây -->
+    <div id="app-layout"></div>
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/layout.js"></script>
+
+    <!-- Page JS -->
+    <script>
+      // Khởi tạo layout manager
+      const layoutManager = new LayoutManager();
+      
+      // Nội dung trang Crawler Management
+      const pageContent = `
+        <!-- Header -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="d-flex align-items-start row">
+                <div class="col-sm-7">
+                  <div class="card-body">
+                    <h5 class="card-title text-primary mb-3">🕷️ Quản lý Crawler</h5>
+                    <p class="mb-6">
+                      Thu thập dữ liệu sản phẩm từ các website.<br />
+                      Quản lý tiến độ và theo dõi kết quả thu thập.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-5 text-center text-sm-left">
+                  <div class="card-body pb-0 px-0 px-md-6">
+                    <img
+                      src="../assets/img/illustrations/man-with-laptop.png"
+                      height="175"
+                      alt="Crawler Management" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Site Selection -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Chọn Website</h5>
+                <button class="btn btn-outline-primary btn-sm" onclick="testConnection()">
+                  <i class="bx bx-test-tube me-1"></i>Test kết nối
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="crawlerSiteSelect" class="form-label">Website:</label>
+                    <select class="form-select" id="crawlerSiteSelect" onchange="changeCrawlerSite()">
+                      <option value="">Chọn website...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Trạng thái kết nối:</label>
+                    <div id="crawlerConnectionStatus" class="mt-2">
+                      <span class="badge bg-secondary">Chưa chọn website</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crawler Controls -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Điều khiển Crawler</h5>
+                <div class="btn-group" role="group">
+                  <button class="btn btn-success" onclick="startCrawling()" id="startBtn">
+                    <i class="bx bx-play me-1"></i>Bắt đầu
+                  </button>
+                  <button class="btn btn-warning" onclick="pauseCrawling()" id="pauseBtn" disabled>
+                    <i class="bx bx-pause me-1"></i>Tạm dừng
+                  </button>
+                  <button class="btn btn-danger" onclick="stopCrawling()" id="stopBtn" disabled>
+                    <i class="bx bx-stop me-1"></i>Dừng
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="maxPages" class="form-label">Số trang tối đa:</label>
+                    <input type="number" class="form-control" id="maxPages" value="5" min="1" max="50">
+                  </div>
+                  <div class="col-md-3">
+                    <label for="perPage" class="form-label">Sản phẩm mỗi trang:</label>
+                    <input type="number" class="form-control" id="perPage" value="20" min="1" max="100">
+                  </div>
+                  <div class="col-md-3">
+                    <label for="orderBy" class="form-label">Sắp xếp theo:</label>
+                    <select class="form-select" id="orderBy">
+                      <option value="date" selected>Ngày</option>
+                      <option value="price">Giá</option>
+                      <option value="name">Tên</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="order" class="form-label">Thứ tự:</label>
+                    <select class="form-select" id="order">
+                      <option value="desc" selected>Giảm dần</option>
+                      <option value="asc">Tăng dần</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Tiến độ thu thập</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>Trang hiện tại:</span>
+                      <span id="currentPage">0</span>
+                    </div>
+                    <div class="progress mb-3">
+                      <div class="progress-bar" id="pageProgress" role="progressbar" style="width: 0%"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>Sản phẩm đã thu thập:</span>
+                      <span id="collectedProducts">0</span>
+                    </div>
+                    <div class="progress">
+                      <div class="progress-bar bg-success" id="productProgress" role="progressbar" style="width: 0%"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <div class="d-flex justify-content-between">
+                    <span>Trạng thái:</span>
+                    <span id="crawlerStatus" class="badge bg-secondary">Chưa bắt đầu</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Kết quả thu thập</h5>
+                <button class="btn btn-outline-primary btn-sm" onclick="exportResults()">
+                  <i class="bx bx-download me-1"></i>Xuất kết quả
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                        <th>Thời gian</th>
+                        <th>Hành động</th>
+                      </tr>
+                    </thead>
+                    <tbody id="crawlerResults">
+                      <tr>
+                        <td colspan="6" class="text-center py-4">
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Đang tải...</span>
+                          </div>
+                          <p class="mt-2 text-muted">Đang tải kết quả...</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Variables
+      let currentCrawlerSite = null;
+      let isCrawling = false;
+      let crawlingInterval = null;
+
+      // Render layout khi trang load
+      document.addEventListener('DOMContentLoaded', function() {
+        CommonUtils.checkLoginStatus();
+        layoutManager.renderLayout('app-layout', pageContent);
+        loadSites();
+        loadCrawlerResults();
+      });
+
+      // Load sites
+      async function loadSites() {
+        await CommonUtils.loadSites();
+        CommonUtils.populateSiteSelect('crawlerSiteSelect');
+      }
+
+      // Change crawler site
+      async function changeCrawlerSite() {
+        const siteKey = document.getElementById('crawlerSiteSelect').value;
+        
+        if (!siteKey) {
+          currentCrawlerSite = null;
+          CommonUtils.updateConnectionStatus('Chưa chọn website', 'secondary', 'crawlerConnectionStatus');
+          return;
+        }
+
+        currentCrawlerSite = CommonUtils.sites.find(s => s.key === siteKey);
+        await CommonUtils.changeSite(siteKey, 'crawlerConnectionStatus');
+      }
+
+      // Test connection
+      async function testConnection() {
+        if (!currentCrawlerSite) {
+          CommonUtils.showAlert('Vui lòng chọn website trước!', 'warning');
+          return;
+        }
+
+        CommonUtils.showAlert('Đang test kết nối...', 'info');
+        
+        try {
+          const response = await fetch(`/api/test-connection?siteKey=${currentCrawlerSite.key}`);
+          const data = await response.json();
+          
+          if (data.success && data.data.connected) {
+            CommonUtils.showAlert('Kết nối thành công!', 'success');
+            CommonUtils.updateConnectionStatus('Kết nối thành công', 'success', 'crawlerConnectionStatus');
+          } else {
+            CommonUtils.showAlert('Không thể kết nối đến website!', 'error');
+            CommonUtils.updateConnectionStatus('Không thể kết nối', 'danger', 'crawlerConnectionStatus');
+          }
+        } catch (error) {
+          console.error('Error testing connection:', error);
+          CommonUtils.showAlert('Lỗi khi test kết nối!', 'error');
+        }
+      }
+
+      // Start crawling
+      async function startCrawling() {
+        if (!currentCrawlerSite) {
+          CommonUtils.showAlert('Vui lòng chọn website trước!', 'warning');
+          return;
+        }
+
+        const maxPages = parseInt(document.getElementById('maxPages').value);
+        const perPage = parseInt(document.getElementById('perPage').value);
+        const orderBy = document.getElementById('orderBy').value;
+        const order = document.getElementById('order').value;
+
+        isCrawling = true;
+        updateCrawlerButtons();
+        updateCrawlerStatus('Đang thu thập...', 'warning');
+
+        try {
+          const response = await fetch('/api/start-crawling', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              siteKey: currentCrawlerSite.key,
+              maxPages,
+              perPage,
+              orderBy,
+              order
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.success) {
+            CommonUtils.showAlert('Bắt đầu thu thập dữ liệu!', 'success');
+            startProgressSimulation();
+          } else {
+            CommonUtils.showAlert('Lỗi khi bắt đầu thu thập: ' + data.message, 'error');
+            isCrawling = false;
+            updateCrawlerButtons();
+            updateCrawlerStatus('Lỗi', 'danger');
+          }
+        } catch (error) {
+          console.error('Error starting crawling:', error);
+          CommonUtils.showAlert('Lỗi khi bắt đầu thu thập!', 'error');
+          isCrawling = false;
+          updateCrawlerButtons();
+          updateCrawlerStatus('Lỗi', 'danger');
+        }
+      }
+
+      // Pause crawling
+      function pauseCrawling() {
+        if (crawlingInterval) {
+          clearInterval(crawlingInterval);
+          crawlingInterval = null;
+        }
+        
+        isCrawling = false;
+        updateCrawlerButtons();
+        updateCrawlerStatus('Đã tạm dừng', 'warning');
+        CommonUtils.showAlert('Đã tạm dừng thu thập!', 'info');
+      }
+
+      // Stop crawling
+      function stopCrawling() {
+        if (crawlingInterval) {
+          clearInterval(crawlingInterval);
+          crawlingInterval = null;
+        }
+        
+        isCrawling = false;
+        updateCrawlerButtons();
+        updateCrawlerStatus('Đã dừng', 'secondary');
+        resetProgress();
+        CommonUtils.showAlert('Đã dừng thu thập!', 'info');
+      }
+
+      // Update crawler buttons
+      function updateCrawlerButtons() {
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+
+        if (isCrawling) {
+          startBtn.disabled = true;
+          pauseBtn.disabled = false;
+          stopBtn.disabled = false;
+        } else {
+          startBtn.disabled = false;
+          pauseBtn.disabled = true;
+          stopBtn.disabled = true;
+        }
+      }
+
+      // Update crawler status
+      function updateCrawlerStatus(message, type) {
+        const status = document.getElementById('crawlerStatus');
+        status.textContent = message;
+        status.className = `badge bg-${type}`;
+      }
+
+      // Start progress simulation
+      function startProgressSimulation() {
+        let currentPage = 0;
+        let collectedProducts = 0;
+        const maxPages = parseInt(document.getElementById('maxPages').value);
+        const perPage = parseInt(document.getElementById('perPage').value);
+
+        crawlingInterval = setInterval(() => {
+          if (!isCrawling) return;
+
+          currentPage++;
+          collectedProducts += Math.floor(Math.random() * perPage) + 1;
+
+          // Update progress
+          const pageProgress = (currentPage / maxPages) * 100;
+          const productProgress = Math.min((collectedProducts / (maxPages * perPage)) * 100, 100);
+
+          document.getElementById('currentPage').textContent = currentPage;
+          document.getElementById('collectedProducts').textContent = collectedProducts;
+          document.getElementById('pageProgress').style.width = pageProgress + '%';
+          document.getElementById('productProgress').style.width = productProgress + '%';
+
+          // Check if completed
+          if (currentPage >= maxPages) {
+            stopCrawling();
+            updateCrawlerStatus('Hoàn thành', 'success');
+            CommonUtils.showAlert('Thu thập dữ liệu hoàn thành!', 'success');
+            loadCrawlerResults();
+          }
+        }, 2000);
+      }
+
+      // Reset progress
+      function resetProgress() {
+        document.getElementById('currentPage').textContent = '0';
+        document.getElementById('collectedProducts').textContent = '0';
+        document.getElementById('pageProgress').style.width = '0%';
+        document.getElementById('productProgress').style.width = '0%';
+      }
+
+      // Load crawler results
+      async function loadCrawlerResults() {
+        if (!currentCrawlerSite) {
+          CommonUtils.showEmptyState('crawlerResults', 'bx-data', 'Chưa chọn website', 'Vui lòng chọn website để xem kết quả');
+          return;
+        }
+
+        try {
+          const response = await fetch(`/api/crawler-results?siteKey=${currentCrawlerSite.key}`);
+          const data = await response.json();
+          
+          if (data.success) {
+            updateCrawlerResultsTable(data.data);
+          } else {
+            CommonUtils.showEmptyState('crawlerResults', 'bx-error', 'Lỗi tải dữ liệu', 'Không thể tải kết quả thu thập');
+          }
+        } catch (error) {
+          console.error('Error loading crawler results:', error);
+          CommonUtils.showEmptyState('crawlerResults', 'bx-error', 'Lỗi tải dữ liệu', 'Không thể tải kết quả thu thập');
+        }
+      }
+
+      // Update crawler results table
+      function updateCrawlerResultsTable(results) {
+        const tbody = document.getElementById('crawlerResults');
+        
+        if (results.length === 0) {
+          CommonUtils.showEmptyState('crawlerResults', 'bx-data', 'Chưa có kết quả', 'Chưa có kết quả thu thập nào');
+          return;
+        }
+
+        const html = results.map(result => {
+          const statusClass = result.isNew ? 'success' : 'warning';
+          const statusText = result.isNew ? 'Mới' : 'Trùng lặp';
+          const statusIcon = result.isNew ? 'bx-check-circle' : 'bx-time';
+          const timestamp = CommonUtils.formatDate(result.timestamp || new Date());
+          
+          return `
+            <tr>
+              <td>
+                <img src="${result.images?.[0] || '../assets/img/illustrations/man-with-laptop.png'}" 
+                     alt="${result.name}" 
+                     class="rounded" 
+                     style="width: 50px; height: 50px; object-fit: cover;">
+              </td>
+              <td>
+                <h6 class="mb-0">${result.name || 'N/A'}</h6>
+                <small class="text-muted">${result.permalink || ''}</small>
+              </td>
+              <td>
+                <span class="fw-bold text-success">${result.price || 'N/A'}</span>
+              </td>
+              <td>
+                <span class="badge bg-${statusClass}">
+                  <i class="bx ${statusIcon} me-1"></i>${statusText}
+                </span>
+              </td>
+              <td>
+                <small class="text-muted">${timestamp}</small>
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="${result.permalink}" target="_blank">
+                      <i class="bx bx-link-external me-2"></i>Xem sản phẩm
+                    </a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="copyProductLink('${result.permalink}')">
+                      <i class="bx bx-copy me-2"></i>Sao chép link
+                    </a></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        tbody.innerHTML = html;
+      }
+
+      // Copy product link
+      function copyProductLink(link) {
+        CommonUtils.copyToClipboard(link);
+      }
+
+      // Export results
+      async function exportResults() {
+        if (!currentCrawlerSite) {
+          CommonUtils.showAlert('Vui lòng chọn website trước!', 'warning');
+          return;
+        }
+
+        CommonUtils.showAlert('Đang xuất kết quả...', 'info');
+        
+        try {
+          // Lấy tất cả sản phẩm từ bookmark
+          const response = await fetch(`/api/bookmarks?siteKey=${currentCrawlerSite.key}`);
+          const data = await response.json();
+          
+          if (data.success && data.data.length > 0) {
+            // Xuất dữ liệu
+            const exportResponse = await fetch('/api/export-data', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                siteKey: currentCrawlerSite.key,
+                format: 'csv',
+                productStatus: 'all',
+                maxRecords: 0, // 0 = tất cả
+                fields: ['name', 'price', 'image', 'link', 'site', 'date', 'status']
+              })
+            });
+
+            const exportData = await exportResponse.json();
+            
+            if (exportData.success) {
+              CommonUtils.showAlert(`Đã xuất ${exportData.data.recordCount} sản phẩm thành công!`, 'success');
+              
+              // Tự động tải file
+              if (exportData.data.downloadUrl) {
+                setTimeout(() => {
+                  const link = document.createElement('a');
+                  link.href = exportData.data.downloadUrl;
+                  link.download = exportData.data.filename;
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }, 1000);
+              }
+            } else {
+              CommonUtils.showAlert('Lỗi khi xuất dữ liệu: ' + exportData.message, 'error');
+            }
+          } else {
+            CommonUtils.showAlert('Không có dữ liệu để xuất!', 'warning');
+          }
+        } catch (error) {
+          console.error('Error exporting results:', error);
+          CommonUtils.showAlert('Lỗi khi xuất kết quả!', 'error');
+        }
+      }
+    </script>
+  </body>
+</html>

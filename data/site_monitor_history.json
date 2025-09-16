@@ -1,0 +1,90 @@
+[
+  {
+    "siteKey": "merchsport",
+    "status": "active",
+    "responseTime": 1884,
+    "checkTime": "08:36:02 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:36:02.813Z"
+  },
+  {
+    "siteKey": "fashionssport",
+    "status": "active",
+    "responseTime": 2097,
+    "checkTime": "08:35:59 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:59.911Z"
+  },
+  {
+    "siteKey": "brutifulstore",
+    "status": "active",
+    "responseTime": 387,
+    "checkTime": "08:35:56 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:56.802Z"
+  },
+  {
+    "siteKey": "fanaticity",
+    "status": "active",
+    "responseTime": 1654,
+    "checkTime": "08:35:55 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:55.400Z"
+  },
+  {
+    "siteKey": "inspirdg",
+    "status": "active",
+    "responseTime": 2763,
+    "checkTime": "08:35:52 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:52.739Z"
+  },
+  {
+    "siteKey": "creativteeshop",
+    "status": "active",
+    "responseTime": 3078,
+    "checkTime": "08:35:48 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:48.948Z"
+  },
+  {
+    "siteKey": "growkoc",
+    "status": "active",
+    "responseTime": 1604,
+    "checkTime": "08:35:44 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:44.851Z"
+  },
+  {
+    "siteKey": "midtintee",
+    "status": "active",
+    "responseTime": 2810,
+    "checkTime": "08:35:42 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:42.223Z"
+  },
+  {
+    "siteKey": "gotyourstyle",
+    "status": "active",
+    "responseTime": 3315,
+    "checkTime": "08:35:38 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:38.404Z"
+  },
+  {
+    "siteKey": "torunstyle",
+    "status": "active",
+    "responseTime": 1064,
+    "checkTime": "08:35:34 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:34.076Z"
+  },
+  {
+    "siteKey": "keeptee",
+    "status": "active",
+    "responseTime": 976,
+    "checkTime": "08:35:31 16/9/2025",
+    "error": null,
+    "timestamp": "2025-09-16T01:35:31.926Z"
+  }
+]

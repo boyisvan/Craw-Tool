@@ -1,0 +1,419 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Quản lý Bookmark - Tool Craw Data Đa Luồng</title>
+
+    <meta name="description" content="Quản lý bookmark sản phẩm đã thu thập" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  
+    <!-- Menu Toggle CSS -->
+    <style>
+      .menu-sub {
+        display: none;
+      }
+      .menu-item.open .menu-sub {
+        display: block;
+      }
+      .menu-toggle {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <div id="sidebar-container"></div>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <div id="navbar-container"></div>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <!-- Header -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="d-flex align-items-start row">
+                      <div class="col-sm-7">
+                        <div class="card-body">
+                          <h5 class="card-title text-primary mb-3">🔖 Quản lý Bookmark</h5>
+                          <p class="mb-6">
+                            Xem và quản lý các bookmark sản phẩm đã thu thập.<br />
+                            Theo dõi sản phẩm mới và trùng lặp.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-5 text-center text-sm-left">
+                        <div class="card-body pb-0 px-0 px-md-6">
+                          <img
+                            src="../assets/img/illustrations/man-with-laptop.png"
+                            height="175"
+                            alt="Bookmark Management" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+              <!-- Site Selection -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Chọn Website</h5>
+                      <button class="btn btn-outline-primary btn-sm" onclick="loadBookmarks()">
+                        <i class="bx bx-refresh me-1"></i>Tải lại
+                      </button>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label for="bookmarkSiteSelect" class="form-label">Website:</label>
+                          <select class="form-select" id="bookmarkSiteSelect" onchange="changeBookmarkSite()">
+                            <option value="">Chọn website...</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Thống kê:</label>
+                          <div id="bookmarkStats" class="mt-2">
+                            <span class="badge bg-secondary">Chưa chọn website</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bookmark List -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Danh sách Bookmark</h5>
+                      <button class="btn btn-outline-danger btn-sm" onclick="clearBookmarks()">
+                        <i class="bx bx-trash me-1"></i>Xóa tất cả
+                      </button>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>Hình ảnh</th>
+                              <th>Tên sản phẩm</th>
+                              <th>Giá</th>
+                              <th>Trạng thái</th>
+                              <th>Thời gian</th>
+                              <th>Hành động</th>
+                            </tr>
+                          </thead>
+                          <tbody id="bookmarkTable">
+                            <tr>
+                              <td colspan="6" class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                  <span class="visually-hidden">Đang tải...</span>
+                                </div>
+                                <p class="mt-2 text-muted">Đang tải bookmark...</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <div id="footer-container"></div>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+
+    <!-- Page JS -->
+    <script>
+      let currentBookmarkSite = null;
+
+      // Load data on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        CommonUtils.checkLoginStatus();
+        
+      // Initialize sidebar
+      const sidebarManager = new SidebarManager();
+      document.getElementById('sidebar-container').innerHTML = sidebarManager.generateSidebarHTML();
+      document.getElementById('navbar-container').innerHTML = sidebarManager.generateNavbarHTML();
+      document.getElementById('footer-container').innerHTML = sidebarManager.generateFooterHTML();
+      
+        loadSites();
+      });
+      
+      // Refresh data when page becomes visible (user navigates back to this page)
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          loadSites();
+        }
+      });
+
+      // Also refresh when window gains focus
+      window.addEventListener('focus', function() {
+        loadSites();
+      });
+
+      // Load sites
+      async function loadSites() {
+        await CommonUtils.loadSites();
+        CommonUtils.populateSiteSelect('bookmarkSiteSelect');
+      }
+
+      // Change bookmark site
+      async function changeBookmarkSite() {
+        const siteKey = document.getElementById('bookmarkSiteSelect').value;
+        
+        if (!siteKey) {
+          currentBookmarkSite = null;
+          CommonUtils.updateConnectionStatus('Chưa chọn website', 'secondary', 'bookmarkStats');
+          CommonUtils.showEmptyState('bookmarkTable', 'bx-bookmark', 'Chưa chọn website', 'Vui lòng chọn website để xem bookmark');
+          return;
+        }
+
+        currentBookmarkSite = CommonUtils.sites.find(s => s.key === siteKey);
+        await loadBookmarks();
+      }
+
+      // Load bookmarks
+      async function loadBookmarks() {
+        if (!currentBookmarkSite) {
+          CommonUtils.showEmptyState('bookmarkTable', 'bx-bookmark', 'Chưa chọn website', 'Vui lòng chọn website để xem bookmark');
+          return;
+        }
+
+        CommonUtils.showLoading('bookmarkTable', 'Đang tải bookmark...');
+
+        try {
+          const response = await fetch(`/api/bookmarks?siteKey=${currentBookmarkSite.key}`);
+          const data = await response.json();
+          
+          if (data.success) {
+            updateBookmarkTable(data.data);
+            updateBookmarkStats(data.data);
+          } else {
+            CommonUtils.showAlert('Lỗi khi tải bookmark: ' + data.message, 'error');
+            CommonUtils.showEmptyState('bookmarkTable', 'bx-error', 'Lỗi tải dữ liệu', 'Không thể tải bookmark');
+          }
+        } catch (error) {
+          console.error('Error loading bookmarks:', error);
+          CommonUtils.showAlert('Lỗi khi tải bookmark', 'error');
+          CommonUtils.showEmptyState('bookmarkTable', 'bx-error', 'Lỗi tải dữ liệu', 'Không thể tải bookmark');
+        }
+      }
+
+      // Update bookmark table
+      function updateBookmarkTable(bookmarks) {
+        const tbody = document.getElementById('bookmarkTable');
+        
+        if (bookmarks.length === 0) {
+          CommonUtils.showEmptyState('bookmarkTable', 'bx-bookmark', 'Chưa có bookmark', 'Chưa có bookmark nào cho website này');
+          return;
+        }
+
+        const html = bookmarks.map(bookmark => {
+          const statusClass = bookmark.isDuplicate ? 'warning' : 'success';
+          const statusText = bookmark.isDuplicate ? 'Trùng lặp' : 'Mới';
+          const statusIcon = bookmark.isDuplicate ? 'bx-time' : 'bx-check-circle';
+          const timestamp = CommonUtils.formatDate(bookmark.timestamp || new Date());
+          
+          return `
+            <tr>
+              <td>
+                <img src="${bookmark.images?.[0] || '../assets/img/illustrations/man-with-laptop.png'}" 
+                     alt="${bookmark.name}" 
+                     class="rounded" 
+                     style="width: 50px; height: 50px; object-fit: cover;">
+              </td>
+              <td>
+                <h6 class="mb-0">${bookmark.name || 'N/A'}</h6>
+                <small class="text-muted">${bookmark.permalink || ''}</small>
+              </td>
+              <td>
+                <span class="fw-bold text-success">${bookmark.price || 'N/A'}</span>
+              </td>
+              <td>
+                <span class="badge bg-${statusClass}">
+                  <i class="bx ${statusIcon} me-1"></i>${statusText}
+                </span>
+              </td>
+              <td>
+                <small class="text-muted">${timestamp}</small>
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="${bookmark.permalink}" target="_blank">
+                      <i class="bx bx-link-external me-2"></i>Xem sản phẩm
+                    </a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="copyProductLink('${bookmark.permalink}')">
+                      <i class="bx bx-copy me-2"></i>Sao chép link
+                    </a></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        tbody.innerHTML = html;
+      }
+
+      // Update bookmark stats
+      function updateBookmarkStats(bookmarks) {
+        const totalBookmarks = bookmarks.length;
+        const duplicates = bookmarks.filter(b => b.isDuplicate).length;
+        const newBookmarks = totalBookmarks - duplicates;
+        const duplicateRate = totalBookmarks > 0 ? ((duplicates / totalBookmarks) * 100).toFixed(1) : 0;
+
+        const statsHtml = `
+          <div class="d-flex gap-2 flex-wrap">
+            <span class="badge bg-primary">Tổng: ${totalBookmarks}</span>
+            <span class="badge bg-success">Mới: ${newBookmarks}</span>
+            <span class="badge bg-warning">Trùng: ${duplicates}</span>
+            <span class="badge bg-info">Tỷ lệ trùng: ${duplicateRate}%</span>
+          </div>
+        `;
+
+        document.getElementById('bookmarkStats').innerHTML = statsHtml;
+      }
+
+      // Copy product link
+      function copyProductLink(link) {
+        CommonUtils.copyToClipboard(link);
+      }
+
+      // Clear bookmarks
+      async function clearBookmarks() {
+        if (!currentBookmarkSite) {
+          CommonUtils.showAlert('Vui lòng chọn website trước!', 'warning');
+          return;
+        }
+
+        if (!confirm(`Bạn có chắc chắn muốn xóa tất cả bookmark của ${currentBookmarkSite.name}?`)) {
+          return;
+        }
+
+        try {
+          const response = await fetch(`/api/bookmarks?siteKey=${currentBookmarkSite.key}`, {
+            method: 'DELETE'
+          });
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            CommonUtils.showAlert('Đã xóa tất cả bookmark thành công!', 'success');
+            loadBookmarks();
+          } else {
+            CommonUtils.showAlert('Lỗi khi xóa bookmark: ' + data.message, 'error');
+          }
+        } catch (error) {
+          console.error('Error clearing bookmarks:', error);
+          CommonUtils.showAlert('Lỗi khi xóa bookmark', 'error');
+        }
+      }
+    </script>
+  
+    <!-- Menu Toggle Script -->
+    <script>
+      // Initialize menu toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle menu toggle clicks
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.menu-toggle')) {
+            e.preventDefault();
+            const menuItem = e.target.closest('.menu-item');
+            const menuSub = menuItem.querySelector('.menu-sub');
+            
+            if (menuSub) {
+              // Toggle active class
+              menuItem.classList.toggle('open');
+              
+              // Close other open menus
+              const allMenuItems = document.querySelectorAll('.menu-item');
+              allMenuItems.forEach(item => {
+                if (item !== menuItem && item.classList.contains('open')) {
+                  item.classList.remove('open');
+                }
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

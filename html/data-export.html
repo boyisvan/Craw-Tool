@@ -1,0 +1,733 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Xuất dữ liệu - Tool Craw Data Đa Luồng</title>
+
+    <meta name="description" content="Xuất dữ liệu sản phẩm ra file CSV" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+    <!-- Menu Toggle CSS -->
+    <style>
+      .menu-sub {
+        display: none;
+      }
+      .menu-item.open .menu-sub {
+        display: block;
+      }
+      .menu-toggle {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <div id="sidebar-container"></div>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <div id="navbar-container"></div>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <!-- Header -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="d-flex align-items-start row">
+                      <div class="col-sm-7">
+                        <div class="card-body">
+                          <h5 class="card-title text-primary mb-3">📊 Xuất dữ liệu CSV</h5>
+                          <p class="mb-6">
+                            Xuất dữ liệu sản phẩm đã thu thập ra file CSV để phân tích và sử dụng.<br />
+                            Hỗ trợ xuất dữ liệu thông thường và theo từ khóa.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-5 text-center text-sm-left">
+                        <div class="card-body pb-0 px-0 px-md-6">
+                          <img
+                            src="../assets/img/illustrations/man-with-laptop.png"
+                            height="175"
+                            alt="Data Export" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+              <!-- Export Options -->
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0">Xuất dữ liệu thông thường</h5>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">Xuất tất cả dữ liệu sản phẩm đã thu thập từ website đã chọn.</p>
+                      <div class="mb-3">
+                        <label for="exportSiteSelect" class="form-label">Chọn website:</label>
+                        <select class="form-select" id="exportSiteSelect">
+                          <option value="">Chọn website...</option>
+                        </select>
+                      </div>
+                      <button class="btn btn-primary" onclick="exportNormalData()">
+                        <i class="bx bx-download me-1"></i>Xuất CSV
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0">Xuất dữ liệu theo từ khóa</h5>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">Xuất dữ liệu sản phẩm đã lọc theo từ khóa cụ thể.</p>
+                      <div class="mb-3">
+                        <label for="exportKeywordSiteSelect" class="form-label">Chọn website:</label>
+                        <select class="form-select" id="exportKeywordSiteSelect">
+                          <option value="">Chọn website...</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exportKeyword" class="form-label">Từ khóa:</label>
+                        <input type="text" class="form-control" id="exportKeyword" placeholder="Nhập từ khóa...">
+                      </div>
+                      <button class="btn btn-success" onclick="exportKeywordData()">
+                        <i class="bx bx-download me-1"></i>Xuất CSV theo từ khóa
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+        <!-- Export History -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="card-title mb-0">Lịch sử xuất dữ liệu</h5>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-primary" onclick="loadExportHistory()">
+                      <i class="bx bx-refresh"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteSelectedFiles()" id="deleteSelectedBtn" disabled>
+                      <i class="bx bx-trash"></i> Xóa đã chọn
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="exportHistory">
+                  <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Đang tải...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Đang tải lịch sử xuất dữ liệu...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <div id="footer-container"></div>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+
+    <!-- Page JS -->
+    <script>
+      let sites = [];
+
+      // Load sites on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        
+        // Check login status
+        CommonUtils.checkLoginStatus();
+        
+        // Initialize sidebar
+        if (typeof SidebarManager !== 'undefined') {
+          const sidebarManager = new SidebarManager();
+          document.getElementById('sidebar-container').innerHTML = sidebarManager.generateSidebarHTML();
+          document.getElementById('navbar-container').innerHTML = sidebarManager.generateNavbarHTML();
+          document.getElementById('footer-container').innerHTML = sidebarManager.generateFooterHTML();
+        }
+        
+        loadSites();
+        loadExportHistory();
+      });
+      
+      // Refresh data when page becomes visible (user navigates back to this page)
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          loadSites();
+        }
+      });
+
+      // Also refresh when window gains focus
+      window.addEventListener('focus', function() {
+        loadSites();
+      });
+
+      // Load sites from API
+      async function loadSites() {
+        try {
+          const response = await fetch('/api/sites');
+          const data = await response.json();
+          
+          if (data.success) {
+            sites = data.data;
+            populateSiteSelects();
+          }
+        } catch (error) {
+          // console.error('Error loading sites:', error);
+          showAlert('Lỗi khi tải danh sách website', 'error');
+        }
+      }
+
+      // Populate site select dropdowns
+      function populateSiteSelects() {
+        const selects = ['exportSiteSelect', 'exportKeywordSiteSelect'];
+        
+        selects.forEach(selectId => {
+          const select = document.getElementById(selectId);
+          select.innerHTML = '<option value="">Chọn website...</option>';
+          
+          sites.forEach(site => {
+            const option = document.createElement('option');
+            option.value = site.key;
+            option.textContent = `${site.name} (${site.baseUrl})`;
+            select.appendChild(option);
+          });
+        });
+      }
+
+      // Export normal data
+      async function exportNormalData() {
+        const siteKey = document.getElementById('exportSiteSelect').value;
+        
+        if (!siteKey) {
+          showAlert('Vui lòng chọn website!', 'warning');
+          return;
+        }
+
+        try {
+          showAlert('Đang xuất dữ liệu...', 'info');
+          
+          // Get bookmarks for the site
+          const response = await fetch(`/api/bookmarks?siteKey=${siteKey}`);
+          const data = await response.json();
+          
+          if (data.success && data.data.length > 0) {
+            // Export to CSV
+            const exportResponse = await fetch('/api/export-csv', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                siteKey: siteKey,
+                products: data.data,
+                exportType: 'normal'
+              })
+            });
+            
+            const exportData = await exportResponse.json();
+            
+            if (exportData.success) {
+              showAlert('Xuất dữ liệu thành công!', 'success');
+              loadExportHistory();
+            } else {
+              showAlert('Lỗi khi xuất dữ liệu: ' + exportData.message, 'error');
+            }
+          } else {
+            showAlert('Không có dữ liệu để xuất!', 'warning');
+          }
+        } catch (error) {
+          // console.error('Error exporting data:', error);
+          showAlert('Lỗi khi xuất dữ liệu', 'error');
+        }
+      }
+
+      // Export keyword data
+      async function exportKeywordData() {
+        const siteKey = document.getElementById('exportKeywordSiteSelect').value;
+        const keyword = document.getElementById('exportKeyword').value.trim();
+        
+        if (!siteKey || !keyword) {
+          showAlert('Vui lòng chọn website và nhập từ khóa!', 'warning');
+          return;
+        }
+
+        try {
+          showAlert('Đang xuất dữ liệu theo từ khóa...', 'info');
+          
+          // Get bookmarks for the keyword
+          const response = await fetch(`/api/keyword-bookmarks?siteKey=${siteKey}&keyword=${encodeURIComponent(keyword)}`);
+          const data = await response.json();
+          
+          if (data.success && data.data.length > 0) {
+            // Export to CSV
+            const exportResponse = await fetch('/api/export-csv-keyword', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                siteKey: siteKey,
+                keyword: keyword,
+                products: data.data
+              })
+            });
+            
+            const exportData = await exportResponse.json();
+            
+            if (exportData.success) {
+              showAlert('Xuất dữ liệu theo từ khóa thành công!', 'success');
+              loadExportHistory();
+            } else {
+              showAlert('Lỗi khi xuất dữ liệu: ' + exportData.message, 'error');
+            }
+          } else {
+            showAlert('Không có dữ liệu cho từ khóa này!', 'warning');
+          }
+        } catch (error) {
+          // console.error('Error exporting keyword data:', error);
+          showAlert('Lỗi khi xuất dữ liệu theo từ khóa', 'error');
+        }
+      }
+
+      // Load export history
+      async function loadExportHistory() {
+        const container = document.getElementById('exportHistory');
+        
+        try {
+          const response = await fetch('/api/export-history');
+          const data = await response.json();
+          
+          if (data.success && data.data.length > 0) {
+            displayExportHistory(data.data, container);
+          } else {
+            container.innerHTML = `
+              <div class="text-center py-4">
+                <i class="bx bx-file-blank text-muted" style="font-size: 3rem;"></i>
+                <p class="mt-2 text-muted">Chưa có lịch sử xuất dữ liệu</p>
+                <small class="text-muted">Dữ liệu xuất sẽ được lưu trong thư mục exports/</small>
+              </div>
+            `;
+          }
+        } catch (error) {
+          // console.error('Error loading export history:', error);
+          container.innerHTML = `
+            <div class="text-center py-4">
+              <i class="bx bx-error text-danger" style="font-size: 3rem;"></i>
+              <p class="mt-2 text-danger">Lỗi khi tải lịch sử xuất</p>
+              <small class="text-muted">Vui lòng thử lại sau</small>
+            </div>
+          `;
+        }
+      }
+
+      // Display export history
+      function displayExportHistory(history, container) {
+        const html = `
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+              <label class="form-check-label" for="selectAll">
+                <strong>Chọn tất cả</strong>
+              </label>
+            </div>
+          </div>
+          ${history.map(item => {
+            const statusClass = item.status === 'completed' ? 'success' : item.status === 'failed' ? 'danger' : 'warning';
+            const statusText = item.status === 'completed' ? 'Hoàn thành' : item.status === 'failed' ? 'Thất bại' : 'Đang xử lý';
+            const statusIcon = item.status === 'completed' ? 'bx-check-circle' : item.status === 'failed' ? 'bx-error-circle' : 'bx-time';
+            const exportDate = new Date(item.exportDate).toLocaleString('vi-VN');
+            
+            return `
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-md-1">
+                      <div class="form-check">
+                        <input class="form-check-input file-checkbox" type="checkbox" value="${item.filename}" onchange="updateDeleteButton()">
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="d-flex align-items-center">
+                        <i class="bx bx-file me-2 text-primary"></i>
+                        <div>
+                          <h6 class="mb-0">${item.filename}</h6>
+                          <small class="text-muted">${item.siteName || 'Tất cả'} • ${item.recordCount} sản phẩm</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="badge bg-${statusClass}">
+                        <i class="bx ${statusIcon} me-1"></i>${statusText}
+                      </span>
+                      <br>
+                      <small class="text-muted">${exportDate}</small>
+                    </div>
+                    <div class="col-md-3 text-end">
+                      <div class="btn-group" role="group">
+                        <button class="btn btn-sm btn-outline-primary" onclick="downloadFile('${item.filename}')" title="Tải xuống">
+                          <i class="bx bx-download"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteFile('${item.filename}')" title="Xóa file">
+                          <i class="bx bx-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        `;
+
+        container.innerHTML = html;
+      }
+
+      // Download file
+      function downloadFile(filename) {
+        const link = document.createElement('a');
+        link.href = `/exports/${filename}`;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      // Delete file
+      async function deleteFile(filename) {
+        const result = await Swal.fire({
+          title: 'Xác nhận xóa file',
+          text: `Bạn có chắc chắn muốn xóa file "${filename}"?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Xóa',
+          cancelButtonText: 'Hủy'
+        });
+
+        if (result.isConfirmed) {
+          try {
+            const response = await fetch(`/api/export-files/${filename}`, {
+              method: 'DELETE'
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+              Swal.fire({
+                title: 'Thành công!',
+                text: 'File đã được xóa thành công!',
+                icon: 'success',
+                timer: 2000
+              });
+              loadExportHistory();
+            } else {
+              Swal.fire({
+                title: 'Lỗi!',
+                text: 'Lỗi khi xóa file: ' + data.message,
+                icon: 'error'
+              });
+            }
+          } catch (error) {
+            // console.error('Error deleting file:', error);
+            Swal.fire({
+              title: 'Lỗi!',
+              text: 'Lỗi khi xóa file!',
+              icon: 'error'
+            });
+          }
+        }
+      }
+
+      // Toggle select all
+      function toggleSelectAll() {
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const fileCheckboxes = document.querySelectorAll('.file-checkbox');
+        
+        fileCheckboxes.forEach(checkbox => {
+          checkbox.checked = selectAllCheckbox.checked;
+        });
+        
+        updateDeleteButton();
+      }
+
+      // Update delete button state
+      function updateDeleteButton() {
+        const selectedCheckboxes = document.querySelectorAll('.file-checkbox:checked');
+        const deleteBtn = document.getElementById('deleteSelectedBtn');
+        const selectAllCheckbox = document.getElementById('selectAll');
+        
+        if (selectedCheckboxes.length > 0) {
+          deleteBtn.disabled = false;
+          deleteBtn.textContent = `Xóa đã chọn (${selectedCheckboxes.length})`;
+        } else {
+          deleteBtn.disabled = true;
+          deleteBtn.textContent = 'Xóa đã chọn';
+        }
+        
+        // Update select all checkbox state
+        const allCheckboxes = document.querySelectorAll('.file-checkbox');
+        if (allCheckboxes.length === 0) {
+          selectAllCheckbox.checked = false;
+          selectAllCheckbox.indeterminate = false;
+        } else if (selectedCheckboxes.length === allCheckboxes.length) {
+          selectAllCheckbox.checked = true;
+          selectAllCheckbox.indeterminate = false;
+        } else if (selectedCheckboxes.length > 0) {
+          selectAllCheckbox.checked = false;
+          selectAllCheckbox.indeterminate = true;
+        } else {
+          selectAllCheckbox.checked = false;
+          selectAllCheckbox.indeterminate = false;
+        }
+      }
+
+      // Delete selected files
+      async function deleteSelectedFiles() {
+        const selectedCheckboxes = document.querySelectorAll('.file-checkbox:checked');
+        const filenames = Array.from(selectedCheckboxes).map(cb => cb.value);
+        
+        if (filenames.length === 0) {
+          Swal.fire({
+            title: 'Thông báo',
+            text: 'Vui lòng chọn ít nhất một file để xóa!',
+            icon: 'info'
+          });
+          return;
+        }
+
+        const result = await Swal.fire({
+          title: 'Xác nhận xóa nhiều file',
+          html: `Bạn có chắc chắn muốn xóa <strong>${filenames.length}</strong> file đã chọn?<br><br>
+                 <small class="text-muted">${filenames.slice(0, 3).join('<br>')}${filenames.length > 3 ? '<br>...' : ''}</small>`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: `Xóa ${filenames.length} file`,
+          cancelButtonText: 'Hủy'
+        });
+
+        if (result.isConfirmed) {
+          // Show loading
+          Swal.fire({
+            title: 'Đang xóa...',
+            text: `Đang xóa ${filenames.length} file...`,
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+
+          try {
+            // Delete files one by one
+            let successCount = 0;
+            let errorCount = 0;
+            const errors = [];
+
+            for (const filename of filenames) {
+              try {
+                const response = await fetch(`/api/export-files/${filename}`, {
+                  method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                  successCount++;
+                } else {
+                  errorCount++;
+                  errors.push(`${filename}: ${data.message}`);
+                }
+              } catch (error) {
+                errorCount++;
+                errors.push(`${filename}: Lỗi kết nối`);
+              }
+            }
+
+            // Show result
+            if (errorCount === 0) {
+              Swal.fire({
+                title: 'Thành công!',
+                text: `Đã xóa thành công ${successCount} file!`,
+                icon: 'success',
+                timer: 2000
+              });
+            } else if (successCount === 0) {
+              Swal.fire({
+                title: 'Lỗi!',
+                html: `Không thể xóa file nào!<br><br>
+                       <small class="text-muted">${errors.slice(0, 3).join('<br>')}${errors.length > 3 ? '<br>...' : ''}</small>`,
+                icon: 'error'
+              });
+            } else {
+              Swal.fire({
+                title: 'Hoàn thành một phần',
+                html: `Đã xóa thành công ${successCount} file!<br>
+                       ${errorCount} file gặp lỗi.<br><br>
+                       <small class="text-muted">${errors.slice(0, 3).join('<br>')}${errors.length > 3 ? '<br>...' : ''}</small>`,
+                icon: 'warning'
+              });
+            }
+
+            // Reload history
+            loadExportHistory();
+          } catch (error) {
+            // console.error('Error deleting files:', error);
+            Swal.fire({
+              title: 'Lỗi!',
+              text: 'Có lỗi xảy ra khi xóa file!',
+              icon: 'error'
+            });
+          }
+        }
+      }
+
+      // Show alert message
+      function showAlert(message, type = 'info') {
+        const alertContainer = document.createElement('div');
+        alertContainer.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        alertContainer.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+        alertContainer.innerHTML = `
+          <i class="bx bx-${type === 'success' ? 'check-circle' : type === 'error' ? 'error-circle' : type === 'warning' ? 'error' : 'info-circle'} me-2"></i>
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        document.body.appendChild(alertContainer);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+          if (alertContainer.parentNode) {
+            alertContainer.parentNode.removeChild(alertContainer);
+          }
+        }, 5000);
+      }
+
+      // Logout function
+      function logout() {
+        if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('username');
+          window.location.href = '/';
+        }
+      }
+
+      // Check login status on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn !== 'true') {
+          window.location.href = '/';
+        }
+      });
+    </script>
+  
+    <!-- Menu Toggle Script -->
+    <script>
+      // Initialize menu toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle menu toggle clicks
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.menu-toggle')) {
+            e.preventDefault();
+            const menuItem = e.target.closest('.menu-item');
+            const menuSub = menuItem.querySelector('.menu-sub');
+            
+            if (menuSub) {
+              // Toggle active class
+              menuItem.classList.toggle('open');
+              
+              // Close other open menus
+              const allMenuItems = document.querySelectorAll('.menu-item');
+              allMenuItems.forEach(item => {
+                if (item !== menuItem && item.classList.contains('open')) {
+                  item.classList.remove('open');
+                }
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,633 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Quản lý Crawler - Tool Craw Data Đa Luồng</title>
+
+    <meta name="description" content="Quản lý thu thập dữ liệu sản phẩm" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  
+    <!-- Menu Toggle CSS -->
+    <style>
+      .menu-sub {
+        display: none;
+      }
+      .menu-item.open .menu-sub {
+        display: block;
+      }
+      .menu-toggle {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <div id="sidebar-container"></div>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <div id="navbar-container"></div>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <!-- Header -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Thu thập dữ liệu sản phẩm</h5>
+                      <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary btn-sm" onclick="testConnection()">
+                          <i class="bx bx-wifi me-1"></i>Kiểm tra kết nối
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="startCrawling()">
+                          <i class="bx bx-play me-1"></i>Bắt đầu thu thập
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label for="siteSelect" class="form-label">Chọn website:</label>
+                          <select class="form-select" id="siteSelect" onchange="changeSite()">
+                            <option value="">Chọn website...</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Trạng thái kết nối:</label>
+                          <div id="connectionStatus" class="mt-2">
+                            <span class="badge bg-secondary">Chưa chọn website</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+              <!-- Configuration -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0">Cấu hình thu thập</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="row g-3">
+                        <div class="col-md-3">
+                          <label for="maxPages" class="form-label">Số trang tối đa:</label>
+                          <input type="number" class="form-control" id="maxPages" value="10" min="1" max="100">
+                        </div>
+                        <div class="col-md-3">
+                          <label for="perPage" class="form-label">Sản phẩm mỗi trang:</label>
+                          <input type="number" class="form-control" id="perPage" value="100" min="1" max="100">
+                        </div>
+                        <div class="col-md-3">
+                          <label for="orderBy" class="form-label">Sắp xếp theo:</label>
+                          <select class="form-select" id="orderBy">
+                            <option value="date">Ngày tạo (mới nhất)</option>
+                            <option value="title">Tên sản phẩm</option>
+                            <option value="price">Giá</option>
+                            <option value="id">ID</option>
+                          </select>
+                        </div>
+                        <div class="col-md-3">
+                          <label for="order" class="form-label">Thứ tự sắp xếp:</label>
+                          <select class="form-select" id="order">
+                            <option value="desc">Giảm dần (mới nhất)</option>
+                            <option value="asc">Tăng dần (cũ nhất)</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Progress -->
+              <div class="row" id="progressSection" style="display: none;">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0">Tiến trình thu thập</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                          <span>Đang thu thập dữ liệu...</span>
+                          <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                               id="progressBar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                      </div>
+                      <div id="progressDetails" class="text-muted">
+                        <small>Đang khởi tạo...</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Results -->
+              <div class="row" id="resultsSection" style="display: none;">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Kết quả thu thập</h5>
+                      <div class="d-flex gap-2">
+                        <button class="btn btn-outline-success btn-sm" onclick="exportToCSV()">
+                          <i class="bx bx-download me-1"></i>Xuất CSV
+                        </button>
+                        <button class="btn btn-outline-info btn-sm" onclick="viewAllProducts()">
+                          <i class="bx bx-show me-1"></i>Xem tất cả
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row mb-4">
+                        <div class="col-md-3">
+                          <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                              <h4 class="card-title" id="totalProducts">0</h4>
+                              <p class="card-text">Tổng sản phẩm</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                              <h4 class="card-title" id="newBookmarks">0</h4>
+                              <p class="card-text">Bookmark mới</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                              <h4 class="card-title" id="duplicates">0</h4>
+                              <p class="card-text">Trùng lặp</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                              <h4 class="card-title" id="totalBookmarks">0</h4>
+                              <p class="card-text">Tổng bookmark</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Products Table -->
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Tên sản phẩm</th>
+                              <th>Giá</th>
+                              <th>Trạng thái</th>
+                              <th>Link</th>
+                            </tr>
+                          </thead>
+                          <tbody id="productsTable">
+                            <!-- Products will be loaded here -->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <div id="footer-container"></div>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+
+    <!-- Page JS -->
+    <script>
+      let currentSite = null;
+      let sites = [];
+      let crawlResults = null;
+
+      // Load sites on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check login status
+        CommonUtils.checkLoginStatus();
+        
+        // Initialize sidebar
+        if (typeof SidebarManager !== 'undefined') {
+          const sidebarManager = new SidebarManager();
+          document.getElementById('sidebar-container').innerHTML = sidebarManager.generateSidebarHTML();
+          document.getElementById('navbar-container').innerHTML = sidebarManager.generateNavbarHTML();
+          document.getElementById('footer-container').innerHTML = sidebarManager.generateFooterHTML();
+        }
+        
+        loadSites();
+      });
+
+      // Refresh data when page becomes visible (user navigates back to this page)
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          loadSites();
+        }
+      });
+
+      // Also refresh when window gains focus
+      window.addEventListener('focus', function() {
+        loadSites();
+      });
+
+      // Load sites from API
+      async function loadSites() {
+        try {
+          const response = await fetch('/api/sites');
+          const data = await response.json();
+          
+          if (data.success) {
+            sites = data.data;
+            populateSiteSelect();
+          }
+        } catch (error) {
+          console.error('Error loading sites:', error);
+          showToast('Lỗi khi tải danh sách website', 'error');
+        }
+      }
+
+      // Populate site select dropdown
+      function populateSiteSelect() {
+        const select = document.getElementById('siteSelect');
+        select.innerHTML = '<option value="">Chọn website...</option>';
+        
+        sites.forEach(site => {
+          const option = document.createElement('option');
+          option.value = site.key;
+          option.textContent = `${site.name} (${site.baseUrl})`;
+          select.appendChild(option);
+        });
+      }
+
+      // Change site
+      async function changeSite() {
+        const siteKey = document.getElementById('siteSelect').value;
+        
+        if (!siteKey) {
+          currentSite = null;
+          updateConnectionStatus('Chưa chọn website', 'secondary');
+          return;
+        }
+
+        currentSite = sites.find(s => s.key === siteKey);
+        updateConnectionStatus('Đang kiểm tra...', 'warning');
+      }
+
+      // Update connection status
+      function updateConnectionStatus(message, type) {
+        const status = document.getElementById('connectionStatus');
+        status.innerHTML = `<span class="badge bg-${type}">${message}</span>`;
+      }
+
+      // Test connection
+      async function testConnection() {
+        if (!currentSite) {
+          showToast('Vui lòng chọn website trước', 'warning');
+          return;
+        }
+
+        updateConnectionStatus('Đang kiểm tra...', 'warning');
+        
+        try {
+          const response = await fetch(`/api/test-connection?siteKey=${currentSite.key}`);
+          const data = await response.json();
+          
+          if (data.success) {
+            if (data.data.connected) {
+              updateConnectionStatus('Kết nối thành công', 'success');
+              showToast('Kết nối thành công!', 'success');
+            } else {
+              updateConnectionStatus('Không thể kết nối', 'danger');
+              showToast('Không thể kết nối đến API', 'error');
+            }
+          } else {
+            updateConnectionStatus('Lỗi kết nối', 'danger');
+            showToast('Lỗi khi kiểm tra kết nối', 'error');
+          }
+        } catch (error) {
+          console.error('Error testing connection:', error);
+          updateConnectionStatus('Lỗi kết nối', 'danger');
+          showToast('Lỗi khi kiểm tra kết nối', 'error');
+        }
+      }
+
+      // Start crawling
+      async function startCrawling() {
+        if (!currentSite) {
+          showToast('Vui lòng chọn website trước', 'warning');
+          return;
+        }
+
+        const maxPages = parseInt(document.getElementById('maxPages').value);
+        const perPage = parseInt(document.getElementById('perPage').value);
+        const orderBy = document.getElementById('orderBy').value;
+        const order = document.getElementById('order').value;
+
+        // Show progress section
+        document.getElementById('progressSection').style.display = 'block';
+        document.getElementById('resultsSection').style.display = 'none';
+
+        // Update progress
+        updateProgress(0, 'Đang khởi tạo...');
+
+        try {
+          const response = await fetch('/api/crawl', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              siteKey: currentSite.key,
+              maxPages,
+              perPage,
+              orderBy,
+              order
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.success) {
+            crawlResults = data.data;
+            updateProgress(100, 'Hoàn thành!');
+            
+            // Show results
+            setTimeout(() => {
+              showResults(data.data);
+            }, 1000);
+            
+            showToast('Thu thập dữ liệu thành công!', 'success');
+          } else {
+            updateProgress(0, 'Lỗi: ' + data.message);
+            showToast('Lỗi khi thu thập dữ liệu: ' + data.message, 'error');
+          }
+        } catch (error) {
+          console.error('Error crawling:', error);
+          updateProgress(0, 'Lỗi: ' + error.message);
+          showToast('Lỗi khi thu thập dữ liệu', 'error');
+        }
+      }
+
+      // Update progress
+      function updateProgress(percent, message) {
+        document.getElementById('progressPercent').textContent = percent + '%';
+        document.getElementById('progressBar').style.width = percent + '%';
+        document.getElementById('progressDetails').innerHTML = `<small>${message}</small>`;
+      }
+
+      // Show results
+      function showResults(data) {
+        document.getElementById('progressSection').style.display = 'none';
+        document.getElementById('resultsSection').style.display = 'block';
+
+        // Update statistics
+        document.getElementById('totalProducts').textContent = data.totalProducts;
+        document.getElementById('newBookmarks').textContent = data.newBookmarkCount;
+        document.getElementById('duplicates').textContent = data.duplicateCount;
+        document.getElementById('totalBookmarks').textContent = data.totalBookmarks;
+
+        // Update products table
+        const tbody = document.getElementById('productsTable');
+        tbody.innerHTML = '';
+
+        if (data.products && data.products.length > 0) {
+          data.products.forEach(product => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${product.id || 'N/A'}</td>
+              <td>${product.name || 'N/A'}</td>
+              <td>${product.prices?.regular_price || 'N/A'}</td>
+              <td>
+                <span class="badge bg-${product.isDuplicate ? 'warning' : 'success'}">
+                  ${product.isDuplicate ? 'Trùng lặp' : 'Mới'}
+                </span>
+              </td>
+              <td>
+                <a href="${product.permalink || '#'}" target="_blank" class="btn btn-sm btn-outline-primary">
+                  <i class="bx bx-link-external"></i>
+                </a>
+              </td>
+            `;
+            tbody.appendChild(row);
+          });
+        } else {
+          tbody.innerHTML = '<tr><td colspan="5" class="text-center">Không có sản phẩm nào</td></tr>';
+        }
+      }
+
+      // Export to CSV
+      async function exportToCSV() {
+        if (!currentSite) {
+          showToast('Vui lòng chọn website trước!', 'warning');
+          return;
+        }
+
+        try {
+          // Lấy tất cả sản phẩm từ bookmark thay vì chỉ crawlResults
+          const bookmarksResponse = await fetch(`/api/bookmarks?siteKey=${currentSite.key}`);
+          const bookmarksData = await bookmarksResponse.json();
+          
+          if (!bookmarksData.success || bookmarksData.data.length === 0) {
+            showToast('Không có dữ liệu để xuất!', 'warning');
+            return;
+          }
+
+          // Sử dụng API mới để xuất tất cả dữ liệu
+          const response = await fetch('/api/export-data', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              siteKey: currentSite.key,
+              format: 'csv',
+              productStatus: 'all',
+              maxRecords: 0, // 0 = tất cả
+              fields: ['name', 'price', 'image', 'link', 'site', 'date', 'status']
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.success) {
+            showToast(`Xuất CSV thành công! ${data.data.recordCount} sản phẩm đã được xuất.`, 'success');
+            
+            // Tự động tải file
+            if (data.data.downloadUrl) {
+              setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = data.data.downloadUrl;
+                link.download = data.data.filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }, 1000);
+            }
+          } else {
+            showToast('Lỗi khi xuất CSV: ' + data.message, 'error');
+          }
+        } catch (error) {
+          console.error('Error exporting CSV:', error);
+          showToast('Lỗi khi xuất CSV', 'error');
+        }
+      }
+
+      // View all products
+      function viewAllProducts() {
+        if (!crawlResults || !crawlResults.products) {
+          showToast('Không có dữ liệu để xem', 'warning');
+          return;
+        }
+
+        // This could open a modal or navigate to a detailed view
+        showToast('Tính năng đang phát triển', 'info');
+      }
+
+      // Show toast notification
+      function showToast(message, type = 'info') {
+        // Simple alert for now, can be replaced with proper toast
+        const alertClass = type === 'success' ? 'alert-success' : 
+                          type === 'error' ? 'alert-danger' : 
+                          type === 'warning' ? 'alert-warning' : 'alert-info';
+        
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert ${alertClass} alert-dismissible fade show position-fixed`;
+        alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+        alertDiv.innerHTML = `
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        document.body.appendChild(alertDiv);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+          if (alertDiv.parentNode) {
+            alertDiv.parentNode.removeChild(alertDiv);
+          }
+        }, 5000);
+      }
+
+      // Logout function
+      function logout() {
+        if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('username');
+          window.location.href = '/';
+        }
+      }
+
+      // Check login status on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn !== 'true') {
+          window.location.href = '/';
+        }
+      });
+    </script>
+  
+    <!-- Menu Toggle Script -->
+    <script>
+      // Initialize menu toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle menu toggle clicks
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.menu-toggle')) {
+            e.preventDefault();
+            const menuItem = e.target.closest('.menu-item');
+            const menuSub = menuItem.querySelector('.menu-sub');
+            
+            if (menuSub) {
+              // Toggle active class
+              menuItem.classList.toggle('open');
+              
+              // Close other open menus
+              const allMenuItems = document.querySelectorAll('.menu-item');
+              allMenuItems.forEach(item => {
+                if (item !== menuItem && item.classList.contains('open')) {
+                  item.classList.remove('open');
+                }
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

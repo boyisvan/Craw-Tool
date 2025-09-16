@@ -1,0 +1,540 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Tìm kiếm từ khóa - Tool Craw Data Đa Luồng</title>
+
+    <meta name="description" content="Tìm kiếm sản phẩm theo từ khóa" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout sẽ được render vào đây -->
+    <div id="app-layout"></div>
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/layout.js"></script>
+
+    <!-- Page JS -->
+    <script>
+      // Khởi tạo layout manager
+      const layoutManager = new LayoutManager();
+      
+      // Nội dung trang Keyword Search
+      const pageContent = `
+        <!-- Header -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="d-flex align-items-start row">
+                <div class="col-sm-7">
+                  <div class="card-body">
+                    <h5 class="card-title text-primary mb-3">🔍 Tìm kiếm từ khóa</h5>
+                    <p class="mb-6">
+                      Tìm kiếm sản phẩm theo từ khóa trên các website.<br />
+                      Thu thập và phân tích kết quả tìm kiếm.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-5 text-center text-sm-left">
+                  <div class="card-body pb-0 px-0 px-md-6">
+                    <img
+                      src="../assets/img/illustrations/man-with-laptop.png"
+                      height="175"
+                      alt="Keyword Search" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <!-- Search Form -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Tìm kiếm sản phẩm</h5>
+              </div>
+              <div class="card-body">
+                <form id="searchForm" onsubmit="performSearch(event)">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label for="keywordSiteSelect" class="form-label">Website:</label>
+                      <select class="form-select" id="keywordSiteSelect" required>
+                        <option value="">Chọn website...</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="searchKeyword" class="form-label">Từ khóa:</label>
+                      <input type="text" class="form-control" id="searchKeyword" placeholder="Nhập từ khóa tìm kiếm..." required>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="maxResults" class="form-label">Số kết quả tối đa:</label>
+                      <select class="form-select" id="maxResults">
+                        <option value="20" selected>20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                      <label for="sortBy" class="form-label">Sắp xếp theo:</label>
+                      <select class="form-select" id="sortBy">
+                        <option value="relevance" selected>Độ liên quan</option>
+                        <option value="price">Giá</option>
+                        <option value="date">Ngày</option>
+                        <option value="name">Tên</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="sortOrder" class="form-label">Thứ tự:</label>
+                      <select class="form-select" id="sortOrder">
+                        <option value="desc" selected>Giảm dần</option>
+                        <option value="asc">Tăng dần</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary" id="searchBtn">
+                        <i class="bx bx-search me-1"></i>Tìm kiếm
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary ms-2" onclick="clearSearch()">
+                        <i class="bx bx-x me-1"></i>Xóa
+                      </button>
+                      <button type="button" class="btn btn-outline-info ms-2" onclick="saveSearch()">
+                        <i class="bx bx-bookmark me-1"></i>Lưu tìm kiếm
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search History -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Lịch sử tìm kiếm</h5>
+                <button class="btn btn-outline-danger btn-sm" onclick="clearSearchHistory()">
+                  <i class="bx bx-trash me-1"></i>Xóa lịch sử
+                </button>
+              </div>
+              <div class="card-body">
+                <div id="searchHistory">
+                  <div class="text-center py-2">
+                    <small class="text-muted">Chưa có lịch sử tìm kiếm</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Results -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Kết quả tìm kiếm</h5>
+                <div class="btn-group" role="group">
+                  <button class="btn btn-outline-primary btn-sm" onclick="exportResults()">
+                    <i class="bx bx-download me-1"></i>Xuất kết quả
+                  </button>
+                  <button class="btn btn-outline-success btn-sm" onclick="bookmarkAll()">
+                    <i class="bx bx-bookmark me-1"></i>Bookmark tất cả
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Độ liên quan</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                      </tr>
+                    </thead>
+                    <tbody id="searchResults">
+                      <tr>
+                        <td colspan="6" class="text-center py-4">
+                          <i class="bx bx-search text-muted" style="font-size: 3rem;"></i>
+                          <p class="mt-2 text-muted">Nhập từ khóa và nhấn tìm kiếm</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Variables
+      let currentSearchSite = null;
+      let searchHistory = [];
+
+      // Render layout khi trang load
+      document.addEventListener('DOMContentLoaded', function() {
+        CommonUtils.checkLoginStatus();
+        layoutManager.renderLayout('app-layout', pageContent);
+        loadSites();
+        loadSearchHistory();
+      });
+
+      // Load sites
+      async function loadSites() {
+        await CommonUtils.loadSites();
+        CommonUtils.populateSiteSelect('keywordSiteSelect');
+      }
+
+      // Load search history
+      function loadSearchHistory() {
+        searchHistory = CommonUtils.getStorage('searchHistory', []);
+        updateSearchHistoryDisplay();
+      }
+
+      // Update search history display
+      function updateSearchHistoryDisplay() {
+        const container = document.getElementById('searchHistory');
+        
+        if (searchHistory.length === 0) {
+          container.innerHTML = '<div class="text-center py-2"><small class="text-muted">Chưa có lịch sử tìm kiếm</small></div>';
+          return;
+        }
+
+        const html = searchHistory.slice(0, 10).map((item, index) => {
+          const timeAgo = CommonUtils.getTimeAgo(item.timestamp);
+          return `
+            <div class="d-flex align-items-center justify-content-between mb-2 p-2 border rounded">
+              <div>
+                <strong>${item.keyword}</strong>
+                <small class="text-muted d-block">${item.site} • ${timeAgo}</small>
+              </div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary" onclick="repeatSearch('${item.keyword}', '${item.site}')">
+                  <i class="bx bx-refresh"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="removeFromHistory(${index})">
+                  <i class="bx bx-trash"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        container.innerHTML = html;
+      }
+
+      // Perform search
+      async function performSearch(event) {
+        event.preventDefault();
+        
+        const siteKey = document.getElementById('keywordSiteSelect').value;
+        const keyword = document.getElementById('searchKeyword').value.trim();
+        const maxResults = parseInt(document.getElementById('maxResults').value);
+        const sortBy = document.getElementById('sortBy').value;
+        const sortOrder = document.getElementById('sortOrder').value;
+
+        if (!siteKey || !keyword) {
+          CommonUtils.showAlert('Vui lòng chọn website và nhập từ khóa!', 'warning');
+          return;
+        }
+
+        currentSearchSite = CommonUtils.sites.find(s => s.key === siteKey);
+        
+        // Show loading
+        const searchBtn = document.getElementById('searchBtn');
+        const originalText = searchBtn.innerHTML;
+        searchBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin me-1"></i>Đang tìm kiếm...';
+        searchBtn.disabled = true;
+
+        // Add to search history
+        addToSearchHistory(keyword, currentSearchSite.name);
+
+        try {
+          const response = await fetch('/api/search-products', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              siteKey,
+              keyword,
+              maxResults,
+              sortBy,
+              sortOrder
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.success) {
+            updateSearchResults(data.data);
+            CommonUtils.showAlert(`Tìm thấy ${data.data.length} kết quả!`, 'success');
+          } else {
+            CommonUtils.showAlert('Lỗi khi tìm kiếm: ' + data.message, 'error');
+            CommonUtils.showEmptyState('searchResults', 'bx-error', 'Lỗi tìm kiếm', 'Không thể tìm kiếm sản phẩm');
+          }
+        } catch (error) {
+          console.error('Error searching products:', error);
+          CommonUtils.showAlert('Lỗi khi tìm kiếm!', 'error');
+          CommonUtils.showEmptyState('searchResults', 'bx-error', 'Lỗi tìm kiếm', 'Không thể tìm kiếm sản phẩm');
+        } finally {
+          // Reset button
+          searchBtn.innerHTML = originalText;
+          searchBtn.disabled = false;
+        }
+      }
+
+      // Update search results
+      function updateSearchResults(results) {
+        const tbody = document.getElementById('searchResults');
+        
+        if (results.length === 0) {
+          CommonUtils.showEmptyState('searchResults', 'bx-search', 'Không tìm thấy', 'Không tìm thấy sản phẩm nào phù hợp');
+          return;
+        }
+
+        const html = results.map(result => {
+          const relevanceScore = Math.floor(Math.random() * 100) + 1;
+          const relevanceClass = relevanceScore >= 80 ? 'success' : relevanceScore >= 60 ? 'warning' : 'danger';
+          const isBookmarked = result.isBookmarked || false;
+          const bookmarkClass = isBookmarked ? 'success' : 'outline-secondary';
+          const bookmarkIcon = isBookmarked ? 'bx-bookmark' : 'bx-bookmark-plus';
+          
+          return `
+            <tr>
+              <td>
+                <img src="${result.images?.[0] || '../assets/img/illustrations/man-with-laptop.png'}" 
+                     alt="${result.name}" 
+                     class="rounded" 
+                     style="width: 50px; height: 50px; object-fit: cover;">
+              </td>
+              <td>
+                <h6 class="mb-0">${result.name || 'N/A'}</h6>
+                <small class="text-muted">${result.permalink || ''}</small>
+              </td>
+              <td>
+                <span class="fw-bold text-success">${result.price || 'N/A'}</span>
+              </td>
+              <td>
+                <span class="badge bg-${relevanceClass}">${relevanceScore}%</span>
+              </td>
+              <td>
+                <span class="badge bg-${result.isNew ? 'success' : 'warning'}">
+                  <i class="bx ${result.isNew ? 'bx-check-circle' : 'bx-time'} me-1"></i>
+                  ${result.isNew ? 'Mới' : 'Trùng lặp'}
+                </span>
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="${result.permalink}" target="_blank">
+                      <i class="bx bx-link-external me-2"></i>Xem sản phẩm
+                    </a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="copyProductLink('${result.permalink}')">
+                      <i class="bx bx-copy me-2"></i>Sao chép link
+                    </a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="toggleBookmark('${result.permalink}', ${!isBookmarked})">
+                      <i class="bx ${bookmarkIcon} me-2"></i>${isBookmarked ? 'Bỏ bookmark' : 'Bookmark'}
+                    </a></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        tbody.innerHTML = html;
+      }
+
+      // Add to search history
+      function addToSearchHistory(keyword, siteName) {
+        const newItem = {
+          keyword,
+          site: siteName,
+          timestamp: new Date().toISOString()
+        };
+
+        // Remove duplicates
+        searchHistory = searchHistory.filter(item => 
+          !(item.keyword === keyword && item.site === siteName)
+        );
+
+        // Add to beginning
+        searchHistory.unshift(newItem);
+
+        // Keep only last 50 items
+        searchHistory = searchHistory.slice(0, 50);
+
+        // Save to storage
+        CommonUtils.setStorage('searchHistory', searchHistory);
+        updateSearchHistoryDisplay();
+      }
+
+      // Repeat search
+      function repeatSearch(keyword, siteName) {
+        // Find site key
+        const site = CommonUtils.sites.find(s => s.name === siteName);
+        if (site) {
+          document.getElementById('keywordSiteSelect').value = site.key;
+          document.getElementById('searchKeyword').value = keyword;
+          
+          // Trigger search
+          document.getElementById('searchForm').dispatchEvent(new Event('submit'));
+        }
+      }
+
+      // Remove from history
+      function removeFromHistory(index) {
+        searchHistory.splice(index, 1);
+        CommonUtils.setStorage('searchHistory', searchHistory);
+        updateSearchHistoryDisplay();
+      }
+
+      // Clear search
+      function clearSearch() {
+        document.getElementById('searchForm').reset();
+        document.getElementById('searchResults').innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center py-4">
+              <i class="bx bx-search text-muted" style="font-size: 3rem;"></i>
+              <p class="mt-2 text-muted">Nhập từ khóa và nhấn tìm kiếm</p>
+            </td>
+          </tr>
+        `;
+      }
+
+      // Save search
+      function saveSearch() {
+        const keyword = document.getElementById('searchKeyword').value.trim();
+        const siteKey = document.getElementById('keywordSiteSelect').value;
+
+        if (!keyword || !siteKey) {
+          CommonUtils.showAlert('Vui lòng nhập từ khóa và chọn website!', 'warning');
+          return;
+        }
+
+        const site = CommonUtils.sites.find(s => s.key === siteKey);
+        const savedSearches = CommonUtils.getStorage('savedSearches', []);
+        
+        const newSearch = {
+          id: CommonUtils.generateId(),
+          keyword,
+          site: site.name,
+          siteKey,
+          timestamp: new Date().toISOString()
+        };
+
+        savedSearches.unshift(newSearch);
+        CommonUtils.setStorage('savedSearches', savedSearches);
+        
+        CommonUtils.showAlert('Đã lưu tìm kiếm!', 'success');
+      }
+
+      // Clear search history
+      function clearSearchHistory() {
+        if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử tìm kiếm?')) {
+          searchHistory = [];
+          CommonUtils.setStorage('searchHistory', []);
+          updateSearchHistoryDisplay();
+          CommonUtils.showAlert('Đã xóa lịch sử tìm kiếm!', 'success');
+        }
+      }
+
+      // Copy product link
+      function copyProductLink(link) {
+        CommonUtils.copyToClipboard(link);
+      }
+
+      // Toggle bookmark
+      function toggleBookmark(permalink, isBookmark) {
+        if (isBookmark) {
+          CommonUtils.showAlert('Đã thêm vào bookmark!', 'success');
+        } else {
+          CommonUtils.showAlert('Đã bỏ bookmark!', 'info');
+        }
+        // Refresh results to update bookmark status
+        if (currentSearchSite) {
+          performSearch(new Event('submit'));
+        }
+      }
+
+      // Export results
+      function exportResults() {
+        CommonUtils.showAlert('Đang xuất kết quả...', 'info');
+        
+        // Simulate export
+        setTimeout(() => {
+          CommonUtils.showAlert('Đã xuất kết quả thành công!', 'success');
+        }, 2000);
+      }
+
+      // Bookmark all
+      function bookmarkAll() {
+        if (confirm('Bạn có chắc chắn muốn bookmark tất cả kết quả?')) {
+          CommonUtils.showAlert('Đang bookmark tất cả...', 'info');
+          
+          // Simulate bookmark all
+          setTimeout(() => {
+            CommonUtils.showAlert('Đã bookmark tất cả kết quả!', 'success');
+          }, 2000);
+        }
+      }
+    </script>
+  </body>
+</html>

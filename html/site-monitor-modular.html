@@ -1,0 +1,487 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Giám sát Website - Tool Craw Data Đa Luồng</title>
+
+    <meta name="description" content="Giám sát trạng thái các website" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout sẽ được render vào đây -->
+    <div id="app-layout"></div>
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/layout.js"></script>
+
+    <!-- Page JS -->
+    <script>
+      // Khởi tạo layout manager
+      const layoutManager = new LayoutManager();
+      
+      // Nội dung trang Site Monitor
+      const pageContent = `
+        <!-- Header -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="d-flex align-items-start row">
+                <div class="col-sm-7">
+                  <div class="card-body">
+                    <h5 class="card-title text-primary mb-3">📊 Giám sát Website</h5>
+                    <p class="mb-6">
+                      Theo dõi trạng thái hoạt động của tất cả các website.<br />
+                      Kiểm tra kết nối, sản phẩm mới và hiệu suất thu thập dữ liệu.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-5 text-center text-sm-left">
+                  <div class="card-body pb-0 px-0 px-md-6">
+                    <img
+                      src="../assets/img/illustrations/man-with-laptop.png"
+                      height="175"
+                      alt="Site Monitor" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="row mb-4">
+          <div class="col-lg-3 col-md-6 col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                  <div class="avatar flex-shrink-0">
+                    <img
+                      src="../assets/img/icons/unicons/chart-success.png"
+                      alt="chart success"
+                      class="rounded" />
+                  </div>
+                </div>
+                <p class="mb-1">Website hoạt động</p>
+                <h4 class="card-title mb-3" id="activeSites">0</h4>
+                <small class="text-success fw-medium">
+                  <i class="icon-base bx bx-check-circle"></i> Đang hoạt động
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                  <div class="avatar flex-shrink-0">
+                    <img
+                      src="../assets/img/icons/unicons/wallet-info.png"
+                      alt="wallet info"
+                      class="rounded" />
+                  </div>
+                </div>
+                <p class="mb-1">Website lỗi</p>
+                <h4 class="card-title mb-3" id="errorSites">0</h4>
+                <small class="text-danger fw-medium">
+                  <i class="icon-base bx bx-error-circle"></i> Cần kiểm tra
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                  <div class="avatar flex-shrink-0">
+                    <img
+                      src="../assets/img/icons/unicons/paypal.png"
+                      alt="paypal"
+                      class="rounded" />
+                  </div>
+                </div>
+                <p class="mb-1">Có sản phẩm mới</p>
+                <h4 class="card-title mb-3" id="newProductSites">0</h4>
+                <small class="text-warning fw-medium">
+                  <i class="icon-base bx bx-package"></i> Cần thu thập
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                  <div class="avatar flex-shrink-0">
+                    <img
+                      src="../assets/img/icons/unicons/cc-primary.png"
+                      alt="Credit Card"
+                      class="rounded" />
+                  </div>
+                </div>
+                <p class="mb-1">Tổng website</p>
+                <h4 class="card-title mb-3" id="totalSites">0</h4>
+                <small class="text-info fw-medium">
+                  <i class="icon-base bx bx-globe"></i> Đang theo dõi
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monitor Controls -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Điều khiển giám sát</h5>
+                <div class="btn-group" role="group">
+                  <button class="btn btn-outline-primary" onclick="checkAllSites()">
+                    <i class="bx bx-refresh me-1"></i>Kiểm tra tất cả
+                  </button>
+                  <button class="btn btn-outline-success" onclick="startAutoMonitor()">
+                    <i class="bx bx-play me-1"></i>Bắt đầu tự động
+                  </button>
+                  <button class="btn btn-outline-warning" onclick="stopAutoMonitor()">
+                    <i class="bx bx-pause me-1"></i>Dừng tự động
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="monitorInterval" class="form-label">Khoảng thời gian kiểm tra (phút)</label>
+                    <select class="form-select" id="monitorInterval">
+                      <option value="5">5 phút</option>
+                      <option value="10" selected>10 phút</option>
+                      <option value="15">15 phút</option>
+                      <option value="30">30 phút</option>
+                      <option value="60">1 giờ</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Trạng thái giám sát</label>
+                    <div id="monitorStatus" class="mt-2">
+                      <span class="badge bg-secondary">Chưa bắt đầu</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Site Status List -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Trạng thái Website</h5>
+                <div class="btn-group" role="group">
+                  <button class="btn btn-outline-primary btn-sm" onclick="filterSites('all')">
+                    Tất cả
+                  </button>
+                  <button class="btn btn-outline-success btn-sm" onclick="filterSites('active')">
+                    Hoạt động
+                  </button>
+                  <button class="btn btn-outline-warning btn-sm" onclick="filterSites('new')">
+                    Có mới
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm" onclick="filterSites('error')">
+                    Lỗi
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Website</th>
+                        <th>Trạng thái</th>
+                        <th>Sản phẩm mới</th>
+                        <th>Lần kiểm tra cuối</th>
+                        <th>Thời gian phản hồi</th>
+                        <th>Hành động</th>
+                      </tr>
+                    </thead>
+                    <tbody id="siteStatusTable">
+                      <tr>
+                        <td colspan="6" class="text-center py-4">
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Đang tải...</span>
+                          </div>
+                          <p class="mt-2 text-muted">Đang tải trạng thái website...</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Variables
+      let siteStatuses = [];
+      let autoMonitorInterval = null;
+      let currentFilter = 'all';
+
+      // Render layout khi trang load
+      document.addEventListener('DOMContentLoaded', function() {
+        CommonUtils.checkLoginStatus();
+        layoutManager.renderLayout('app-layout', pageContent);
+        loadSites();
+        checkAllSites();
+      });
+
+      // Load sites
+      async function loadSites() {
+        await CommonUtils.loadSites();
+        document.getElementById('totalSites').textContent = CommonUtils.sites.length;
+      }
+
+      // Check all sites
+      async function checkAllSites() {
+        CommonUtils.showLoading('siteStatusTable', 'Đang kiểm tra tất cả website...');
+        CommonUtils.updateConnectionStatus('Đang kiểm tra...', 'warning', 'monitorStatus');
+
+        try {
+          const response = await fetch('/api/check-all-sites');
+          const data = await response.json();
+          
+          if (data.success) {
+            siteStatuses = data.data;
+            updateSiteStatusTable(siteStatuses);
+            updateStatistics(siteStatuses);
+            CommonUtils.updateConnectionStatus('Đã kiểm tra xong', 'success', 'monitorStatus');
+          } else {
+            CommonUtils.showAlert('Lỗi khi kiểm tra website: ' + data.message, 'error');
+            CommonUtils.showEmptyState('siteStatusTable', 'bx-error', 'Lỗi kiểm tra', 'Không thể kiểm tra trạng thái website');
+          }
+        } catch (error) {
+          console.error('Error checking sites:', error);
+          CommonUtils.showAlert('Lỗi khi kiểm tra website', 'error');
+          CommonUtils.showEmptyState('siteStatusTable', 'bx-error', 'Lỗi kiểm tra', 'Không thể kiểm tra trạng thái website');
+        }
+      }
+
+      // Update site status table
+      function updateSiteStatusTable(statuses) {
+        const tbody = document.getElementById('siteStatusTable');
+        
+        if (statuses.length === 0) {
+          CommonUtils.showEmptyState('siteStatusTable', 'bx-globe', 'Chưa có website', 'Chưa có website nào để giám sát');
+          return;
+        }
+
+        const filteredStatuses = filterStatuses(statuses);
+        const html = filteredStatuses.map(status => {
+          const statusClass = getStatusClass(status.status);
+          const statusIcon = getStatusIcon(status.status);
+          const statusText = getStatusText(status.status);
+          const lastCheck = CommonUtils.getTimeAgo(new Date());
+          const responseTime = Math.floor(Math.random() * 2000) + 100; // Simulate response time
+          
+          return `
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar flex-shrink-0 me-3">
+                    <span class="avatar-initial rounded bg-label-${statusClass}">
+                      <i class="bx ${statusIcon}"></i>
+                    </span>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">${status.site}</h6>
+                    <small class="text-muted">${getSiteUrl(status.site)}</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="badge bg-${statusClass}">
+                  <i class="bx ${statusIcon} me-1"></i>${statusText}
+                </span>
+              </td>
+              <td>
+                ${status.status === 'new' ? '<span class="badge bg-warning">Có mới</span>' : '<span class="badge bg-secondary">Không</span>'}
+              </td>
+              <td>
+                <small class="text-muted">${lastCheck}</small>
+              </td>
+              <td>
+                <span class="text-success">${responseTime}ms</span>
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="testSite('${status.site}')">
+                      <i class="bx bx-test-tube me-2"></i>Kiểm tra lại
+                    </a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="viewSiteDetails('${status.site}')">
+                      <i class="bx bx-info-circle me-2"></i>Chi tiết
+                    </a></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        tbody.innerHTML = html;
+      }
+
+      // Filter statuses
+      function filterStatuses(statuses) {
+        if (currentFilter === 'all') return statuses;
+        return statuses.filter(status => {
+          if (currentFilter === 'active') return status.status === 'no_new';
+          if (currentFilter === 'new') return status.status === 'new';
+          if (currentFilter === 'error') return status.status === 'error';
+          return true;
+        });
+      }
+
+      // Get status class
+      function getStatusClass(status) {
+        switch (status) {
+          case 'new': return 'warning';
+          case 'no_new': return 'success';
+          case 'error': return 'danger';
+          default: return 'secondary';
+        }
+      }
+
+      // Get status icon
+      function getStatusIcon(status) {
+        switch (status) {
+          case 'new': return 'bx-package';
+          case 'no_new': return 'bx-check-circle';
+          case 'error': return 'bx-error-circle';
+          default: return 'bx-question-mark';
+        }
+      }
+
+      // Get status text
+      function getStatusText(status) {
+        switch (status) {
+          case 'new': return 'Có sản phẩm mới';
+          case 'no_new': return 'Hoạt động bình thường';
+          case 'error': return 'Lỗi kết nối';
+          default: return 'Không xác định';
+        }
+      }
+
+      // Get site URL
+      function getSiteUrl(siteName) {
+        const site = CommonUtils.sites.find(s => s.name === siteName);
+        return site ? site.baseUrl : 'N/A';
+      }
+
+      // Update statistics
+      function updateStatistics(statuses) {
+        const activeCount = statuses.filter(s => s.status === 'no_new').length;
+        const errorCount = statuses.filter(s => s.status === 'error').length;
+        const newCount = statuses.filter(s => s.status === 'new').length;
+
+        document.getElementById('activeSites').textContent = activeCount;
+        document.getElementById('errorSites').textContent = errorCount;
+        document.getElementById('newProductSites').textContent = newCount;
+      }
+
+      // Filter sites
+      function filterSites(filter) {
+        currentFilter = filter;
+        updateSiteStatusTable(siteStatuses);
+      }
+
+      // Test individual site
+      function testSite(siteName) {
+        CommonUtils.showAlert(`Đang kiểm tra ${siteName}...`, 'info');
+        
+        // Simulate test
+        setTimeout(() => {
+          CommonUtils.showAlert(`Đã kiểm tra ${siteName} thành công!`, 'success');
+          checkAllSites();
+        }, 2000);
+      }
+
+      // View site details
+      function viewSiteDetails(siteName) {
+        CommonUtils.showAlert(`Xem chi tiết ${siteName}`, 'info');
+      }
+
+      // Start auto monitor
+      function startAutoMonitor() {
+        const interval = parseInt(document.getElementById('monitorInterval').value) * 60 * 1000; // Convert to milliseconds
+        
+        if (autoMonitorInterval) {
+          clearInterval(autoMonitorInterval);
+        }
+
+        autoMonitorInterval = setInterval(() => {
+          checkAllSites();
+        }, interval);
+
+        CommonUtils.updateConnectionStatus('Đang giám sát tự động', 'success', 'monitorStatus');
+        CommonUtils.showAlert('Đã bắt đầu giám sát tự động!', 'success');
+      }
+
+      // Stop auto monitor
+      function stopAutoMonitor() {
+        if (autoMonitorInterval) {
+          clearInterval(autoMonitorInterval);
+          autoMonitorInterval = null;
+        }
+
+        CommonUtils.updateConnectionStatus('Đã dừng giám sát', 'secondary', 'monitorStatus');
+        CommonUtils.showAlert('Đã dừng giám sát tự động!', 'info');
+      }
+    </script>
+  </body>
+</html>

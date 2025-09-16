@@ -1,0 +1,358 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Tool Craw Data Đa Luồng - Dashboard</title>
+
+    <meta name="description" content="Công cụ thu thập dữ liệu sản phẩm đa luồng" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apexcharts.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout sẽ được render vào đây -->
+    <div id="app-layout"></div>
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/layout.js"></script>
+
+    <!-- Page JS -->
+    <script>
+      // Khởi tạo layout manager
+      const layoutManager = new LayoutManager();
+      
+      // Nội dung trang Dashboard
+      const pageContent = `
+        <!-- Header -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="d-flex align-items-start row">
+                <div class="col-sm-7">
+                  <div class="card-body">
+                    <h5 class="card-title text-primary mb-3">📊 Dashboard Crawler</h5>
+                    <p class="mb-6">
+                      Tổng quan về hoạt động thu thập dữ liệu từ các website.<br />
+                      Theo dõi tiến độ, thống kê và quản lý crawler.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-5 text-center text-sm-left">
+                  <div class="card-body pb-0 px-0 px-md-6">
+                    <img
+                      src="../assets/img/illustrations/man-with-laptop.png"
+                      height="175"
+                      alt="Dashboard" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Site Selection -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Chọn Website</h5>
+                <button class="btn btn-outline-primary btn-sm" onclick="loadDashboardData()">
+                  <i class="bx bx-refresh me-1"></i>Tải lại
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="siteSelect" class="form-label">Website:</label>
+                    <select class="form-select" id="siteSelect" onchange="changeSite()">
+                      <option value="">Chọn website...</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Trạng thái kết nối:</label>
+                    <div id="connectionStatus" class="mt-2">
+                      <span class="badge bg-secondary">Chưa chọn website</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+          <div class="col-lg-3 col-md-6 col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                  <div class="avatar flex-shrink-0">
+                    <img
+                      src="../assets/img/icons/unicons/chart-success.png"
+                      alt="chart success"
+                      class="rounded" />
+                  </div>
+                </div>
+                <p class="mb-1">Sản phẩm mới</p>
+                <h4 class="card-title mb-3" id="newProducts">0</h4>
+                <small class="text-success fw-medium">
+                  <i class="icon-base bx bx-up-arrow-alt"></i> +12.5%
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                  <div class="avatar flex-shrink-0">
+                    <img
+                      src="../assets/img/icons/unicons/wallet-info.png"
+                      alt="wallet info"
+                      class="rounded" />
+                  </div>
+                </div>
+                <p class="mb-1">Tổng sản phẩm</p>
+                <h4 class="card-title mb-3" id="totalProducts">0</h4>
+                <small class="text-info fw-medium">
+                  <i class="icon-base bx bx-package"></i> Tất cả
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                  <div class="avatar flex-shrink-0">
+                    <img
+                      src="../assets/img/icons/unicons/paypal.png"
+                      alt="paypal"
+                      class="rounded" />
+                  </div>
+                </div>
+                <p class="mb-1">Website hoạt động</p>
+                <h4 class="card-title mb-3" id="activeSites">0</h4>
+                <small class="text-warning fw-medium">
+                  <i class="icon-base bx bx-globe"></i> Đang theo dõi
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                  <div class="avatar flex-shrink-0">
+                    <img
+                      src="../assets/img/icons/unicons/cc-primary.png"
+                      alt="Credit Card"
+                      class="rounded" />
+                  </div>
+                </div>
+                <p class="mb-1">Lần chạy hôm nay</p>
+                <h4 class="card-title mb-3" id="todayRuns">0</h4>
+                <small class="text-primary fw-medium">
+                  <i class="icon-base bx bx-time"></i> Hôm nay
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Hoạt động gần đây</h5>
+                <button class="btn btn-outline-primary btn-sm" onclick="loadRecentActivity()">
+                  <i class="bx bx-refresh me-1"></i>Tải lại
+                </button>
+              </div>
+              <div class="card-body">
+                <div id="recentActivity">
+                  <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Đang tải...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Đang tải hoạt động gần đây...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Variables
+      let currentSite = null;
+      let sites = [];
+
+      // Render layout khi trang load
+      document.addEventListener('DOMContentLoaded', function() {
+        CommonUtils.checkLoginStatus();
+        layoutManager.renderLayout('app-layout', pageContent);
+        loadSites();
+        loadDashboardData();
+      });
+
+      // Load sites from API
+      async function loadSites() {
+        sites = await CommonUtils.loadSites();
+        CommonUtils.populateSiteSelect('siteSelect');
+      }
+
+      // Change site
+      async function changeSite() {
+        const siteKey = document.getElementById('siteSelect').value;
+        
+        if (!siteKey) {
+          currentSite = null;
+          CommonUtils.updateConnectionStatus('Chưa chọn website', 'secondary', 'connectionStatus');
+          return;
+        }
+
+        currentSite = sites.find(s => s.key === siteKey);
+        const isConnected = await CommonUtils.changeSite(siteKey, 'connectionStatus');
+        
+        if (isConnected) {
+          loadSiteStats();
+        }
+      }
+
+      // Load site statistics
+      async function loadSiteStats() {
+        if (!currentSite) return;
+
+        try {
+          const response = await fetch(`/api/site-stats?siteKey=${currentSite.key}`);
+          const data = await response.json();
+          
+          if (data.success) {
+            updateStatsCards(data.data);
+          }
+        } catch (error) {
+          console.error('Error loading site stats:', error);
+        }
+      }
+
+      // Update statistics cards
+      function updateStatsCards(stats) {
+        document.getElementById('newProducts').textContent = stats.newProducts || 0;
+        document.getElementById('totalProducts').textContent = stats.totalProducts || 0;
+        document.getElementById('activeSites').textContent = stats.activeSites || 0;
+        document.getElementById('todayRuns').textContent = stats.todayRuns || 0;
+      }
+
+      // Load dashboard data
+      async function loadDashboardData() {
+        try {
+          const response = await fetch('/api/dashboard-stats');
+          const data = await response.json();
+          
+          if (data.success) {
+            updateStatsCards(data.data);
+            loadRecentActivity();
+          }
+        } catch (error) {
+          console.error('Error loading dashboard data:', error);
+        }
+      }
+
+      // Load recent activity
+      async function loadRecentActivity() {
+        try {
+          const response = await fetch('/api/recent-activity');
+          const data = await response.json();
+          
+          if (data.success) {
+            updateRecentActivity(data.data);
+          } else {
+            CommonUtils.showEmptyState('recentActivity', 'bx-time', 'Chưa có hoạt động', 'Chưa có hoạt động nào gần đây');
+          }
+        } catch (error) {
+          console.error('Error loading recent activity:', error);
+          CommonUtils.showEmptyState('recentActivity', 'bx-error', 'Lỗi tải dữ liệu', 'Không thể tải hoạt động gần đây');
+        }
+      }
+
+      // Update recent activity
+      function updateRecentActivity(activities) {
+        const container = document.getElementById('recentActivity');
+        
+        if (activities.length === 0) {
+          CommonUtils.showEmptyState('recentActivity', 'bx-time', 'Chưa có hoạt động', 'Chưa có hoạt động nào gần đây');
+          return;
+        }
+
+        const html = activities.map(activity => {
+          const timeAgo = CommonUtils.getTimeAgo(activity.timestamp);
+          const statusClass = activity.status === 'success' ? 'success' : 'danger';
+          const statusIcon = activity.status === 'success' ? 'bx-check-circle' : 'bx-error-circle';
+          
+          return `
+            <div class="d-flex align-items-center mb-3">
+              <div class="avatar flex-shrink-0 me-3">
+                <span class="avatar-initial rounded bg-label-${statusClass}">
+                  <i class="bx ${statusIcon}"></i>
+                </span>
+              </div>
+              <div class="flex-grow-1">
+                <h6 class="mb-0">${activity.message}</h6>
+                <small class="text-muted">${activity.site} • ${timeAgo}</small>
+              </div>
+              <div class="flex-shrink-0">
+                <span class="badge bg-${statusClass}">${activity.status}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        container.innerHTML = html;
+      }
+    </script>
+  </body>
+</html>

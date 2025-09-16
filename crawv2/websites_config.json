@@ -1,0 +1,31 @@
+{
+  "Teleteeshirt": {
+    "name": "Teleteeshirt",
+    "url": "https://teleteeshirt.com",
+    "base_url": "https://teleteeshirt.com/shop/?orderby=date",
+    "page_url_template": "https://teleteeshirt.com/shop/page/{page}/?orderby=date",
+    "img_selector": "img.attachment-woocommerce_thumbnail",
+    "img_src_attr": "src",
+    "img_alt_attr": "alt",
+    "bookmark_link": "https://images.teleteeshirt.com/2025/09/I-Love-Hit-T-shirts-shirt.jpg"
+  },
+  "lovasuit123332": {
+    "name": "lovasuit123332",
+    "url": "https://lovasuit.com/",
+    "base_url": "https://lovasuit.com/",
+    "page_url_template": "https://lovasuit.com/",
+    "img_selector": "img",
+    "img_src_attr": "src",
+    "img_alt_attr": "alt"
+  },
+  "Theredfirst": {
+    "name": "Theredfirst",
+    "url": "https://theredfirst.com/",
+    "base_url": "https://theredfirst.com/collections/all?sort_by=created-ascending",
+    "page_url_template": "https://theredfirst.com/collections/all?page={page}&sort_by=created-ascending",
+    "bookmark_link": "",
+    "img_selector": "img",
+    "img_src_attr": "src",
+    "img_alt_attr": "alt"
+  }
+}

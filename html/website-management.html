@@ -1,0 +1,627 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Quản lý Website - Admin Dashboard</title>
+
+    <meta name="description" content="Quản lý website crawler động" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+        <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        .website-card {
+            transition: transform 0.2s;
+        }
+        .website-card:hover {
+            transform: translateY(-2px);
+        }
+        .status-badge {
+            font-size: 0.75rem;
+        }
+        .website-url {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+    </style>
+  
+    <!-- Menu Toggle CSS -->
+    <style>
+      .menu-sub {
+        display: none;
+      }
+      .menu-item.open .menu-sub {
+        display: block;
+      }
+      .menu-toggle {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <div id="sidebar-container"></div>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <div id="navbar-container"></div>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <!-- Page Header -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h2><i class="bx bx-globe me-2"></i>Quản lý Website</h2>
+                      <p class="text-muted">Thêm, sửa, xóa và quản lý các website crawler</p>
+                    </div>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWebsiteModal">
+                      <i class="bx bx-plus-circle me-2"></i>Thêm Website
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Statistics -->
+              <div class="row mb-4">
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar flex-shrink-0 me-3">
+                          <span class="avatar-initial rounded bg-label-primary">
+                            <i class="bx bx-globe"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="fw-semibold d-block mb-1">Tổng Website</span>
+                          <h3 class="card-title mb-0" id="totalWebsites">0</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar flex-shrink-0 me-3">
+                          <span class="avatar-initial rounded bg-label-success">
+                            <i class="bx bx-check-circle"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="fw-semibold d-block mb-1">Hoạt động</span>
+                          <h3 class="card-title mb-0" id="activeWebsites">0</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar flex-shrink-0 me-3">
+                          <span class="avatar-initial rounded bg-label-danger">
+                            <i class="bx bx-x-circle"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="fw-semibold d-block mb-1">Lỗi</span>
+                          <h3 class="card-title mb-0" id="errorWebsites">0</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar flex-shrink-0 me-3">
+                          <span class="avatar-initial rounded bg-label-warning">
+                            <i class="bx bx-clock"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="fw-semibold d-block mb-1">Chưa kiểm tra</span>
+                          <h3 class="card-title mb-0" id="untestedWebsites">0</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Website List -->
+              <div class="row" id="websitesContainer">
+                <div class="col-12">
+                  <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Đang tải...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Đang tải danh sách website...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <div id="footer-container"></div>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Add Website Modal -->
+    <div class="modal fade" id="addWebsiteModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bx bx-plus-circle me-2"></i>Thêm Website Mới
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <form id="addWebsiteForm">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="websiteKey" class="form-label">Key Website <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="websiteKey" name="key" required
+                       placeholder="vd: mysite" pattern="[a-z0-9_]+" title="Chỉ cho phép chữ thường, số và dấu gạch dưới">
+                <div class="form-text">Key duy nhất để định danh website (chỉ chữ thường, số và _)</div>
+              </div>
+              <div class="mb-3">
+                <label for="websiteName" class="form-label">Tên Website <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="websiteName" name="name" required
+                       placeholder="vd: My Site">
+              </div>
+              <div class="mb-3">
+                <label for="websiteUrl" class="form-label">URL Website <span class="text-danger">*</span></label>
+                <input type="url" class="form-control" id="websiteUrl" name="baseUrl" required
+                       placeholder="https://example.com">
+              </div>
+              <div class="mb-3">
+                <label for="websiteBanner" class="form-label">Banner Text</label>
+                <input type="text" class="form-control" id="websiteBanner" name="banner"
+                       placeholder="vd: MYSITE CRAWLER">
+                <div class="form-text">Để trống sẽ tự động tạo từ tên website</div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+              <button type="submit" class="btn btn-primary">
+                <i class="bx bx-plus-circle me-2"></i>Thêm Website
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Website Modal -->
+    <div class="modal fade" id="editWebsiteModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bx bx-pencil-square me-2"></i>Chỉnh sửa Website
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <form id="editWebsiteForm">
+            <div class="modal-body">
+              <input type="hidden" id="editWebsiteKey" name="key">
+              <div class="mb-3">
+                <label for="editWebsiteName" class="form-label">Tên Website <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="editWebsiteName" name="name" required>
+              </div>
+              <div class="mb-3">
+                <label for="editWebsiteUrl" class="form-label">URL Website <span class="text-danger">*</span></label>
+                <input type="url" class="form-control" id="editWebsiteUrl" name="baseUrl" required>
+              </div>
+              <div class="mb-3">
+                <label for="editWebsiteBanner" class="form-label">Banner Text</label>
+                <input type="text" class="form-control" id="editWebsiteBanner" name="banner">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+              <button type="submit" class="btn btn-primary">
+                <i class="bx bx-check-circle me-2"></i>Cập nhật
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+    <!-- Debug script -->
+    <script>
+      console.log('Scripts loaded:', {
+        CommonUtils: typeof CommonUtils,
+        SidebarManager: typeof SidebarManager
+      });
+    </script>
+
+    <!-- Page JS -->
+    <script>
+      let websites = [];
+      let websiteStatuses = {};
+
+      // Initialize layout
+      document.addEventListener('DOMContentLoaded', function() {
+        try {
+          // Check login status
+          if (typeof CommonUtils !== 'undefined') {
+            CommonUtils.checkLoginStatus();
+          }
+          
+          // Initialize sidebar
+          if (typeof SidebarManager !== 'undefined') {
+            const sidebarManager = new SidebarManager();
+            document.getElementById('sidebar-container').innerHTML = sidebarManager.generateSidebarHTML();
+            document.getElementById('navbar-container').innerHTML = sidebarManager.generateNavbarHTML();
+            document.getElementById('footer-container').innerHTML = sidebarManager.generateFooterHTML();
+          } else {
+            console.error('SidebarManager is not defined');
+          }
+          
+          // Load websites
+          loadWebsites();
+        } catch (error) {
+          console.error('Error initializing layout:', error);
+        }
+      });
+
+      // Load websites from API
+      async function loadWebsites() {
+        try {
+          const response = await fetch('/api/websites');
+          const data = await response.json();
+          
+          if (data.success) {
+            websites = data.data;
+            renderWebsites();
+            updateStatistics();
+          } else {
+            showAlert('Lỗi khi tải danh sách website: ' + data.message, 'error');
+          }
+        } catch (error) {
+          showAlert('Lỗi khi tải danh sách website: ' + error.message, 'error');
+        }
+      }
+
+      // Render websites
+      function renderWebsites() {
+        const container = document.getElementById('websitesContainer');
+        
+        if (websites.length === 0) {
+          container.innerHTML = `
+            <div class="col-12">
+              <div class="text-center py-5">
+                <i class="bx bx-globe text-muted" style="font-size: 3rem;"></i>
+                <h4 class="mt-3 text-muted">Chưa có website nào</h4>
+                <p class="text-muted">Hãy thêm website đầu tiên để bắt đầu</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWebsiteModal">
+                  <i class="bx bx-plus-circle me-2"></i>Thêm Website
+                </button>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        const html = websites.map(website => {
+          const status = websiteStatuses[website.key] || 'untested';
+          const statusBadge = getStatusBadge(status);
+          
+          return `
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card website-card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div>
+                      <h5 class="card-title mb-1">${website.name}</h5>
+                      <p class="website-url mb-0">${website.baseUrl}</p>
+                    </div>
+                    ${statusBadge}
+                  </div>
+                  
+                  <div class="mb-3">
+                    <small class="text-muted">
+                      <strong>Key:</strong> ${website.key}<br>
+                      <strong>Banner:</strong> ${website.banner}
+                    </small>
+                  </div>
+                  
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-primary" onclick="testWebsite('${website.key}')">
+                      <i class="bx bx-wifi"></i> Test
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="editWebsite('${website.key}')">
+                      <i class="bx bx-pencil"></i> Sửa
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteWebsite('${website.key}')">
+                      <i class="bx bx-trash"></i> Xóa
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        container.innerHTML = html;
+      }
+
+      // Get status badge HTML
+      function getStatusBadge(status) {
+        const badges = {
+          'active': '<span class="badge bg-success status-badge">Hoạt động</span>',
+          'error': '<span class="badge bg-danger status-badge">Lỗi</span>',
+          'untested': '<span class="badge bg-secondary status-badge">Chưa kiểm tra</span>'
+        };
+        return badges[status] || badges['untested'];
+      }
+
+      // Update statistics
+      function updateStatistics() {
+        const total = websites.length;
+        const active = Object.values(websiteStatuses).filter(status => status === 'active').length;
+        const error = Object.values(websiteStatuses).filter(status => status === 'error').length;
+        const untested = total - active - error;
+
+        document.getElementById('totalWebsites').textContent = total;
+        document.getElementById('activeWebsites').textContent = active;
+        document.getElementById('errorWebsites').textContent = error;
+        document.getElementById('untestedWebsites').textContent = untested;
+      }
+
+      // Test website connection
+      async function testWebsite(key) {
+        try {
+          const response = await fetch(`/api/websites/${key}/test`, {
+            method: 'POST'
+          });
+          const data = await response.json();
+          
+          if (data.success) {
+            websiteStatuses[key] = data.data.isConnected ? 'active' : 'error';
+            renderWebsites();
+            updateStatistics();
+            
+            const status = data.data.isConnected ? 'success' : 'error';
+            const message = data.data.isConnected ? 'Website hoạt động bình thường' : 'Không thể kết nối đến website';
+            showAlert(message, status);
+          } else {
+            showAlert('Lỗi khi test website: ' + data.message, 'error');
+          }
+        } catch (error) {
+          showAlert('Lỗi khi test website: ' + error.message, 'error');
+        }
+      }
+
+      // Edit website
+      function editWebsite(key) {
+        const website = websites.find(w => w.key === key);
+        if (!website) return;
+
+        document.getElementById('editWebsiteKey').value = website.key;
+        document.getElementById('editWebsiteName').value = website.name;
+        document.getElementById('editWebsiteUrl').value = website.baseUrl;
+        document.getElementById('editWebsiteBanner').value = website.banner;
+
+        new bootstrap.Modal(document.getElementById('editWebsiteModal')).show();
+      }
+
+      // Delete website
+      async function deleteWebsite(key) {
+        const website = websites.find(w => w.key === key);
+        if (!website) return;
+
+        const result = await Swal.fire({
+          title: 'Xác nhận xóa',
+          text: `Bạn có chắc chắn muốn xóa website "${website.name}"?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Xóa',
+          cancelButtonText: 'Hủy',
+          confirmButtonColor: '#dc3545'
+        });
+
+        if (result.isConfirmed) {
+          try {
+            const response = await fetch(`/api/websites/${key}`, {
+              method: 'DELETE'
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+              showAlert('Website đã được xóa thành công', 'success');
+              loadWebsites();
+            } else {
+              showAlert('Lỗi khi xóa website: ' + data.message, 'error');
+            }
+          } catch (error) {
+            showAlert('Lỗi khi xóa website: ' + error.message, 'error');
+          }
+        }
+      }
+
+      // Add website form submit
+      document.getElementById('addWebsiteForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const websiteData = {
+          key: formData.get('key'),
+          name: formData.get('name'),
+          baseUrl: formData.get('baseUrl'),
+          banner: formData.get('banner') || null
+        };
+
+        try {
+          const response = await fetch('/api/websites', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(websiteData)
+          });
+          const data = await response.json();
+          
+          if (data.success) {
+            showAlert('Website đã được thêm thành công', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('addWebsiteModal')).hide();
+            e.target.reset();
+            loadWebsites();
+          } else {
+            showAlert('Lỗi khi thêm website: ' + data.message, 'error');
+          }
+        } catch (error) {
+          showAlert('Lỗi khi thêm website: ' + error.message, 'error');
+        }
+      });
+
+      // Edit website form submit
+      document.getElementById('editWebsiteForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const websiteData = {
+          name: formData.get('name'),
+          baseUrl: formData.get('baseUrl'),
+          banner: formData.get('banner') || null
+        };
+        const key = formData.get('key');
+
+        try {
+          const response = await fetch(`/api/websites/${key}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(websiteData)
+          });
+          const data = await response.json();
+          
+          if (data.success) {
+            showAlert('Website đã được cập nhật thành công', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('editWebsiteModal')).hide();
+            loadWebsites();
+          } else {
+            showAlert('Lỗi khi cập nhật website: ' + data.message, 'error');
+          }
+        } catch (error) {
+          showAlert('Lỗi khi cập nhật website: ' + error.message, 'error');
+        }
+      });
+
+      // Show alert
+      function showAlert(message, type) {
+        Swal.fire({
+          title: type === 'success' ? 'Thành công' : 'Lỗi',
+          text: message,
+          icon: type,
+          confirmButtonText: 'OK'
+        });
+      }
+    </script>
+  
+    <!-- Menu Toggle Script -->
+    <script>
+      // Initialize menu toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle menu toggle clicks
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.menu-toggle')) {
+            e.preventDefault();
+            const menuItem = e.target.closest('.menu-item');
+            const menuSub = menuItem.querySelector('.menu-sub');
+            
+            if (menuSub) {
+              // Toggle active class
+              menuItem.classList.toggle('open');
+              
+              // Close other open menus
+              const allMenuItems = document.querySelectorAll('.menu-item');
+              allMenuItems.forEach(item => {
+                if (item !== menuItem && item.classList.contains('open')) {
+                  item.classList.remove('open');
+                }
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+
+
+<!-- by ducvancoder - 0587282880 -->

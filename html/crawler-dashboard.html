@@ -1,0 +1,1055 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Tool Craw Data Đa Luồng - Dashboard</title>
+
+    <meta name="description" content="Công cụ thu thập dữ liệu sản phẩm đa luồng" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  
+    <!-- Menu Toggle CSS -->
+    <style>
+      .menu-sub {
+        display: none;
+      }
+      .menu-item.open .menu-sub {
+        display: block;
+      }
+      .menu-toggle {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <div id="sidebar-container"></div>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <div id="navbar-container"></div>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <!-- Header -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="d-flex align-items-start row">
+                      <div class="col-sm-7">
+                        <div class="card-body">
+                          <h5 class="card-title text-primary mb-3">🎉 Chào mừng đến với Tool Craw Data Đa Luồng!</h5>
+                          <p class="mb-6">
+                            Công cụ thu thập dữ liệu sản phẩm tự động từ nhiều website.<br />
+                            Hỗ trợ tìm kiếm theo từ khóa, quản lý bookmark và xuất dữ liệu CSV.
+                          </p>
+                          <a href="/html/crawler-management.html" class="btn btn-sm btn-outline-primary">Bắt đầu thu thập</a>
+                          <button class="btn btn-sm btn-outline-success ms-2" onclick="testSearch()">Test Search</button>
+                        </div>
+                      </div>
+                      <div class="col-sm-5 text-center text-sm-left">
+                        <div class="card-body pb-0 px-0 px-md-6">
+                          <img
+                            src="../assets/img/illustrations/man-with-laptop.png"
+                            height="175"
+                            alt="Crawler Tool" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+
+              <!-- Site Selection -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Chọn Website</h5>
+                      <button class="btn btn-outline-primary btn-sm" onclick="checkAllSites()">
+                        <i class="bx bx-refresh me-1"></i>Kiểm tra tất cả
+                      </button>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label for="siteSelect" class="form-label">Website hiện tại:</label>
+                          <select class="form-select" id="siteSelect" onchange="changeSite()">
+                            <option value="">Chọn website...</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Trạng thái kết nối:</label>
+                          <div id="connectionStatus" class="mt-2">
+                            <span class="badge bg-secondary">Chưa chọn website</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Statistics Cards -->
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                        <div class="avatar flex-shrink-0">
+                          <img
+                            src="../assets/img/icons/unicons/chart-success.png"
+                            alt="chart success"
+                            class="rounded" />
+                        </div>
+                        <div class="dropdown">
+                          <button
+                            class="btn p-0"
+                            type="button"
+                            id="cardOpt1"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="icon-base bx bx-dots-vertical-rounded text-body-secondary"></i>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt1">
+                            <a class="dropdown-item" href="/html/bookmark-management.html">Xem chi tiết</a>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="mb-1">Tổng Bookmark</p>
+                      <h4 class="card-title mb-3" id="totalBookmarks">0</h4>
+                      <small class="text-success fw-medium" id="bookmarkStatus">
+                        <i class="icon-base bx bx-up-arrow-alt"></i> Đang tải...
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                        <div class="avatar flex-shrink-0">
+                          <img
+                            src="../assets/img/icons/unicons/wallet-info.png"
+                            alt="wallet info"
+                            class="rounded" />
+                        </div>
+                        <div class="dropdown">
+                          <button
+                            class="btn p-0"
+                            type="button"
+                            id="cardOpt2"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="icon-base bx bx-dots-vertical-rounded text-body-secondary"></i>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt2">
+                            <a class="dropdown-item" href="/html/keyword-history.html">Xem lịch sử</a>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="mb-1">Từ khóa đã dùng</p>
+                      <h4 class="card-title mb-3" id="totalKeywords">0</h4>
+                      <small class="text-info fw-medium" id="keywordStatus">
+                        <i class="icon-base bx bx-search"></i> Đang tải...
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                        <div class="avatar flex-shrink-0">
+                          <img
+                            src="../assets/img/icons/unicons/paypal.png"
+                            alt="paypal"
+                            class="rounded" />
+                        </div>
+                        <div class="dropdown">
+                          <button
+                            class="btn p-0"
+                            type="button"
+                            id="cardOpt3"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="icon-base bx bx-dots-vertical-rounded text-body-secondary"></i>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
+                            <a class="dropdown-item" href="/html/data-export.html">Xuất dữ liệu</a>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="mb-1">Website đang theo dõi</p>
+                      <h4 class="card-title mb-3" id="totalSites">11</h4>
+                      <small class="text-warning fw-medium">
+                        <i class="icon-base bx bx-globe"></i> Đa luồng
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-6 mb-4">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <div class="card-title d-flex align-items-start justify-content-between mb-4">
+                        <div class="avatar flex-shrink-0">
+                          <img
+                            src="../assets/img/icons/unicons/cc-primary.png"
+                            alt="Credit Card"
+                            class="rounded" />
+                        </div>
+                        <div class="dropdown">
+                          <button
+                            class="btn p-0"
+                            type="button"
+                            id="cardOpt4"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="icon-base bx bx-dots-vertical-rounded text-body-secondary"></i>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
+                            <a class="dropdown-item" href="/html/site-monitor.html">Giám sát</a>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="mb-1">Website hoạt động</p>
+                      <h4 class="card-title mb-3" id="activeSites">0</h4>
+                      <small class="text-success fw-medium" id="activeStatus">
+                        <i class="icon-base bx bx-check-circle"></i> Đang kiểm tra...
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recent Activity -->
+              <div class="row">
+                <div class="col-md-6 col-lg-4 order-0 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                      <div class="card-title mb-0">
+                        <h5 class="mb-1 me-2">Hoạt động gần đây</h5>
+                        <p class="card-subtitle">Lịch sử thu thập dữ liệu</p>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="recentActivity">
+                        <div class="text-center py-4">
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Đang tải...</span>
+                          </div>
+                          <p class="mt-2 text-muted">Đang tải dữ liệu...</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 order-1 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                      <div class="card-title mb-0">
+                        <h5 class="mb-1 me-2">Website Status</h5>
+                        <p class="card-subtitle">Trạng thái các website</p>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="siteStatusList">
+                        <div class="text-center py-4">
+                          <button class="btn btn-primary btn-lg pulse-animation" onclick="checkAllSites()">
+                            <i class="bx bx-refresh me-2"></i>Kiểm tra tất cả
+                          </button>
+                          <p class="mt-3 text-muted">Nhấp để kiểm tra trạng thái website</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                      <div class="card-title mb-0">
+                        <h5 class="mb-1 me-2">Từ khóa phổ biến</h5>
+                        <p class="card-subtitle">Top từ khóa được sử dụng</p>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="popularKeywords">
+                        <div class="text-center py-4">
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Đang tải...</span>
+                          </div>
+                          <p class="mt-2 text-muted">Đang tải từ khóa...</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <div id="footer-container"></div>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+
+    <!-- Custom CSS for pulse animation and search -->
+    <style>
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+      
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(105, 108, 255, 0.7);
+        }
+        70% {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 10px rgba(105, 108, 255, 0);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(105, 108, 255, 0);
+        }
+      }
+      
+      /* Search Results Styles */
+      .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        max-height: 400px;
+        overflow-y: auto;
+        z-index: 9999;
+        display: none;
+        margin-top: 4px;
+        min-width: 300px;
+      }
+      
+      .search-results.show {
+        display: block;
+        animation: fadeInDown 0.2s ease-out;
+      }
+      
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .search-result-item {
+        padding: 12px 16px;
+        border-bottom: 1px solid #f5f5f5;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      
+      .search-result-item:hover {
+        background-color: #f8f9fa;
+        transform: translateX(2px);
+      }
+      
+      .search-result-item:last-child {
+        border-bottom: none;
+        border-radius: 0 0 8px 8px;
+      }
+      
+      .search-result-item:first-child {
+        border-radius: 8px 8px 0 0;
+      }
+      
+      .search-result-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #696cff 0%, #5a5fcf 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(105, 108, 255, 0.3);
+      }
+      
+      .search-result-content {
+        flex: 1;
+        min-width: 0;
+      }
+      
+      .search-result-title {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 4px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+      
+      .search-result-description {
+        color: #6c757d;
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 0;
+      }
+      
+      .search-result-category {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        color: #1976d2;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 600;
+        margin-left: auto;
+        flex-shrink: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .no-results {
+        padding: 24px;
+        text-align: center;
+        color: #6c757d;
+        font-size: 14px;
+      }
+      
+      .no-results i {
+        font-size: 32px;
+        margin-bottom: 12px;
+        color: #dee2e6;
+      }
+      
+      .search-highlight {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        color: #856404;
+        padding: 2px 4px;
+        border-radius: 4px;
+        font-weight: 700;
+        box-shadow: 0 1px 3px rgba(133, 100, 4, 0.2);
+      }
+      
+      /* Scrollbar styling */
+      .search-results::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      .search-results::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+      }
+      
+      .search-results::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 3px;
+      }
+      
+      .search-results::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+      }
+    </style>
+
+    <!-- Page JS -->
+    <script>
+      let currentSite = null;
+      let sites = [];
+
+      // Load sites on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check login status
+        CommonUtils.checkLoginStatus();
+        
+        // Initialize sidebar
+        const sidebarManager = new SidebarManager();
+        document.getElementById('sidebar-container').innerHTML = sidebarManager.generateSidebarHTML();
+        document.getElementById('navbar-container').innerHTML = sidebarManager.generateNavbarHTML();
+        document.getElementById('footer-container').innerHTML = sidebarManager.generateFooterHTML();
+        
+        // Load data
+        loadSites();
+        loadDashboardData();
+      });
+
+      // Refresh data when page becomes visible (user navigates back to this page)
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          loadSites();
+          loadDashboardData();
+        }
+      });
+
+      // Also refresh when window gains focus
+      window.addEventListener('focus', function() {
+        loadSites();
+        loadDashboardData();
+      });
+
+      // Test search functionality
+      setTimeout(() => {
+        const searchInput = document.getElementById('globalSearch');
+        
+        if (searchInput) {
+          searchInput.addEventListener('input', handleSearch);
+        }
+      }, 2000);
+
+      // Search data
+      const searchData = [
+        {
+          id: 'crawler-management',
+          title: 'Quản lý Crawler',
+          description: 'Thu thập dữ liệu sản phẩm từ website',
+          keywords: ['crawler', 'crawl', 'thu thập', 'dữ liệu', 'sản phẩm', 'crawling', 'scraping'],
+          url: '/html/crawler-management.html',
+          category: 'Crawler',
+          icon: 'bx-data'
+        },
+        {
+          id: 'crawler-dashboard',
+          title: 'Dashboard Crawler',
+          description: 'Tổng quan hoạt động crawler',
+          keywords: ['dashboard', 'tổng quan', 'thống kê', 'overview', 'báo cáo'],
+          url: '/html/crawler-dashboard.html',
+          category: 'Crawler',
+          icon: 'bx-bar-chart-alt-2'
+        },
+        {
+          id: 'data-export',
+          title: 'Xuất dữ liệu',
+          description: 'Xuất dữ liệu ra file CSV, Excel',
+          keywords: ['export', 'xuất', 'csv', 'excel', 'file', 'download', 'tải'],
+          url: '/html/data-export.html',
+          category: 'Dữ liệu',
+          icon: 'bx-download'
+        },
+        {
+          id: 'bookmark-management',
+          title: 'Quản lý Bookmark',
+          description: 'Quản lý sản phẩm đã lưu',
+          keywords: ['bookmark', 'lưu', 'saved', 'favorite', 'yêu thích', 'quản lý'],
+          url: '/html/bookmark-management.html',
+          category: 'Dữ liệu',
+          icon: 'bx-bookmark'
+        },
+        {
+          id: 'keyword-search',
+          title: 'Tìm kiếm từ khóa',
+          description: 'Tìm kiếm sản phẩm theo từ khóa',
+          keywords: ['keyword', 'từ khóa', 'search', 'tìm kiếm', 'searching', 'query'],
+          url: '/html/keyword-search.html',
+          category: 'Tìm kiếm',
+          icon: 'bx-search'
+        },
+        {
+          id: 'keyword-history',
+          title: 'Lịch sử từ khóa',
+          description: 'Xem lịch sử tìm kiếm từ khóa',
+          keywords: ['history', 'lịch sử', 'log', 'nhật ký', 'từ khóa', 'keyword'],
+          url: '/html/keyword-history.html',
+          category: 'Tìm kiếm',
+          icon: 'bx-history'
+        },
+        {
+          id: 'site-monitor',
+          title: 'Giám sát Website',
+          description: 'Theo dõi trạng thái website real-time',
+          keywords: ['monitor', 'giám sát', 'theo dõi', 'status', 'trạng thái', 'real-time'],
+          url: '/html/site-monitor.html',
+          category: 'Giám sát',
+          icon: 'bx-monitor'
+        },
+        {
+          id: 'website-management',
+          title: 'Quản lý Website',
+          description: 'Thêm, sửa, xóa website crawler',
+          keywords: ['website', 'quản lý', 'management', 'thêm', 'sửa', 'xóa', 'add', 'edit', 'delete'],
+          url: '/html/website-management.html',
+          category: 'Hệ thống',
+          icon: 'bx-globe'
+        },
+        {
+          id: 'settings',
+          title: 'Cài đặt',
+          description: 'Cấu hình hệ thống',
+          keywords: ['settings', 'cài đặt', 'config', 'cấu hình', 'preferences', 'tùy chọn'],
+          url: '/html/settings.html',
+          category: 'Hệ thống',
+          icon: 'bx-cog'
+        }
+      ];
+
+      // Fuzzy search function
+      function fuzzySearch(query, items) {
+        if (!query || query.length < 2) return [];
+        
+        const results = [];
+        const queryLower = query.toLowerCase();
+        
+        items.forEach(item => {
+          let score = 0;
+          
+          // Kiểm tra title
+          if (item.title.toLowerCase().includes(queryLower)) {
+            score += 10;
+          }
+          
+          // Kiểm tra description
+          if (item.description.toLowerCase().includes(queryLower)) {
+            score += 5;
+          }
+          
+          // Kiểm tra keywords
+          item.keywords.forEach(keyword => {
+            if (keyword.toLowerCase().includes(queryLower)) {
+              score += 3;
+            }
+          });
+          
+          // Kiểm tra category
+          if (item.category.toLowerCase().includes(queryLower)) {
+            score += 2;
+          }
+          
+          if (score > 0) {
+            results.push({
+              ...item,
+              score
+            });
+          }
+        });
+        
+        return results.sort((a, b) => b.score - a.score);
+      }
+
+      // Highlight text
+      function highlightText(text, query) {
+        if (!query) return text;
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<span class="search-highlight">$1</span>');
+      }
+
+      // Display search results
+      function displaySearchResults(results, query) {
+        const container = document.getElementById('searchResults');
+        
+        if (results.length === 0) {
+          container.innerHTML = `
+            <div class="no-results">
+              <i class="bx bx-search-alt-2 mb-2" style="font-size: 1.5rem;"></i>
+              <div>Không tìm thấy kết quả nào</div>
+              <small>Thử từ khóa khác</small>
+            </div>
+          `;
+        } else {
+          const html = results.slice(0, 8).map(result => `
+            <div class="search-result-item" onclick="window.location.href='${result.url}'">
+              <div class="search-result-icon">
+                <i class="bx ${result.icon}"></i>
+              </div>
+              <div class="search-result-content">
+                <div class="search-result-title">
+                  ${highlightText(result.title, query)}
+                </div>
+                <div class="search-result-description">
+                  ${highlightText(result.description, query)}
+                </div>
+              </div>
+              <div class="search-result-category">
+                ${result.category}
+              </div>
+            </div>
+          `).join('');
+          
+          container.innerHTML = html;
+        }
+        
+        container.classList.add('show');
+      }
+
+      // Handle search
+      function handleSearch(event) {
+        const query = event.target.value.trim();
+        const resultsContainer = document.getElementById('searchResults');
+        
+        if (query.length < 2) {
+          resultsContainer.classList.remove('show');
+          return;
+        }
+        
+        const results = fuzzySearch(query, searchData);
+        displaySearchResults(results, query);
+      }
+
+      // Test search functionality
+      function testSearch() {
+        const searchInput = document.getElementById('globalSearch');
+        const searchResults = document.getElementById('searchResults');
+        
+        // Test fuzzy search
+        const results = fuzzySearch('crawler', searchData);
+        
+        // Test display results
+        if (results.length > 0) {
+          displaySearchResults(results, 'crawler');
+        }
+      }
+
+      // Load sites from API
+      async function loadSites() {
+        sites = await CommonUtils.loadSites();
+        CommonUtils.populateSiteSelect('siteSelect');
+      }
+
+      // Change site
+      async function changeSite() {
+        const siteKey = document.getElementById('siteSelect').value;
+        
+        if (!siteKey) {
+          currentSite = null;
+          CommonUtils.updateConnectionStatus('Chưa chọn website', 'secondary', 'connectionStatus');
+          return;
+        }
+
+        currentSite = sites.find(s => s.key === siteKey);
+        const isConnected = await CommonUtils.changeSite(siteKey, 'connectionStatus');
+        
+        if (isConnected) {
+          loadSiteStats();
+        }
+      }
+
+      // Load site statistics
+      async function loadSiteStats() {
+        if (!currentSite) return;
+
+        try {
+          const response = await fetch(`/api/stats?siteKey=${currentSite.key}`);
+          const data = await response.json();
+          
+          if (data.success) {
+            document.getElementById('totalBookmarks').textContent = data.data.totalBookmarks;
+            document.getElementById('bookmarkStatus').innerHTML = 
+              `<i class="icon-base bx bx-up-arrow-alt"></i> Mới: ${data.data.newBookmarks}`;
+          }
+        } catch (error) {
+          console.error('Error loading stats:', error);
+        }
+      }
+
+      // Check all sites
+      async function checkAllSites() {
+        const button = event.target;
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="bx bx-loader-alt bx-spin me-1"></i>Đang kiểm tra...';
+        button.disabled = true;
+
+        try {
+          const response = await fetch('/api/check-all-sites');
+          const data = await response.json();
+          
+          if (data.success) {
+            updateSiteStatusList(data.data);
+            updateActiveSitesCount(data.data);
+          }
+        } catch (error) {
+          console.error('Error checking sites:', error);
+          showToast('Lỗi khi kiểm tra website', 'error');
+        } finally {
+          button.innerHTML = originalText;
+          button.disabled = false;
+        }
+      }
+
+      // Update site status list
+      function updateSiteStatusList(siteStatuses) {
+        const container = document.getElementById('siteStatusList');
+        
+        if (siteStatuses.length === 0) {
+          container.innerHTML = '<p class="text-muted">Không có dữ liệu</p>';
+          return;
+        }
+
+        const html = siteStatuses.map(status => {
+          const statusClass = status.status === 'new' ? 'success' : 
+                            status.status === 'no_new' ? 'warning' : 'danger';
+          const statusIcon = status.status === 'new' ? 'bx-check-circle' : 
+                           status.status === 'no_new' ? 'bx-time' : 'bx-x-circle';
+          
+          return `
+            <div class="d-flex align-items-center mb-3">
+              <div class="avatar flex-shrink-0 me-3">
+                <span class="avatar-initial rounded bg-label-${statusClass}">
+                  <i class="bx ${statusIcon}"></i>
+                </span>
+              </div>
+              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                <div class="me-2">
+                  <h6 class="mb-0">${status.site}</h6>
+                  <small class="text-muted">${status.message}</small>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        container.innerHTML = html;
+      }
+
+      // Update active sites count
+      function updateActiveSitesCount(siteStatuses) {
+        const activeCount = siteStatuses.filter(s => s.status !== 'error').length;
+        document.getElementById('activeSites').textContent = activeCount;
+        document.getElementById('activeStatus').innerHTML = 
+          `<i class="icon-base bx bx-check-circle"></i> ${activeCount}/${siteStatuses.length} hoạt động`;
+      }
+
+      // Check all sites status
+      async function checkAllSites() {
+        const container = document.getElementById('siteStatusList');
+        
+        // Show loading state
+        container.innerHTML = `
+          <div class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Đang kiểm tra...</span>
+            </div>
+            <p class="mt-2 text-muted">Đang kiểm tra tất cả website...</p>
+          </div>
+        `;
+        
+        try {
+          const response = await fetch('/api/check-all-sites');
+          const data = await response.json();
+          
+          if (data.success) {
+            updateSiteStatusList(data.data);
+            updateActiveStatus(data.data);
+          } else {
+            container.innerHTML = `
+              <div class="text-center py-4">
+                <i class="bx bx-error-circle text-danger" style="font-size: 2rem;"></i>
+                <p class="mt-2 text-danger">Lỗi khi kiểm tra website</p>
+                <button class="btn btn-outline-primary btn-sm" onclick="checkAllSites()">
+                  <i class="bx bx-refresh me-1"></i>Thử lại
+                </button>
+              </div>
+            `;
+          }
+        } catch (error) {
+          console.error('Error checking all sites:', error);
+          container.innerHTML = `
+            <div class="text-center py-4">
+              <i class="bx bx-error-circle text-danger" style="font-size: 2rem;"></i>
+              <p class="mt-2 text-danger">Lỗi kết nối</p>
+              <button class="btn btn-outline-primary btn-sm" onclick="checkAllSites()">
+                <i class="bx bx-refresh me-1"></i>Thử lại
+              </button>
+            </div>
+          `;
+        }
+      }
+
+      // Load dashboard data
+      async function loadDashboardData() {
+        // Load bookmark statistics
+        try {
+          const response = await fetch('/api/stats');
+          const data = await response.json();
+          
+          if (data.success) {
+            document.getElementById('totalBookmarks').textContent = data.data.totalBookmarks;
+            document.getElementById('bookmarkStatus').innerHTML = 
+              `<i class="icon-base bx bx-up-arrow-alt"></i> Mới: ${data.data.newBookmarks}`;
+          } else {
+            document.getElementById('bookmarkStatus').innerHTML = 
+              `<i class="icon-base bx bx-error"></i> Lỗi: ${data.message}`;
+          }
+        } catch (error) {
+          document.getElementById('bookmarkStatus').innerHTML = 
+            `<i class="icon-base bx bx-error"></i> Lỗi tải dữ liệu`;
+        }
+
+        // Load keyword history
+        try {
+          const response = await fetch('/api/keyword-history');
+          const data = await response.json();
+          
+          if (data.success) {
+            document.getElementById('totalKeywords').textContent = data.data.allHistory.length;
+            updatePopularKeywords(data.data.popularKeywords);
+          }
+        } catch (error) {
+          console.error('Error loading keyword history:', error);
+        }
+
+        // Load recent activity (placeholder)
+        setTimeout(() => {
+          document.getElementById('recentActivity').innerHTML = `
+            <div class="d-flex align-items-center mb-3">
+              <div class="avatar flex-shrink-0 me-3">
+                <span class="avatar-initial rounded bg-label-primary">
+                  <i class="bx bx-data"></i>
+                </span>
+              </div>
+              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                <div class="me-2">
+                  <h6 class="mb-0">Thu thập dữ liệu</h6>
+                  <small class="text-muted">Chưa có hoạt động gần đây</small>
+                </div>
+                <div class="user-progress">
+                  <small class="text-muted">--</small>
+                </div>
+              </div>
+            </div>
+          `;
+        }, 1000);
+      }
+
+      // Update popular keywords
+      function updatePopularKeywords(keywords) {
+        const container = document.getElementById('popularKeywords');
+        
+        if (keywords.length === 0) {
+          container.innerHTML = '<p class="text-muted">Chưa có từ khóa nào</p>';
+          return;
+        }
+
+        const html = keywords.slice(0, 5).map((keyword, index) => `
+          <div class="d-flex align-items-center mb-3">
+            <div class="avatar flex-shrink-0 me-3">
+              <span class="avatar-initial rounded bg-label-primary">
+                ${index + 1}
+              </span>
+            </div>
+            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+              <div class="me-2">
+                <h6 class="mb-0">${keyword.keyword}</h6>
+                <small class="text-muted">${keyword.count} lần sử dụng</small>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        container.innerHTML = html;
+      }
+
+      // Show toast notification
+      function showToast(message, type = 'info') {
+        CommonUtils.showAlert(message, type);
+      }
+    </script>
+    
+    <!-- Menu Toggle Script -->
+    <script>
+      // Initialize menu toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle menu toggle clicks
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.menu-toggle')) {
+            e.preventDefault();
+            const menuItem = e.target.closest('.menu-item');
+            const menuSub = menuItem.querySelector('.menu-sub');
+            
+            if (menuSub) {
+              // Toggle active class
+              menuItem.classList.toggle('open');
+              
+              // Close other open menus
+              const allMenuItems = document.querySelectorAll('.menu-item');
+              allMenuItems.forEach(item => {
+                if (item !== menuItem && item.classList.contains('open')) {
+                  item.classList.remove('open');
+                }
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

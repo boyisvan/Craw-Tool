@@ -1,0 +1,90 @@
+[
+  {
+    "key": "keeptee",
+    "name": "Keeptee",
+    "baseUrl": "https://keeptee.com",
+    "banner": "KEEPTEE CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "torunstyle",
+    "name": "Torunstyle",
+    "baseUrl": "https://torunstyle.com",
+    "banner": "TORUNSTYLE CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "gotyourstyle",
+    "name": "GotYourStyle",
+    "baseUrl": "https://gotyourstyle.com",
+    "banner": "GOTYOURSTYLE CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "midtintee",
+    "name": "Midtintee",
+    "baseUrl": "https://midtintee.com",
+    "banner": "MIDTINTEE CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "growkoc",
+    "name": "GrowKOC",
+    "baseUrl": "https://growkoc.com",
+    "banner": "GROWKOC CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "creativteeshop",
+    "name": "CreativTeeShop",
+    "baseUrl": "https://creativteeshop.com",
+    "banner": "CREATIVTEESHOP CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "inspirdg",
+    "name": "Inspirdg",
+    "baseUrl": "https://inspirdg.com",
+    "banner": "INSPIRDG CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "fanaticity",
+    "name": "Fanaticity",
+    "baseUrl": "https://fanaticity.com",
+    "banner": "FANATICITY CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "brutifulstore",
+    "name": "BrutifulStore",
+    "baseUrl": "https://brutifulstore.com",
+    "banner": "BRUTIFULSTORE CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "fashionssport",
+    "name": "FashionsSport",
+    "baseUrl": "https://fashionssport.com",
+    "banner": "FASHIONSSPORT CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  },
+  {
+    "key": "merchsport",
+    "name": "MerchSport",
+    "baseUrl": "https://merchsport.net",
+    "banner": "MERCHSPORT CRAWLER",
+    "createdAt": "2025-09-15T14:46:05.397Z",
+    "updatedAt": "2025-09-15T14:46:05.397Z"
+  }
+]

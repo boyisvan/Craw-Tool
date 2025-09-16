@@ -1,0 +1,1256 @@
+<!doctype html>
+
+<html
+  lang="vi"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Thu thập dữ liệu v2 - Tool Craw Data Đa Luồng</title>
+
+    <meta name="description" content="Thu thập dữ liệu sản phẩm nâng cao với cấu hình linh hoạt" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  
+    <!-- Menu Toggle CSS -->
+    <style>
+      .menu-sub {
+        display: none;
+      }
+      .menu-item.open .menu-sub {
+        display: block;
+      }
+      .menu-toggle {
+        cursor: pointer;
+      }
+      .crawl-progress {
+        height: 8px;
+        border-radius: 4px;
+      }
+      .crawl-status {
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+      .product-preview {
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      .config-card {
+        transition: all 0.3s ease;
+      }
+      .config-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+      
+      /* Fix dropdown z-index issue */
+      .dropdown-menu {
+        z-index: 1050 !important;
+      }
+      .config-card {
+        position: relative;
+        z-index: 1;
+      }
+      .config-card:hover {
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <div id="sidebar-container"></div>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <div id="navbar-container"></div>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <!-- Page Header -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h2><i class="bx bx-data me-2"></i>Thu thập dữ liệu v2</h2>
+                      <p class="text-muted">Công cụ thu thập dữ liệu nâng cao với cấu hình linh hoạt</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-outline-primary" onclick="loadConfigs()">
+                        <i class="bx bx-refresh me-1"></i>Tải lại cấu hình
+                      </button>
+                      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addConfigModal">
+                        <i class="bx bx-plus-circle me-2"></i>Thêm cấu hình
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+              <!-- Statistics -->
+              <div class="row mb-4">
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar flex-shrink-0 me-3">
+                          <span class="avatar-initial rounded bg-label-primary">
+                            <i class="bx bx-cog"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="fw-semibold d-block mb-1">Cấu hình</span>
+                          <h3 class="card-title mb-0" id="totalConfigs">0</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar flex-shrink-0 me-3">
+                          <span class="avatar-initial rounded bg-label-success">
+                            <i class="bx bx-check-circle"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="fw-semibold d-block mb-1">Đã hoàn thành</span>
+                          <h3 class="card-title mb-0" id="completedCrawls">0</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar flex-shrink-0 me-3">
+                          <span class="avatar-initial rounded bg-label-warning">
+                            <i class="bx bx-time"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="fw-semibold d-block mb-1">Đang chạy</span>
+                          <h3 class="card-title mb-0" id="runningCrawls">0</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <div class="avatar flex-shrink-0 me-3">
+                          <span class="avatar-initial rounded bg-label-info">
+                            <i class="bx bx-download"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <span class="fw-semibold d-block mb-1">File đã tải</span>
+                          <h3 class="card-title mb-0" id="totalFiles">0</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Crawl Configurations -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Cấu hình thu thập dữ liệu</h5>
+                      <button class="btn btn-outline-primary btn-sm" onclick="loadConfigs()">
+                        <i class="bx bx-refresh me-1"></i>Tải lại
+                      </button>
+                    </div>
+                    <div class="card-body">
+                      <div class="row" id="configsContainer">
+                        <div class="col-12">
+                          <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                              <span class="visually-hidden">Đang tải...</span>
+                            </div>
+                            <p class="mt-2 text-muted">Đang tải cấu hình...</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Active Crawls -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title mb-0">Các phiên thu thập đang hoạt động</h5>
+                    </div>
+                    <div class="card-body">
+                      <div id="activeCrawlsContainer">
+                        <div class="text-center py-4">
+                          <i class="bx bx-data text-muted" style="font-size: 3rem;"></i>
+                          <h4 class="mt-3 text-muted">Chưa có phiên thu thập nào</h4>
+                          <p class="text-muted">Chọn một cấu hình và bắt đầu thu thập dữ liệu</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Download History -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h5 class="card-title mb-0">Lịch sử tải xuống</h5>
+                      <div class="d-flex gap-2">
+                        <button class="btn btn-outline-warning btn-sm" onclick="deleteSelectedFiles()" id="deleteSelectedBtn" disabled>
+                          <i class="bx bx-trash me-1"></i>Xóa đã chọn (<span id="selectedCount">0</span>)
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="clearDownloadHistory()">
+                          <i class="bx bx-trash me-1"></i>Xóa tất cả
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>
+                                <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()">
+                              </th>
+                              <th>Tên file</th>
+                              <th>Website</th>
+                              <th>Số sản phẩm</th>
+                              <th>Thời gian tạo</th>
+                              <th>Kích thước</th>
+                              <th>Hành động</th>
+                            </tr>
+                          </thead>
+                          <tbody id="downloadHistoryTable">
+                            <tr>
+                              <td colspan="6" class="text-center py-4">
+                                <div class="text-muted">
+                                  <i class="bx bx-download fs-1 mb-3"></i>
+                                  <p>Chưa có file nào được tải xuống</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <div id="footer-container"></div>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Add Config Modal -->
+    <div class="modal fade" id="addConfigModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bx bx-plus-circle me-2"></i>Thêm cấu hình mới
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <form id="addConfigForm">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="configName" class="form-label">Tên website <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="configName" name="name" required
+                           placeholder="VD: TRUMPANY">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="configUrl" class="form-label">URL website <span class="text-danger">*</span></label>
+                    <input type="url" class="form-control" id="configUrl" name="url" required
+                           placeholder="https://example.com">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="configBaseUrl" class="form-label">Base URL crawl <span class="text-danger">*</span></label>
+                <input type="url" class="form-control" id="configBaseUrl" name="base_url" required
+                       placeholder="https://example.com/shop/?orderby=date">
+              </div>
+              
+              <div class="mb-3">
+                <label for="configPageTemplate" class="form-label">Page URL template <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="configPageTemplate" name="page_url_template" required
+                       placeholder="https://example.com/shop/page/{page}/?orderby=date">
+                <div class="form-text">Phải chứa {page} để thay thế số trang</div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="configBookmarkLink" class="form-label">Bookmark link (tùy chọn)</label>
+                <input type="url" class="form-control" id="configBookmarkLink" name="bookmark_link"
+                       placeholder="https://example.com/bookmark-page">
+                <div class="form-text">Link đánh dấu - khi gặp link này sẽ hỏi có muốn tiếp tục crawl hay không</div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="configImgSelector" class="form-label">Image selector <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="configImgSelector" name="img_selector" required
+                           placeholder="img.attachment-woocommerce_thumbnail">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="configSrcAttr" class="form-label">Src attribute</label>
+                    <input type="text" class="form-control" id="configSrcAttr" name="img_src_attr" value="src"
+                           placeholder="src">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <label for="configAltAttr" class="form-label">Alt attribute</label>
+                    <input type="text" class="form-control" id="configAltAttr" name="img_alt_attr" value="alt"
+                           placeholder="alt">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+              <button type="submit" class="btn btn-primary">
+                <i class="bx bx-plus-circle me-2"></i>Thêm cấu hình
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Crawl Modal -->
+    <div class="modal fade" id="startCrawlModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bx bx-play-circle me-2"></i>Bắt đầu thu thập dữ liệu
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <form id="startCrawlForm">
+            <div class="modal-body">
+              <input type="hidden" id="crawlConfigName" name="configName">
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="crawlStartPage" class="form-label">Trang bắt đầu</label>
+                    <input type="number" class="form-control" id="crawlStartPage" name="start_page" value="1" min="1">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="crawlMaxPages" class="form-label">Trang kết thúc</label>
+                    <input type="number" class="form-control" id="crawlMaxPages" name="max_pages" value="10" min="1">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="crawlRealTime" name="real_time" checked>
+                  <label class="form-check-label" for="crawlRealTime">
+                    Lưu dữ liệu real-time
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+              <button type="submit" class="btn btn-primary">
+                <i class="bx bx-play-circle me-2"></i>Bắt đầu
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bookmark Link Confirmation Modal -->
+    <div class="modal fade" id="bookmarkModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="bx bx-bookmark text-warning me-2"></i>
+              Gặp Bookmark Link
+            </h5>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-warning">
+              <i class="bx bx-info-circle me-2"></i>
+              <strong>Đã gặp bookmark link trong quá trình thu thập dữ liệu!</strong>
+            </div>
+            <p class="mb-3">Hệ thống đã gặp bookmark link được cấu hình. Bạn có muốn tiếp tục thu thập dữ liệu hay không?</p>
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Thông tin crawl hiện tại:</h6>
+                <p class="card-text mb-1"><strong>Cấu hình:</strong> <span id="bookmarkConfigName">-</span></p>
+                <p class="card-text mb-1"><strong>Trang hiện tại:</strong> <span id="bookmarkCurrentPage">-</span></p>
+                <p class="card-text mb-1"><strong>Bookmark link:</strong> <span id="bookmarkLink">-</span></p>
+                <p class="card-text mb-0"><strong>Sản phẩm đã thu thập:</strong> <span id="bookmarkProductsFound">-</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" onclick="handleBookmarkResponse(false)">
+              <i class="bx bx-stop me-1"></i>Dừng thu thập
+            </button>
+            <button type="button" class="btn btn-success" onclick="handleBookmarkResponse(true)">
+              <i class="bx bx-play me-1"></i>Tiếp tục thu thập
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core JS -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Page JS -->
+    <script>
+      let configs = [];
+      let activeCrawls = [];
+      let downloadHistory = [];
+
+      // Initialize layout
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check login status
+        CommonUtils.checkLoginStatus();
+        
+        // Initialize sidebar
+        const sidebarManager = new SidebarManager();
+        document.getElementById('sidebar-container').innerHTML = sidebarManager.generateSidebarHTML();
+        document.getElementById('navbar-container').innerHTML = sidebarManager.generateNavbarHTML();
+        document.getElementById('footer-container').innerHTML = sidebarManager.generateFooterHTML();
+        
+        // Load data
+        loadConfigs();
+        loadDownloadHistory();
+        loadStatistics();
+      });
+
+      // Load configurations
+      async function loadConfigs() {
+        try {
+          const response = await fetch('/api/crawlv2/configs');
+          const data = await response.json();
+          
+          if (data.success) {
+            configs = data.data;
+            renderConfigs();
+            updateStatistics();
+          } else {
+            showAlert('Lỗi khi tải cấu hình: ' + data.message, 'error');
+          }
+        } catch (error) {
+          showAlert('Lỗi khi tải cấu hình: ' + error.message, 'error');
+        }
+      }
+
+      // Render configurations
+      function renderConfigs() {
+        const container = document.getElementById('configsContainer');
+        
+        if (configs.length === 0) {
+          container.innerHTML = `
+            <div class="col-12">
+              <div class="text-center py-5">
+                <i class="bx bx-cog text-muted" style="font-size: 3rem;"></i>
+                <h4 class="mt-3 text-muted">Chưa có cấu hình nào</h4>
+                <p class="text-muted">Hãy thêm cấu hình đầu tiên để bắt đầu</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addConfigModal">
+                  <i class="bx bx-plus-circle me-2"></i>Thêm cấu hình
+                </button>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        const html = configs.map(config => `
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card config-card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <h5 class="card-title mb-1">${config.name}</h5>
+                    <p class="text-muted mb-0">${config.url}</p>
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="javascript:void(0);" onclick="startCrawl('${config.name}')">
+                        <i class="bx bx-play me-2"></i>Bắt đầu crawl
+                      </a></li>
+                      <li><a class="dropdown-item" href="javascript:void(0);" onclick="editConfig('${config.name}')">
+                        <i class="bx bx-pencil me-2"></i>Sửa cấu hình
+                      </a></li>
+                      <li><a class="dropdown-item" href="javascript:void(0);" onclick="deleteConfig('${config.name}')">
+                        <i class="bx bx-trash me-2"></i>Xóa cấu hình
+                      </a></li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <small class="text-muted">
+                    <strong>Base URL:</strong> ${config.base_url}<br>
+                    <strong>Selector:</strong> ${config.img_selector}
+                  </small>
+                </div>
+                
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-primary" onclick="startCrawl('${config.name}')">
+                    <i class="bx bx-play me-1"></i>Crawl
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary" onclick="editConfig('${config.name}')">
+                    <i class="bx bx-pencil me-1"></i>Sửa
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        container.innerHTML = html;
+      }
+
+      // Start crawl
+      function startCrawl(configName) {
+        const config = configs.find(c => c.name === configName);
+        if (!config) return;
+
+        document.getElementById('crawlConfigName').value = configName;
+        new bootstrap.Modal(document.getElementById('startCrawlModal')).show();
+      }
+
+      // Add config form submit
+      document.getElementById('addConfigForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Check if we're in edit mode
+        const isEditMode = document.querySelector('#addConfigModal .btn-primary').onclick !== null;
+        
+        if (isEditMode) {
+          // If in edit mode, don't handle here - let the onclick handler handle it
+          return;
+        }
+        
+        const formData = new FormData(e.target);
+        const configData = {
+          name: formData.get('name'),
+          url: formData.get('url'),
+          base_url: formData.get('base_url'),
+          page_url_template: formData.get('page_url_template'),
+          bookmark_link: formData.get('bookmark_link') || '',
+          img_selector: formData.get('img_selector'),
+          img_src_attr: formData.get('img_src_attr') || 'src',
+          img_alt_attr: formData.get('img_alt_attr') || 'alt'
+        };
+
+        try {
+          const response = await fetch('/api/crawlv2/configs', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(configData)
+          });
+          const data = await response.json();
+          
+          if (data.success) {
+            showAlert('Cấu hình đã được thêm thành công', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('addConfigModal')).hide();
+            e.target.reset();
+            loadConfigs();
+          } else {
+            showAlert('Lỗi khi thêm cấu hình: ' + data.message, 'error');
+          }
+        } catch (error) {
+          showAlert('Lỗi khi thêm cấu hình: ' + error.message, 'error');
+        }
+      });
+
+      // Start crawl form submit
+      document.getElementById('startCrawlForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const crawlData = {
+          configName: formData.get('configName'),
+          start_page: parseInt(formData.get('start_page')),
+          max_pages: parseInt(formData.get('max_pages')),
+          real_time: formData.get('real_time') === 'on'
+        };
+
+        try {
+          const response = await fetch('/api/crawlv2/start', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(crawlData)
+          });
+          const data = await response.json();
+          
+          if (data.success) {
+            showAlert('Đã bắt đầu thu thập dữ liệu', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('startCrawlModal')).hide();
+            loadActiveCrawls();
+          } else {
+            showAlert('Lỗi khi bắt đầu crawl: ' + data.message, 'error');
+          }
+        } catch (error) {
+          showAlert('Lỗi khi bắt đầu crawl: ' + error.message, 'error');
+        }
+      });
+
+      // Load download history
+      async function loadDownloadHistory() {
+        try {
+          const response = await fetch('/api/crawlv2/downloads');
+          const data = await response.json();
+          
+          if (data.success) {
+            downloadHistory = data.data;
+            renderDownloadHistory();
+            updateStatistics();
+          }
+        } catch (error) {
+          // console.error('Error loading download history:', error);
+        }
+      }
+
+      // Render download history
+      function renderDownloadHistory() {
+        const tbody = document.getElementById('downloadHistoryTable');
+        
+        if (downloadHistory.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" class="text-center py-4">
+                <div class="text-muted">
+                  <i class="bx bx-download fs-1 mb-3"></i>
+                  <p>Chưa có file nào được tải xuống</p>
+                </div>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        const html = downloadHistory.map(file => `
+          <tr>
+            <td>
+              <input type="checkbox" class="file-checkbox" value="${file.filename}" onchange="updateSelectedCount()">
+            </td>
+            <td>
+              <div class="d-flex align-items-center">
+                <i class="bx bx-file-blank text-primary me-2"></i>
+                <span>${file.filename}</span>
+              </div>
+            </td>
+            <td>${file.website}</td>
+            <td>${file.product_count}</td>
+            <td>${new Date(file.created_at).toLocaleString('vi-VN')}</td>
+            <td>${file.size}</td>
+            <td>
+              <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-primary" onclick="downloadFile('${file.filename}')">
+                  <i class="bx bx-download"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteFile('${file.filename}')">
+                  <i class="bx bx-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+
+        tbody.innerHTML = html;
+      }
+
+      // Load active crawls
+      async function loadActiveCrawls() {
+        try {
+          const response = await fetch('/api/crawlv2/active');
+          const data = await response.json();
+          
+          if (data.success) {
+            activeCrawls = data.data;
+            renderActiveCrawls();
+            updateStatistics();
+          }
+        } catch (error) {
+          // console.error('Error loading active crawls:', error);
+        }
+      }
+
+      // Render active crawls
+      function renderActiveCrawls() {
+        const container = document.getElementById('activeCrawlsContainer');
+        
+        if (activeCrawls.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-4">
+              <i class="bx bx-data text-muted" style="font-size: 3rem;"></i>
+              <h4 class="mt-3 text-muted">Chưa có phiên thu thập nào</h4>
+              <p class="text-muted">Chọn một cấu hình và bắt đầu thu thập dữ liệu</p>
+            </div>
+          `;
+          return;
+        }
+
+        const html = activeCrawls.map(crawl => {
+          const isError = crawl.status === 'error';
+          const isCompleted = crawl.status === 'completed';
+          const isRunning = crawl.status === 'running';
+          
+          let statusBadge = '';
+          let progressBarClass = 'progress-bar-striped progress-bar-animated';
+          let statusText = `Đã thu thập: ${crawl.products_found} sản phẩm`;
+          
+          if (isError) {
+            statusBadge = '<span class="badge bg-danger ms-2">Lỗi</span>';
+            progressBarClass = 'bg-danger';
+            statusText = `Lỗi: ${crawl.error_message || 'Không thể thu thập dữ liệu'}`;
+          } else if (isCompleted) {
+            statusBadge = '<span class="badge bg-success ms-2">Hoàn thành</span>';
+            progressBarClass = 'bg-success';
+            statusText = `Hoàn thành: ${crawl.products_found} sản phẩm`;
+          } else if (isRunning) {
+            statusBadge = '<span class="badge bg-primary ms-2">Đang chạy</span>';
+          }
+          
+          return `
+            <div class="card mb-3 ${isError ? 'border-danger' : ''}">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <h6 class="card-title mb-1">${crawl.config_name} ${statusBadge}</h6>
+                    <p class="text-muted mb-0">Trang ${crawl.current_page}/${crawl.max_pages}</p>
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-danger dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="javascript:void(0);" onclick="stopCrawl('${crawl.id}')">
+                        <i class="bx bx-stop me-2"></i>Dừng crawl
+                      </a></li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <div class="progress crawl-progress">
+                    <div class="progress-bar ${progressBarClass}" 
+                         style="width: ${(crawl.current_page / crawl.max_pages) * 100}%"></div>
+                  </div>
+                  <div class="crawl-status mt-2">
+                    <span class="${isError ? 'text-danger' : 'text-muted'}">${statusText}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        container.innerHTML = html;
+      }
+
+      // Load statistics
+      async function loadStatistics() {
+        try {
+          const response = await fetch('/api/crawlv2/statistics');
+          const data = await response.json();
+          
+          if (data.success) {
+            document.getElementById('totalConfigs').textContent = data.data.totalConfigs;
+            document.getElementById('completedCrawls').textContent = data.data.completedCrawls;
+            document.getElementById('runningCrawls').textContent = data.data.runningCrawls;
+            document.getElementById('totalFiles').textContent = data.data.totalFiles;
+          }
+        } catch (error) {
+          // console.error('Error loading statistics:', error);
+        }
+      }
+
+      // Update statistics
+      function updateStatistics() {
+        document.getElementById('totalConfigs').textContent = configs.length;
+        document.getElementById('runningCrawls').textContent = activeCrawls.length;
+        document.getElementById('totalFiles').textContent = downloadHistory.length;
+      }
+
+      // Download file
+      function downloadFile(filename) {
+        window.open(`/api/crawlv2/download/${filename}`, '_blank');
+      }
+
+      // Delete file
+      async function deleteFile(filename) {
+        const result = await Swal.fire({
+          title: 'Xác nhận xóa',
+          text: `Bạn có chắc chắn muốn xóa file "${filename}"?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Xóa',
+          cancelButtonText: 'Hủy',
+          confirmButtonColor: '#dc3545'
+        });
+
+        if (result.isConfirmed) {
+          try {
+            const response = await fetch(`/api/crawlv2/downloads/${filename}`, {
+              method: 'DELETE'
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+              showAlert('File đã được xóa thành công', 'success');
+              loadDownloadHistory();
+            } else {
+              showAlert('Lỗi khi xóa file: ' + data.message, 'error');
+            }
+          } catch (error) {
+            showAlert('Lỗi khi xóa file: ' + error.message, 'error');
+          }
+        }
+      }
+
+      // Clear download history
+      async function clearDownloadHistory() {
+        const result = await Swal.fire({
+          title: 'Xác nhận xóa tất cả',
+          text: 'Bạn có chắc chắn muốn xóa tất cả file đã tải xuống?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Xóa tất cả',
+          cancelButtonText: 'Hủy',
+          confirmButtonColor: '#dc3545'
+        });
+
+        if (result.isConfirmed) {
+          try {
+            const response = await fetch('/api/crawlv2/downloads', {
+              method: 'DELETE'
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+              showAlert('Đã xóa tất cả file', 'success');
+              loadDownloadHistory();
+            } else {
+              showAlert('Lỗi khi xóa file: ' + data.message, 'error');
+            }
+          } catch (error) {
+            showAlert('Lỗi khi xóa file: ' + error.message, 'error');
+          }
+        }
+      }
+
+      // Toggle select all
+      function toggleSelectAll() {
+        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+        const fileCheckboxes = document.querySelectorAll('.file-checkbox');
+        
+        fileCheckboxes.forEach(checkbox => {
+          checkbox.checked = selectAllCheckbox.checked;
+        });
+        
+        updateSelectedCount();
+      }
+
+      // Update selected count
+      function updateSelectedCount() {
+        const fileCheckboxes = document.querySelectorAll('.file-checkbox');
+        const selectedCount = document.querySelectorAll('.file-checkbox:checked').length;
+        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+        const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
+        
+        document.getElementById('selectedCount').textContent = selectedCount;
+        deleteSelectedBtn.disabled = selectedCount === 0;
+        
+        // Update select all checkbox state
+        if (selectedCount === 0) {
+          selectAllCheckbox.indeterminate = false;
+          selectAllCheckbox.checked = false;
+        } else if (selectedCount === fileCheckboxes.length) {
+          selectAllCheckbox.indeterminate = false;
+          selectAllCheckbox.checked = true;
+        } else {
+          selectAllCheckbox.indeterminate = true;
+        }
+      }
+
+      // Delete selected files
+      async function deleteSelectedFiles() {
+        const selectedCheckboxes = document.querySelectorAll('.file-checkbox:checked');
+        const selectedFilenames = Array.from(selectedCheckboxes).map(cb => cb.value);
+        
+        if (selectedFilenames.length === 0) {
+          showAlert('Vui lòng chọn file để xóa', 'warning');
+          return;
+        }
+
+        const result = await Swal.fire({
+          title: 'Xác nhận xóa',
+          text: `Bạn có chắc chắn muốn xóa ${selectedFilenames.length} file đã chọn?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Xóa',
+          cancelButtonText: 'Hủy',
+          confirmButtonColor: '#dc3545'
+        });
+
+        if (result.isConfirmed) {
+          try {
+            const response = await fetch('/api/crawlv2/downloads/delete-multiple', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ filenames: selectedFilenames })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+              showAlert(data.message, 'success');
+              loadDownloadHistory();
+            } else {
+              showAlert('Lỗi khi xóa file: ' + data.message, 'error');
+            }
+          } catch (error) {
+            showAlert('Lỗi khi xóa file: ' + error.message, 'error');
+          }
+        }
+      }
+
+      // Show alert
+      function showAlert(message, type) {
+        Swal.fire({
+          title: type === 'success' ? 'Thành công' : 'Lỗi',
+          text: message,
+          icon: type,
+          confirmButtonText: 'OK'
+        });
+      }
+
+      // Handle bookmark link response
+      async function handleBookmarkResponse(continueCrawl) {
+        try {
+          const response = await fetch('/api/crawlv2/bookmark-response', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              crawlId: window.currentBookmarkCrawlId,
+              continueCrawl: continueCrawl
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.success) {
+            // Hide modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('bookmarkModal'));
+            modal.hide();
+            
+            if (continueCrawl) {
+              showAlert('Đã tiếp tục thu thập dữ liệu', 'success');
+            } else {
+              showAlert('Đã dừng thu thập dữ liệu', 'info');
+            }
+          } else {
+            showAlert('Lỗi khi xử lý phản hồi: ' + data.message, 'error');
+          }
+        } catch (error) {
+          showAlert('Lỗi khi xử lý phản hồi: ' + error.message, 'error');
+        }
+      }
+
+      // Show bookmark modal
+      function showBookmarkModal(crawlInfo) {
+        window.currentBookmarkCrawlId = crawlInfo.crawlId;
+        
+        document.getElementById('bookmarkConfigName').textContent = crawlInfo.configName || '-';
+        document.getElementById('bookmarkCurrentPage').textContent = crawlInfo.currentPage || '-';
+        document.getElementById('bookmarkLink').textContent = crawlInfo.bookmarkLink || '-';
+        document.getElementById('bookmarkProductsFound').textContent = crawlInfo.productsFound || '-';
+        
+        const modal = new bootstrap.Modal(document.getElementById('bookmarkModal'));
+        modal.show();
+      }
+
+      // Check for bookmark requests
+      async function checkBookmarkRequests() {
+        try {
+          const response = await fetch('/api/crawlv2/bookmark-requests');
+          const data = await response.json();
+          
+          if (data.success && data.data) {
+            const requests = data.data;
+            
+            // Check if there are any new bookmark requests
+            for (const [crawlId, requestInfo] of Object.entries(requests)) {
+              // Only show modal if not already showing for this crawl
+              if (!window.currentBookmarkCrawlId || window.currentBookmarkCrawlId !== crawlId) {
+                showBookmarkModal(requestInfo);
+                break; // Only show one modal at a time
+              }
+            }
+          }
+        } catch (error) {
+          // Silently fail - this is just a check
+        }
+      }
+
+      // Edit configuration
+      function editConfig(configName) {
+        const config = configs.find(c => c.name === configName);
+        if (!config) {
+          showAlert('Không tìm thấy cấu hình', 'error');
+          return;
+        }
+
+        // Fill form with existing data
+        document.getElementById('configName').value = config.name;
+        document.getElementById('configUrl').value = config.url;
+        document.getElementById('configBaseUrl').value = config.base_url;
+        document.getElementById('configPageTemplate').value = config.page_url_template;
+        document.getElementById('configBookmarkLink').value = config.bookmark_link || '';
+        document.getElementById('configImgSelector').value = config.img_selector;
+        document.getElementById('configSrcAttr').value = config.img_src_attr || 'src';
+        document.getElementById('configAltAttr').value = config.img_alt_attr || 'alt';
+
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById('addConfigModal'));
+        modal.show();
+
+        // Change modal title and button
+        document.querySelector('#addConfigModal .modal-title').textContent = 'Sửa cấu hình';
+        document.querySelector('#addConfigModal .btn-primary').textContent = 'Cập nhật';
+        document.querySelector('#addConfigModal .btn-primary').onclick = () => updateConfig(configName);
+      }
+
+      // Update configuration
+      async function updateConfig(oldName) {
+        const name = document.getElementById('configName').value.trim();
+        const url = document.getElementById('configUrl').value.trim();
+        const baseUrl = document.getElementById('configBaseUrl').value.trim();
+        const pageTemplate = document.getElementById('configPageTemplate').value.trim();
+        const bookmarkLink = document.getElementById('configBookmarkLink').value.trim();
+        const imgSelector = document.getElementById('configImgSelector').value.trim();
+        const srcAttr = document.getElementById('configSrcAttr').value.trim();
+        const altAttr = document.getElementById('configAltAttr').value.trim();
+
+        if (!name || !url || !baseUrl || !pageTemplate || !imgSelector) {
+          showAlert('Vui lòng điền đầy đủ thông tin', 'error');
+          return;
+        }
+
+        try {
+          const response = await fetch(`/api/crawlv2/configs/${oldName}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              url,
+              base_url: baseUrl,
+              page_url_template: pageTemplate,
+              bookmark_link: bookmarkLink,
+              img_selector: imgSelector,
+              img_src_attr: srcAttr || 'src',
+              img_alt_attr: altAttr || 'alt'
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.success) {
+            showAlert('Cập nhật cấu hình thành công', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('addConfigModal')).hide();
+            loadConfigs();
+          } else {
+            showAlert('Lỗi khi cập nhật: ' + data.message, 'error');
+          }
+        } catch (error) {
+          showAlert('Lỗi khi cập nhật: ' + error.message, 'error');
+        }
+      }
+
+      // Delete configuration
+      function deleteConfig(configName) {
+        Swal.fire({
+          title: 'Xác nhận xóa',
+          text: `Bạn có chắc chắn muốn xóa cấu hình "${configName}"?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Xóa',
+          cancelButtonText: 'Hủy',
+          confirmButtonColor: '#dc3545'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              const response = await fetch(`/api/crawlv2/configs/${configName}`, {
+                method: 'DELETE'
+              });
+
+              const data = await response.json();
+              
+              if (data.success) {
+                showAlert('Xóa cấu hình thành công', 'success');
+                loadConfigs();
+              } else {
+                showAlert('Lỗi khi xóa: ' + data.message, 'error');
+              }
+            } catch (error) {
+              showAlert('Lỗi khi xóa: ' + error.message, 'error');
+            }
+          }
+        });
+      }
+
+      // Reset modal when closed
+      document.getElementById('addConfigModal').addEventListener('hidden.bs.modal', function() {
+        // Reset form
+        document.getElementById('addConfigForm').reset();
+        
+        // Reset modal title and button
+        document.querySelector('#addConfigModal .modal-title').textContent = 'Thêm cấu hình mới';
+        document.querySelector('#addConfigModal .btn-primary').textContent = 'Thêm cấu hình';
+        document.querySelector('#addConfigModal .btn-primary').onclick = null;
+      });
+
+      // Auto refresh active crawls and download history
+      setInterval(() => {
+        loadActiveCrawls();
+        loadDownloadHistory();
+        checkBookmarkRequests();
+      }, 5000);
+    </script>
+  
+    <!-- Menu Toggle Script -->
+    <script>
+      // Initialize menu toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle menu toggle clicks
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.menu-toggle')) {
+            e.preventDefault();
+            const menuItem = e.target.closest('.menu-item');
+            const menuSub = menuItem.querySelector('.menu-sub');
+            
+            if (menuSub) {
+              // Toggle active class
+              menuItem.classList.toggle('open');
+              
+              // Close other open menus
+              const allMenuItems = document.querySelectorAll('.menu-item');
+              allMenuItems.forEach(item => {
+                if (item !== menuItem && item.classList.contains('open')) {
+                  item.classList.remove('open');
+                }
+              });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+<!-- by ducvancoder - 0587282880 -->
